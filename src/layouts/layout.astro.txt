@@ -1,0 +1,114 @@
+---
+interface Props {
+  title?: string;
+  isProjectPage?: boolean;
+}
+
+const { title = "paulchen.at — Creative Direction & Archive" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+
+  <style is:global>
+    :root {
+      --content-margin: clamp(60px, 9.5vw, 180px);
+      --nav-margin: 20px;
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --wavy-color: #ff0000;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: "neue-haas-unica", "Neue Haas Unica", "Neue Haas Unica W1G", Arial, sans-serif;
+      font-weight: 400;
+      line-height: 1.2;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      width: 100%;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    .wavy-text {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6' width='16' height='5'%3E%3Cpath d='M0 3 Q 5 0, 10 3 T 20 3' fill='none' stroke='%23ff0000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-position: 0 100%;
+      background-repeat: repeat-x;
+      padding-bottom: 3.5px;
+      display: inline;
+      cursor: default;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+    .wavy-text:hover { animation: waveFlow 0.6s linear infinite; }
+
+    .wavy-link {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6' width='16' height='5'%3E%3Cpath d='M0 3 Q 5 0, 10 3 T 20 3' fill='none' stroke='%23ff0000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-position: 0 100%;
+      background-repeat: repeat-x;
+      padding-bottom: 3.5px;
+      color: inherit;
+      text-decoration: none;
+      display: inline;
+      cursor: pointer;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+    .wavy-link:hover { animation: waveFlow 0.6s linear infinite; }
+
+    .hover-wavy { color: inherit; text-decoration: none; cursor: pointer; padding-bottom: 3.5px; }
+    .hover-wavy:hover {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6' width='16' height='5'%3E%3Cpath d='M0 3 Q 5 0, 10 3 T 20 3' fill='none' stroke='%23ff0000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-position: 0 100%;
+      background-repeat: repeat-x;
+      animation: waveFlow 0.6s linear infinite;
+    }
+
+    body.theme-dark .wavy-text,
+    body.theme-dark .wavy-link {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6' width='16' height='5'%3E%3Cpath d='M0 3 Q 5 0, 10 3 T 20 3' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    }
+    body.theme-dark .hover-wavy:hover {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6' width='16' height='5'%3E%3Cpath d='M0 3 Q 5 0, 10 3 T 20 3' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    }
+
+    @keyframes waveFlow {
+      from { background-position-x: 0px; }
+      to { background-position-x: 16px; }
+    }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 20px;
+      padding-left: var(--nav-margin);
+      padding-right: var(--nav-margin);
+      width: 100%;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 20px;
+      padding-left: 40px;
+      padding-right: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .nav-grid { grid-template-columns: repeat(6, 1fr); padding-left: 24px; padding-right: 24px; }
+      .content-grid { grid-template-columns: repeat(6, 1fr); padding-left: 40px; padding-right: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <slot />
+</body>
+</html>

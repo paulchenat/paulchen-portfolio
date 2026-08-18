@@ -1,0 +1,13 @@
+{
+  "title": "Brotstudio",
+  "year": "2022",
+  "location": "Linz",
+  "furtherContext": "Brandmark, Designsystem & Packaging",
+  "copyright": "© Gruppe am Park",
+  "theme": {
+    "backgroundColor": "#ffffff",
+    "textColor": "#000000",
+    "wavyColor": "#ff0000",
+    "isDarkTheme": false
+  }
+}
