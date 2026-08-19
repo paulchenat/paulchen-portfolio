@@ -1,0 +1,27 @@
+{
+  "title": "drittes projekt",
+  "year": "jiiji",
+  "location": "vhgbjnlkm",
+  "furtherContext": "jnklm",
+  "copyright": "bunimpo,p",
+  "theme": {
+    "backgroundColor": "#3b3b3b",
+    "textColor": "#ffffff",
+    "wavyColor": "#ff0000",
+    "isDarkTheme": false
+  },
+  "thumbnailsDesktop": [
+    "/images/thumbnails/drittes-projekt/thumbnailsDesktop/0.png"
+  ],
+  "heroDesktop": "/images/content/drittes-projekt/heroDesktop.png",
+  "blocks": [
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "media": "/images/content/drittes-projekt/blocks/0/value/media.png",
+        "text": "sedrftgzuhiojpk",
+        "textSize": "normal"
+      }
+    }
+  ]
+}
