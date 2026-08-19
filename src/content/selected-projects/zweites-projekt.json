@@ -1,0 +1,14 @@
+{
+  "title": "zweites projekt",
+  "year": "and",
+  "theme": {
+    "backgroundColor": "#ffffff",
+    "textColor": "#000000",
+    "wavyColor": "#ff0000",
+    "isDarkTheme": false
+  },
+  "thumbnailsDesktop": [
+    "/images/thumbnails/zweites-projekt/thumbnailsDesktop/0.png"
+  ],
+  "blocks": []
+}
