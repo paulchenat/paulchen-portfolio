@@ -1,6 +1,7 @@
 {
   "title": "zweites projekt",
   "year": "and",
+  "furtherContext": "sredtfzguhijok",
   "theme": {
     "backgroundColor": "#ffffff",
     "textColor": "#000000",
@@ -10,5 +11,13 @@
   "thumbnailsDesktop": [
     "/images/thumbnails/zweites-projekt/thumbnailsDesktop/0.png"
   ],
-  "blocks": []
+  "heroDesktop": "/images/content/zweites-projekt/heroDesktop.png",
+  "blocks": [
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "media": "/images/content/zweites-projekt/blocks/0/value/media.png"
+      }
+    }
+  ]
 }
