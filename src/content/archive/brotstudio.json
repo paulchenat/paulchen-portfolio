@@ -7,6 +7,22 @@
   "gallery": [
     {
       "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/brotstudio/gallery/1/mediaFile.png",
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/brotstudio/gallery/2/mediaFile.png",
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/brotstudio/gallery/3/mediaFile.png",
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/brotstudio/gallery/4/mediaFile.png",
+      "isVideo": false
     }
   ]
 }
