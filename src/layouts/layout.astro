@@ -129,9 +129,10 @@ const {
     }
 
     /* ==========================================================================
-       PERFORMANCE BADGE & PAYLOAD INSPECTOR
+       PERFORMANCE BADGE & PAYLOAD INSPECTOR (STANDARDMÄSSIG AUSGEBLENDET)
        ========================================================================== */
     .perf-badge-container {
+      display: none; /* Für normale Besucher unsichtbar */
       position: fixed;
       bottom: 16px;
       left: 16px;
@@ -141,7 +142,7 @@ const {
     }
 
     .perf-badge {
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       color: #ffffff;
       backdrop-filter: blur(4px);
       padding: 5px 10px;
@@ -151,7 +152,7 @@ const {
       align-items: center;
       gap: 6px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      transition: transform 0.2s ease, background 0.2s ease;
+      transition: transform 0.2s ease;
     }
 
     .perf-badge:hover { transform: scale(1.05); }
@@ -160,11 +161,11 @@ const {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background-color: #22c55e; /* Grün */
+      background-color: #22c55e;
     }
 
-    .perf-badge.heavy .perf-dot { background-color: #ef4444; } /* Rot bei >8MB */
-    .perf-badge.moderate .perf-dot { background-color: #eab308; } /* Gelb bei 4-8MB */
+    .perf-badge.heavy .perf-dot { background-color: #ef4444; }
+    .perf-badge.moderate .perf-dot { background-color: #eab308; }
 
     .perf-details-modal {
       display: none;
@@ -187,7 +188,7 @@ const {
 <body>
   <slot />
 
-  <!-- PERFORMANCE INSPECTOR BADGE -->
+  <!-- PERFORMANCE INSPECTOR BADGE (WIRD DURCH 3-FACH KLICK AKTIVIERT) -->
   <aside class="perf-badge-container" id="perfContainer">
     <div class="perf-badge" id="perfBadge" title="Klicken für Payload-Details">
       <span class="perf-dot" id="perfDot"></span>
@@ -201,7 +202,33 @@ const {
   </aside>
 
   <script is:inline>
-    // Echte Messung des Datenaufwands der aktuellen Seite
+    // 1. Geheimer 3-Fach-Klick auf das Logo zum Umschalten der Badge
+    let clickCount = 0;
+    let clickTimer = null;
+    const brandLinks = document.querySelectorAll('.nav-brand');
+
+    brandLinks.forEach(brand => {
+      brand.addEventListener('click', (e) => {
+        clickCount++;
+        if (clickCount === 1) {
+          clickTimer = setTimeout(() => {
+            clickCount = 0; // Nach 600ms zurücksetzen
+          }, 600);
+        } else if (clickCount === 3) {
+          e.preventDefault(); // Navigation verhindern beim 3-Fach-Klick
+          clearTimeout(clickTimer);
+          clickCount = 0;
+          
+          const container = document.getElementById('perfContainer');
+          if (container) {
+            const isHidden = container.style.display === 'none' || getComputedStyle(container).display === 'none';
+            container.style.display = isHidden ? 'block' : 'none';
+          }
+        }
+      });
+    });
+
+    // 2. Echtzeit-Messung der geladenen Assets
     window.addEventListener('load', () => {
       setTimeout(() => {
         const resources = performance.getEntriesByType('resource');
@@ -249,6 +276,7 @@ const {
       }, 1000);
     });
 
+    // 3. Details auf Klick öffnen
     const badgeEl = document.getElementById('perfBadge');
     const modalEl = document.getElementById('perfModal');
     badgeEl?.addEventListener('click', (e) => {
