@@ -37,18 +37,26 @@ export default config({
           fields.image({ label: 'Desktop Frame (4:3)', directory: 'public/images/thumbnails', publicPath: '/images/thumbnails/' }),
           { label: 'Desktop Hover-Scrubbing Thumbnails (1 bis 5 Bilder)', validation: { length: { min: 1, max: 5 } } }
         ),
-        thumbnailMobile: fields.image({ label: 'Mobile Thumbnail (3:4)', directory: 'public/images/thumbnails', publicPath: '/images/thumbnails/' }),
+        thumbnailMobile: fields.image({ 
+          label: 'Mobile Thumbnail (3:4)', 
+          description: 'Wird auf Smartphones im 3:4 Format angezeigt',
+          directory: 'public/images/thumbnails', 
+          publicPath: '/images/thumbnails/' 
+        }),
         videoLoop: fields.text({ label: 'Optionaler MP4 Video-Loop URL' }),
 
         heroDesktop: fields.image({ label: 'Header Bild Desktop (2:1)', directory: 'public/images/content', publicPath: '/images/content/' }),
         heroMobile: fields.image({ label: 'Header Bild Mobile (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
         heroVideoUrl: fields.text({ label: 'Optionaler Header Video URL (MP4)' }),
 
+        // MODULARE BLÖCKE MIT BENENNUNG FÜR EINFACHES VERSCHIEBEN
         blocks: fields.blocks(
           {
             portraitWithText: {
               label: 'Hochformat 3:4 mit Text links (2/3 Spalte)',
+              itemLabel: (props) => props.fields.adminLabel.value || 'Hochformat mit Text',
               schema: fields.object({
+                adminLabel: fields.text({ label: 'Interner Block-Name (z.B. "Intro Beschreibung")', description: 'Hilft dir beim Sortieren der Blöcke' }),
                 media: fields.image({ label: 'Bild (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoUrl: fields.text({ label: 'Optionaler Video URL (MP4)' }),
                 text: fields.text({ label: 'Beschreibungstext (~Wort~ für Welle, [Text](url) für Link)', multiline: true }),
@@ -61,14 +69,18 @@ export default config({
             },
             landscapeStandard: {
               label: 'Querformat Standard (3:2 im Raster)',
+              itemLabel: (props) => props.fields.adminLabel.value || 'Querformat Standard (3:2)',
               schema: fields.object({
+                adminLabel: fields.text({ label: 'Interner Block-Name (z.B. "Foto Serie")', description: 'Hilft dir beim Sortieren der Blöcke' }),
                 media: fields.image({ label: 'Bild (3:2)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoUrl: fields.text({ label: 'Optionaler Video URL (MP4)' })
               })
             },
             centeredStatement: {
               label: 'Zentriertes Statement (mit 120px Puffer)',
+              itemLabel: (props) => props.fields.adminLabel.value || 'Zentriertes Statement',
               schema: fields.object({
+                adminLabel: fields.text({ label: 'Interner Block-Name (z.B. "Großes Zitat")', description: 'Hilft dir beim Sortieren der Blöcke' }),
                 statement: fields.text({ label: 'Zitat / Statement (~Wort~ für Welle)', multiline: true }),
                 textSize: fields.select({
                   label: 'Textgröße',
@@ -79,14 +91,18 @@ export default config({
             },
             landscapeFullWidth: {
               label: 'Querformat Ganze Breite (3:2 Full Bleed)',
+              itemLabel: (props) => props.fields.adminLabel.value || 'Querformat Ganze Breite (Full Bleed)',
               schema: fields.object({
+                adminLabel: fields.text({ label: 'Interner Block-Name (z.B. "Panorama Foto")', description: 'Hilft dir beim Sortieren der Blöcke' }),
                 media: fields.image({ label: 'Bild (3:2)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoUrl: fields.text({ label: 'Optionaler Video URL (MP4)' })
               })
             },
             portraitNoText: {
               label: 'Hochformat 3:4 ohne Text (Rechtsbündig)',
+              itemLabel: (props) => props.fields.adminLabel.value || 'Hochformat 3:4 Rechts',
               schema: fields.object({
+                adminLabel: fields.text({ label: 'Interner Block-Name (z.B. "Detailaufnahme")', description: 'Hilft dir beim Sortieren der Blöcke' }),
                 media: fields.image({ label: 'Bild (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoUrl: fields.text({ label: 'Optionaler Video URL (MP4)' }),
                 mobileFullWidth: fields.checkbox({ label: 'Auf Mobile über volle Bildschirmbreite', defaultValue: false })
@@ -176,7 +192,7 @@ export default config({
       schema: {
         siteTitle: fields.text({ label: 'Website-Titel (Browsertab)', defaultValue: 'paulchen.at — Creative Direction & Archive' }),
         metaDescription: fields.text({ label: 'Suchmaschinen-Beschreibung', multiline: true, defaultValue: 'Portfolio von Paul Neuburger — Creative Direction, Brand Identity & Typografie.' }),
-        ogImage: fields.image({ label: 'OpenGraph Vorschaubild (1200x630px für Social Media & WhatsApp)', directory: 'public/images/seo', publicPath: '/images/seo/' }),
+        ogImage: fields.image({ label: 'OpenGraph Vorschaubild (1200x630px)', directory: 'public/images/seo', publicPath: '/images/seo/' }),
         favicon: fields.image({ label: 'Favicon Icon (32x32px PNG)', directory: 'public/images/seo', publicPath: '/images/seo/' }),
       }
     })
