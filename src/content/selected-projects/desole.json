@@ -75,9 +75,15 @@
       }
     },
     {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "media": "/images/content/desole/blocks/8/value/media.gif"
+      }
+    },
+    {
       "discriminant": "portraitWithText",
       "value": {
-        "media": "/images/content/desole/blocks/8/value/media.gif",
+        "media": "/images/content/desole/blocks/9/value/media.gif",
         "text": "Platzhalter",
         "textSize": "normal"
       }
@@ -85,13 +91,13 @@
     {
       "discriminant": "landscapeStandard",
       "value": {
-        "media": "/images/content/desole/blocks/9/value/media.jpg"
+        "media": "/images/content/desole/blocks/10/value/media.jpg"
       }
     },
     {
       "discriminant": "landscapeFullWidth",
       "value": {
-        "media": "/images/content/desole/blocks/10/value/media.jpg"
+        "media": "/images/content/desole/blocks/11/value/media.jpg"
       }
     }
   ]
