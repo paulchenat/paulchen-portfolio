@@ -1,10 +1,17 @@
 ---
 interface Props {
   title?: string;
-  isProjectPage?: boolean;
+  description?: string;
+  ogImage?: string;
+  favicon?: string;
 }
 
-const { title = "paulchen.at — Creative Direction & Archive" } = Astro.props;
+const { 
+  title = "paulchen.at — Creative Direction & Archive",
+  description = "Portfolio von Paul Neuburger — Creative Direction, Brand Identity & Typografie.",
+  ogImage = "/images/og-default.jpg",
+  favicon = "/favicon.png"
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -13,6 +20,19 @@ const { title = "paulchen.at — Creative Direction & Archive" } = Astro.props;
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
+  <meta name="description" content={description}>
+
+  <!-- OpenGraph / Social Sharing -->
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={ogImage}>
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={ogImage}>
+  
+  <link rel="icon" type="image/png" href={favicon}>
 
   <style is:global>
     :root {
@@ -37,6 +57,7 @@ const { title = "paulchen.at — Creative Direction & Archive" } = Astro.props;
       transition: background-color 0.4s ease, color 0.4s ease;
     }
 
+    /* Rote & Weiße Wellenlinie */
     .wavy-text {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6' width='16' height='5'%3E%3Cpath d='M0 3 Q 5 0, 10 3 T 20 3' fill='none' stroke='%23ff0000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
       background-position: 0 100%;
@@ -106,9 +127,135 @@ const { title = "paulchen.at — Creative Direction & Archive" } = Astro.props;
       .nav-grid { grid-template-columns: repeat(6, 1fr); padding-left: 24px; padding-right: 24px; }
       .content-grid { grid-template-columns: repeat(6, 1fr); padding-left: 40px; padding-right: 40px; }
     }
+
+    /* ==========================================================================
+       PERFORMANCE BADGE & PAYLOAD INSPECTOR
+       ========================================================================== */
+    .perf-badge-container {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      z-index: 99999;
+      font-size: 12px;
+      font-family: inherit;
+    }
+
+    .perf-badge {
+      background: rgba(0, 0, 0, 0.8);
+      color: #ffffff;
+      backdrop-filter: blur(4px);
+      padding: 5px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .perf-badge:hover { transform: scale(1.05); }
+
+    .perf-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #22c55e; /* Grün */
+    }
+
+    .perf-badge.heavy .perf-dot { background-color: #ef4444; } /* Rot bei >8MB */
+    .perf-badge.moderate .perf-dot { background-color: #eab308; } /* Gelb bei 4-8MB */
+
+    .perf-details-modal {
+      display: none;
+      position: absolute;
+      bottom: 36px;
+      left: 0;
+      width: 260px;
+      background: #000000;
+      color: #ffffff;
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      line-height: 1.4;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+
+    .perf-details-modal.open { display: block; }
   </style>
 </head>
 <body>
   <slot />
+
+  <!-- PERFORMANCE INSPECTOR BADGE -->
+  <aside class="perf-badge-container" id="perfContainer">
+    <div class="perf-badge" id="perfBadge" title="Klicken für Payload-Details">
+      <span class="perf-dot" id="perfDot"></span>
+      <span id="perfText">Lade Payload...</span>
+    </div>
+    <div class="perf-details-modal" id="perfModal">
+      <div style="font-weight: 500; margin-bottom: 6px; border-bottom: 1px solid #333; padding-bottom: 4px;">Page Performance Inspector</div>
+      <div id="perfBreakdown">Analysiere Assets...</div>
+      <div style="margin-top: 8px; font-size: 10px; color: #888;">Budget-Ziel: Unter 4 MB für maximale Geschwindigkeit</div>
+    </div>
+  </aside>
+
+  <script is:inline>
+    // Echte Messung des Datenaufwands der aktuellen Seite
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const resources = performance.getEntriesByType('resource');
+        let totalBytes = 0;
+        let imgCount = 0;
+        let imgBytes = 0;
+        let mediaCount = 0;
+        let mediaBytes = 0;
+
+        resources.forEach(r => {
+          const size = r.transferSize || r.decodedBodySize || 0;
+          totalBytes += size;
+          if (r.initiatorType === 'img' || r.name.match(/\.(jpg|jpeg|png|webp|gif|svg)$/i)) {
+            imgCount++;
+            imgBytes += size;
+          }
+          if (r.initiatorType === 'video' || r.name.match(/\.(mp4|webm)$/i)) {
+            mediaCount++;
+            mediaBytes += size;
+          }
+        });
+
+        const totalMB = (totalBytes / (1024 * 1024)).toFixed(2);
+        const imgMB = (imgBytes / (1024 * 1024)).toFixed(2);
+        const mediaMB = (mediaBytes / (1024 * 1024)).toFixed(2);
+
+        const badge = document.getElementById('perfBadge');
+        const text = document.getElementById('perfText');
+        const breakdown = document.getElementById('perfBreakdown');
+
+        if (text) text.innerText = `⚡ ${totalMB} MB`;
+
+        if (badge) {
+          if (totalBytes > 8 * 1024 * 1024) badge.classList.add('heavy');
+          else if (totalBytes > 4 * 1024 * 1024) badge.classList.add('moderate');
+        }
+
+        if (breakdown) {
+          breakdown.innerHTML = `
+            <div>Gesamtgewicht: <strong>${totalMB} MB</strong></div>
+            <div>Bilder: <strong>${imgCount} Dateien (${imgMB} MB)</strong></div>
+            ${mediaCount > 0 ? `<div>Videos: <strong>${mediaCount} (${mediaMB} MB)</strong></div>` : ''}
+          `;
+        }
+      }, 1000);
+    });
+
+    const badgeEl = document.getElementById('perfBadge');
+    const modalEl = document.getElementById('perfModal');
+    badgeEl?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      modalEl?.classList.toggle('open');
+    });
+    document.addEventListener('click', () => modalEl?.classList.remove('open'));
+  </script>
 </body>
 </html>
