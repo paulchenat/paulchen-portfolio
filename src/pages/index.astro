@@ -2,7 +2,6 @@
 export const prerender = true;
 import Layout from '../layouts/layout.astro';
 
-// Sicheres Einlesen aller JSON-Dateien
 const projectFiles = import.meta.glob('../content/selected-projects/*.json', { eager: true });
 const archiveFiles = import.meta.glob('../content/archive/*.json', { eager: true });
 const settingsFiles = import.meta.glob('../content/singletons/settings.json', { eager: true });
@@ -20,7 +19,6 @@ const settings: any = settingsMod?.default || settingsMod || {};
 const seoMod: any = Object.values(seoFiles)[0] || {};
 const seo: any = seoMod?.default || seoMod || {};
 
-// Helper für rote Welle (~Wort~) und Links ([Text](url))
 function parseFormattedText(text: string) {
   if (!text) return '';
   return text
@@ -47,7 +45,7 @@ const archiveTitle = settings.archiveTitle || 'Archiv';
   
   <div class="hero-top-spacer"></div>
 
-  <!-- NAVBAR -->
+  <!-- NAVBAR: BLEIBT NACH DEM SCROLLEN OBEN FIXIERT -->
   <header class="sticky-nav nav-grid" id="mainNav">
     <div class="nav-brand">
       <a href="/" class="wavy-link">{brandName}</a>
@@ -127,7 +125,14 @@ const archiveTitle = settings.archiveTitle || 'Archiv';
           <div class="archive-project-row">
             <div class="archive-carousel-bleed">
               {row.gallery && row.gallery.map((item: any) => (
-                <div class="archive-item-1-1" data-title={row.title || ''} data-year={row.year || ''} data-copyright={row.copyright || ''}>
+                <div 
+                  class="archive-item-1-1" 
+                  data-title={row.title || ''} 
+                  data-year={row.year || ''} 
+                  data-copyright={row.copyright || ''}
+                  data-src={item.mediaFile || ''}
+                  data-video={item.videoUrl || ''}
+                >
                   {item.isVideo && <div class="video-badge">Video</div>}
                   {item.mediaFile ? (
                     <img 
@@ -166,14 +171,14 @@ const archiveTitle = settings.archiveTitle || 'Archiv';
 
   </main>
 
-  <!-- LIGHTBOX -->
+  <!-- LIGHTBOX MIT VOLLSTÄNDIGER BILD-ANZEIGE & PFEIL-NAVIGATION -->
   <div class="lightbox-modal" id="globalLightbox">
     <div class="lightbox-header">
       <span id="lbTitle">Projekt Titel</span>
       <span style="cursor:pointer;" id="lbClose" class="hover-wavy">(Close ✕)</span>
     </div>
-    <div class="lightbox-stage">
-      <div id="lbMedia" style="font-size:20px; color:#555;">[ Fullscreen Viewer ]</div>
+    <div class="lightbox-stage" id="lbStage">
+      <div id="lbMedia">[ Lade Bild... ]</div>
     </div>
     <div class="lightbox-footer">
       <span id="lbContext">Global Archive</span>
@@ -235,10 +240,12 @@ const archiveTitle = settings.archiveTitle || 'Archiv';
     .arch-info:hover .info-popover { display: block; }
     .mobile-info-drawer { display: none; }
 
+    /* Lightbox Styles */
     .lightbox-modal { display: none; position: fixed; inset: 0; background: #ffffff; z-index: 10000; padding: 30px 40px; flex-direction: column; justify-content: space-between; }
     .lightbox-modal.active { display: flex; }
     .lightbox-header { display: flex; justify-content: space-between; font-size: 16px; align-items: center; }
-    .lightbox-stage { display: flex; align-items: center; justify-content: center; height: 75vh; }
+    .lightbox-stage { display: flex; align-items: center; justify-content: center; height: 75vh; width: 100%; }
+    .lightbox-stage img, .lightbox-stage video { max-height: 100%; max-width: 100%; object-fit: contain; }
     .lightbox-footer { display: flex; justify-content: space-between; font-size: 16px; align-items: center; }
     .lightbox-arrows { display: flex; gap: 24px; }
     .arrow-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: inherit; padding: 4px 8px; }
@@ -276,15 +283,17 @@ const archiveTitle = settings.archiveTitle || 'Archiv';
   </style>
 
   <script is:inline>
+    // 1. Navbar Scroll Collapse
     const nav = document.getElementById('mainNav');
     window.addEventListener('scroll', () => {
       if (window.scrollY > (window.innerHeight * 0.35)) {
-        nav.classList.add('collapsed');
+        nav?.classList.add('collapsed');
       } else {
-        nav.classList.remove('collapsed');
+        nav?.classList.remove('collapsed');
       }
     });
 
+    // 2. Hover Scrubbing
     document.querySelectorAll('.scrub-container').forEach(box => {
       const items = box.querySelectorAll('.scrub-item');
       const count = items.length;
@@ -301,26 +310,66 @@ const archiveTitle = settings.archiveTitle || 'Archiv';
       }
     });
 
+    // 3. Mobile Info Drawer Toggle
     document.querySelectorAll('.arch-info-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         if (window.innerWidth > 768) return;
         const row = btn.closest('.archive-project-row');
-        row.querySelector('.mobile-info-drawer').classList.toggle('open');
+        row.querySelector('.mobile-info-drawer')?.classList.toggle('open');
       });
     });
 
+    // 4. GLOBAL LIGHTBOX MIT BILD-ANZEIGE & PFEIL-STEUERUNG
     const lb = document.getElementById('globalLightbox');
-    document.querySelectorAll('.archive-item-1-1').forEach(item => {
+    const lbTitle = document.getElementById('lbTitle');
+    const lbCopyright = document.getElementById('lbCopyright');
+    const lbStage = document.getElementById('lbStage');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+
+    const archiveItems = Array.from(document.querySelectorAll('.archive-item-1-1'));
+    let currentLbIndex = 0;
+
+    function renderLightboxItem(index) {
+      if (index < 0) index = archiveItems.length - 1;
+      if (index >= archiveItems.length) index = 0;
+      currentLbIndex = index;
+
+      const item = archiveItems[currentLbIndex];
+      if (!item) return;
+
+      const title = item.dataset.title || '';
+      const year = item.dataset.year || '';
+      const copyright = item.dataset.copyright || '';
+      const src = item.dataset.src || item.querySelector('img')?.src || '';
+      const video = item.dataset.video || '';
+
+      lbTitle.innerText = `${title} (${year})`;
+      lbCopyright.innerText = `© ${copyright}`;
+
+      if (video) {
+        lbStage.innerHTML = `<video src="${video}" autoplay controls playsinline loop style="max-height:100%; max-width:100%; object-fit:contain;"></video>`;
+      } else if (src) {
+        lbStage.innerHTML = `<img src="${src}" alt="${title}" style="max-height:100%; max-width:100%; object-fit:contain;" />`;
+      } else {
+        lbStage.innerHTML = `<div style="font-size:16px; color:#999;">[ Kein Medium hinterlegt ]</div>`;
+      }
+    }
+
+    archiveItems.forEach((item, idx) => {
       item.addEventListener('click', () => {
-        document.getElementById('lbTitle').innerText = item.dataset.title + ' (' + item.dataset.year + ')';
-        document.getElementById('lbCopyright').innerText = '© ' + item.dataset.copyright;
+        renderLightboxItem(idx);
         lb.classList.add('active');
         document.body.style.overflow = 'hidden';
       });
     });
+
+    lbPrev?.addEventListener('click', () => renderLightboxItem(currentLbIndex - 1));
+    lbNext?.addEventListener('click', () => renderLightboxItem(currentLbIndex + 1));
     document.getElementById('lbClose')?.addEventListener('click', () => {
       lb.classList.remove('active');
       document.body.style.overflow = 'auto';
+      lbStage.innerHTML = '';
     });
   </script>
 </Layout>
