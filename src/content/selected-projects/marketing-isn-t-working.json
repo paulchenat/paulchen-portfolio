@@ -1,0 +1,46 @@
+{
+  "title": "Marketing isn't Working",
+  "order": 1,
+  "year": "2026",
+  "location": "Wien",
+  "furtherContext": "Event Poster\nTalk by Sir John Hegarty ",
+  "copyright": "Applied Arts University Vienna",
+  "theme": {
+    "backgroundColor": "#ffffff",
+    "textColor": "#000000",
+    "wavyColor": "#ff0000",
+    "isDarkTheme": true
+  },
+  "thumbnailsDesktop": [
+    "/images/thumbnails/marketing-isn-t-working/thumbnailsDesktop/0.jpg",
+    "/images/thumbnails/marketing-isn-t-working/thumbnailsDesktop/1.jpg",
+    "/images/thumbnails/marketing-isn-t-working/thumbnailsDesktop/2.jpg",
+    "/images/thumbnails/marketing-isn-t-working/thumbnailsDesktop/3.jpg",
+    "/images/thumbnails/marketing-isn-t-working/thumbnailsDesktop/4.jpg"
+  ],
+  "thumbnailMobile": "/images/thumbnails/marketing-isn-t-working/thumbnailMobile.jpg",
+  "heroDesktop": "/images/content/marketing-isn-t-working/heroDesktop.jpg",
+  "heroMobile": "/images/content/marketing-isn-t-working/heroMobile.jpg",
+  "blocks": [
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "media": "/images/content/marketing-isn-t-working/blocks/0/value/media.jpg",
+        "text": "Platzhalter",
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "media": "/images/content/marketing-isn-t-working/blocks/1/value/media.jpg"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "media": "/images/content/marketing-isn-t-working/blocks/2/value/media.jpg"
+      }
+    }
+  ]
+}
