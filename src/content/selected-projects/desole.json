@@ -48,16 +48,16 @@
       }
     },
     {
-      "discriminant": "landscapeFullWidth",
+      "discriminant": "portraitNoText",
       "value": {
-        "media": "/images/content/desole/blocks/4/value/media.jpg"
+        "media": "/images/content/desole/blocks/4/value/media.gif",
+        "mobileFullWidth": false
       }
     },
     {
-      "discriminant": "portraitNoText",
+      "discriminant": "landscapeFullWidth",
       "value": {
-        "media": "/images/content/desole/blocks/5/value/media.gif",
-        "mobileFullWidth": false
+        "media": "/images/content/desole/blocks/5/value/media.jpg"
       }
     },
     {
