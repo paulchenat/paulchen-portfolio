@@ -16,6 +16,11 @@ export default config({
       format: { data: 'json' },
       schema: {
         title: fields.slug({ name: { label: 'Projekt-Titel' } }),
+        order: fields.integer({
+          label: 'Reihenfolge / Position (1 = ganz oben, 2, 3...)',
+          description: 'Bestimmt die Position auf der Startseite und im Stream',
+          defaultValue: 1,
+        }),
         year: fields.text({ label: 'Jahr (z.B. 2024)' }),
         location: fields.text({ label: 'Ort (z.B. Wien)' }),
         furtherContext: fields.text({ label: 'Zusatztext / Disziplinen (max. 3 Zeilen)', multiline: true }),
@@ -33,7 +38,7 @@ export default config({
           { label: 'Desktop Hover-Scrubbing Thumbnails (1 bis 5 Bilder)', validation: { length: { min: 1, max: 5 } } }
         ),
         thumbnailMobile: fields.image({ label: 'Mobile Thumbnail (3:4)', directory: 'public/images/thumbnails', publicPath: '/images/thumbnails/' }),
-        videoLoop: fields.text({ label: 'Optionaler MP4 Video-Loop URL (für Autoplay-Card)' }),
+        videoLoop: fields.text({ label: 'Optionaler MP4 Video-Loop URL' }),
 
         heroDesktop: fields.image({ label: 'Header Bild Desktop (2:1)', directory: 'public/images/content', publicPath: '/images/content/' }),
         heroMobile: fields.image({ label: 'Header Bild Mobile (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
@@ -101,6 +106,11 @@ export default config({
       format: { data: 'json' },
       schema: {
         title: fields.slug({ name: { label: 'Projektname' } }),
+        order: fields.integer({
+          label: 'Reihenfolge / Position (1 = ganz oben, 2, 3...)',
+          description: 'Bestimmt die Position der Zeile im Archiv',
+          defaultValue: 1,
+        }),
         year: fields.text({ label: 'Jahr (z.B. 2022)' }),
         furtherContext: fields.text({ label: 'Mitwirkende / Details' }),
         infoText: fields.text({ label: 'Info Beschreibung (Pop-up Fenster)', multiline: true }),
