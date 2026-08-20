@@ -1,21 +1,26 @@
 ---
+export const prerender = true;
 import Layout from '../layouts/layout.astro';
 
+// Sicheres Einlesen aller JSON-Dateien
 const projectFiles = import.meta.glob('../content/selected-projects/*.json', { eager: true });
 const archiveFiles = import.meta.glob('../content/archive/*.json', { eager: true });
 const settingsFiles = import.meta.glob('../content/singletons/settings.json', { eager: true });
 const seoFiles = import.meta.glob('../content/singletons/seo.json', { eager: true });
 
-const projects = Object.entries(projectFiles).map(([path, mod]: [string, any]) => {
+const projects = Object.entries(projectFiles).map(([path, mod]: any) => {
   const slug = path.split('/').pop()?.replace('.json', '') || 'projekt';
-  const data = mod.default || mod;
+  const data = mod?.default || mod || {};
   return { slug, data };
 });
 
-const archiveRows = Object.values(archiveFiles).map((mod: any) => mod.default || mod);
-const settings: any = Object.values(settingsFiles)[0] || {};
-const seo: any = Object.values(seoFiles)[0] || {};
+const archiveRows = Object.values(archiveFiles).map((mod: any) => mod?.default || mod || {});
+const settingsMod: any = Object.values(settingsFiles)[0] || {};
+const settings: any = settingsMod?.default || settingsMod || {};
+const seoMod: any = Object.values(seoFiles)[0] || {};
+const seo: any = seoMod?.default || seoMod || {};
 
+// Helper für rote Welle (~Wort~) und Links ([Text](url))
 function parseFormattedText(text: string) {
   if (!text) return '';
   return text
@@ -113,7 +118,7 @@ const archiveTitle = settings.archiveTitle || 'Archiv';
       </div>
     </section>
 
-    <!-- ARCHIV (OPTIMIERT MIT 2X RETINA CAPPING) -->
+    <!-- ARCHIV -->
     <section class="archive-section content-grid">
       <div style="grid-column: 1 / -1;">
         <h2 class="section-title">{archiveTitle}</h2>
@@ -267,217 +272,6 @@ const archiveTitle = settings.archiveTitle || 'Archiv';
       .lightbox-modal { padding: 20px; }
       .lightbox-header, .lightbox-footer { font-size: 14px; }
       .arrow-btn { font-size: 18px; }
-    }
-  </style>
-
-  <script is:inline>
-    const nav = document.getElementById('mainNav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > (window.innerHeight * 0.35)) {
-        nav.classList.add('collapsed');
-      } else {
-        nav.classList.remove('collapsed');
-      }
-    });
-
-    document.querySelectorAll('.scrub-container').forEach(box => {
-      const items = box.querySelectorAll('.scrub-item');
-      const count = items.length;
-      if (count > 1) {
-        box.addEventListener('mousemove', (e) => {
-          if (window.innerWidth <= 768) return;
-          const rect = box.getBoundingClientRect();
-          const activeIndex = Math.floor(Math.max(0, Math.min(0.999, (e.clientX - rect.left) / rect.width)) * count);
-          items.forEach((item, i) => item.classList.toggle('active', i === activeIndex));
-        });
-        box.addEventListener('mouseleave', () => {
-          items.forEach((item, i) => item.classList.toggle('active', i === 0));
-        });
-      }
-    });
-
-    document.querySelectorAll('.arch-info-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (window.innerWidth > 768) return;
-        const row = btn.closest('.archive-project-row');
-        row.querySelector('.mobile-info-drawer').classList.toggle('open');
-      });
-    });
-
-    const lb = document.getElementById('globalLightbox');
-    document.querySelectorAll('.archive-item-1-1').forEach(item => {
-      item.addEventListener('click', () => {
-        document.getElementById('lbTitle').innerText = item.dataset.title + ' (' + item.dataset.year + ')';
-        document.getElementById('lbCopyright').innerText = '© ' + item.dataset.copyright;
-        lb.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-    document.getElementById('lbClose')?.addEventListener('click', () => {
-      lb.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    });
-  </script>
-</Layout>                    </div>
-                  </a>
-                  
-                  <div class="card-meta">
-                    <div class="meta-title"><p>{d.title || ''}</p></div>
-                    <div class="meta-context"><p>{d.furtherContext || ''}</p></div>
-                    <div class="meta-year-place"><p>{d.year || ''} {d.location || ''}</p></div>
-                    <div class="meta-copyright"><p>{d.copyright || ''}</p></div>
-                  </div>
-                </article>
-              );
-            })
-          ) : (
-            <p style="grid-column: 1 / -1; font-size: 16px; color: #888;">Keine Projekte gefunden.</p>
-          )}
-        </div>
-      </div>
-    </section>
-
-    <section class="archive-section content-grid">
-      <div style="grid-column: 1 / -1;">
-        <h2 class="section-title">Archiv</h2>
-
-        {archiveRows.map((row: any) => (
-          <div class="archive-project-row">
-            <div class="archive-carousel-bleed">
-              {row.gallery && row.gallery.map((item: any) => (
-                <div class="archive-item-1-1" data-title={row.title || ''} data-year={row.year || ''} data-copyright={row.copyright || ''}>
-                  {item.isVideo && <div class="video-badge">Video</div>}
-                  {item.mediaFile ? (
-                    <img src={item.mediaFile} alt={row.title || ''} />
-                  ) : (
-                    <div class="color-placeholder" style="background:#1e40af;">1:1 Media</div>
-                  )}
-                </div>
-              ))}
-            </div>
-            
-            <div class="archive-meta-grid">
-              <div class="arch-name">{row.title || ''}</div>
-              <div class="arch-year">({row.year || ''})</div>
-              <div class="arch-context">{row.furtherContext || ''}</div>
-              <div class="arch-info">
-                <span class="wavy-link arch-info-btn">Info</span>
-                <div class="info-popover">{row.infoText || ''}</div>
-              </div>
-              <div class="arch-copyright">{row.copyright || ''}</div>
-            </div>
-
-            <div class="mobile-info-drawer">
-              <div class="drawer-context">Mitwirkende: {row.furtherContext || ''} ({row.year || ''})</div>
-              <div class="drawer-desc">{row.infoText || ''}</div>
-              <div class="drawer-copyright">© {row.copyright || ''}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-  </main>
-
-  <div class="lightbox-modal" id="globalLightbox">
-    <div class="lightbox-header">
-      <span id="lbTitle">Projekt Titel</span>
-      <span style="cursor:pointer;" id="lbClose" class="hover-wavy">[Schließen ✕]</span>
-    </div>
-    <div class="lightbox-stage">
-      <div id="lbMedia" style="font-size:24px; color:#555;">[ Fullscreen Viewer ]</div>
-    </div>
-    <div class="lightbox-footer">
-      <span id="lbContext">Globaler Archiv Browser</span>
-      <div>
-        <button id="lbPrev" style="background:none; border:none; font-size:16px; cursor:pointer; margin-right:20px;" class="hover-wavy">← Vorheriges</button>
-        <button id="lbNext" style="background:none; border:none; font-size:16px; cursor:pointer;" class="hover-wavy">Nächstes →</button>
-      </div>
-      <span id="lbCopyright">© Copyright</span>
-    </div>
-  </div>
-
-  <style>
-    .hero-top-spacer { height: calc(50vh - 85px); width: 100%; }
-    .hero-bottom-spacer { height: calc(50vh + 100px); width: 100%; }
-
-    .sticky-nav { position: sticky; top: 0; z-index: 999; background: transparent; padding-top: 20px; padding-bottom: 20px; font-size: 24px; pointer-events: none; }
-    .sticky-nav a, .sticky-nav span { pointer-events: auto; }
-    .nav-brand { grid-column: 1 / 3; }
-    .nav-bio { grid-column: 3 / 11; }
-    .nav-more { grid-column: 11 / 13; text-align: right; }
-    .nav-mobile-collapsed { display: none; }
-
-    .selected-section { padding-bottom: 180px; }
-    .section-title { font-size: 24px; margin-bottom: 24px; font-weight: 400; }
-    .selected-grid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 20px; row-gap: 60px; }
-
-    .work-card { display: flex; flex-direction: column; }
-    .scrub-container { position: relative; width: 100%; aspect-ratio: 4 / 3; background-color: #111; overflow: hidden; margin-bottom: 14px; cursor: crosshair; }
-    .scrub-item { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; transition: opacity 0.05s ease; }
-    .scrub-item.active { opacity: 1; }
-
-    .color-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; font-size: 16px; font-weight: 500; letter-spacing: 0.5px; }
-
-    .card-meta { display: grid; grid-template-columns: 1fr 1fr; column-gap: 12px; font-size: 16px; line-height: 1.2; }
-    .meta-title { grid-column: 1; grid-row: 1; min-height: 57.6px; }
-    .meta-year-place { grid-column: 1; grid-row: 2; }
-    .meta-context { grid-column: 2; grid-row: 1; min-height: 57.6px; }
-    .meta-copyright { grid-column: 2; grid-row: 2; }
-
-    .archive-section { padding-bottom: 140px; overflow-x: hidden; }
-    .archive-project-row { margin-bottom: 44px; width: 100%; }
-    .archive-carousel-bleed {
-      width: 100vw; margin-left: -40px; padding-left: 40px; padding-right: 40px; scroll-padding-left: 40px;
-      display: flex; align-items: flex-start; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 14px; cursor: grab; scrollbar-width: none; -ms-overflow-style: none;
-    }
-    .archive-carousel-bleed::-webkit-scrollbar { display: none; }
-    .archive-item-1-1 { position: relative; flex: 0 0 calc((100vw - 80px - 60px) / 3.3); width: calc((100vw - 80px - 60px) / 3.3); aspect-ratio: 1 / 1 !important; background-color: #0b50d0; scroll-snap-align: start; overflow: hidden; flex-shrink: 0; }
-    .archive-item-1-1 img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .video-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.75); color:#fff; font-size:12px; padding:3px 6px; border-radius:2px; z-index:2; }
-
-    .archive-meta-grid { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; font-size: 16px; padding-top: 6px; }
-    .arch-name { grid-column: 1 / 2; font-weight: 500; }
-    .arch-year { grid-column: 2 / 3; }
-    .arch-context { grid-column: 3 / 8; }
-    .arch-info { grid-column: 9 / 11; position: relative; }
-    .arch-copyright { grid-column: 11 / 13; text-align: right; }
-
-    .info-popover { display: none; position: absolute; bottom: 26px; left: 0; width: 320px; background: #000; color: #fff; padding: 14px; font-size: 16px; line-height: 1.2; z-index: 50; }
-    .arch-info:hover .info-popover { display: block; }
-    .mobile-info-drawer { display: none; }
-
-    .lightbox-modal { display: none; position: fixed; inset: 0; background: #ffffff; z-index: 10000; padding: 40px 80px; flex-direction: column; justify-content: space-between; }
-    .lightbox-modal.active { display: flex; }
-    .lightbox-header { display: flex; justify-content: space-between; font-size: 24px; }
-    .lightbox-stage { display: flex; align-items: center; justify-content: center; height: 75vh; }
-    .lightbox-footer { display: flex; justify-content: space-between; font-size: 16px; }
-
-    @media (max-width: 768px) {
-      .hero-top-spacer { height: calc(50vh - 160px); }
-      .hero-bottom-spacer { height: calc(50vh + 160px); }
-      .sticky-nav { font-size: 20px; padding-top: 16px; padding-bottom: 16px; }
-      .nav-brand { grid-column: 1 / 7; margin-bottom: 12px; }
-      .nav-bio { grid-column: 1 / 7; font-size: 20px; margin-bottom: 12px; padding-right: 20%; }
-      .nav-more { grid-column: 1 / 7; text-align: left; }
-      .sticky-nav.collapsed .nav-bio { display: none; }
-      .sticky-nav.collapsed .nav-mobile-collapsed { display: block; grid-column: 1 / 7; margin-bottom: 8px; }
-
-      .section-title { font-size: 20px; margin-bottom: 20px; }
-      .selected-section { padding-bottom: 80px; }
-      .selected-grid { grid-template-columns: 1fr; row-gap: 36px; }
-      .work-card { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; align-items: start; }
-      .scrub-container { aspect-ratio: 3 / 4 !important; margin-bottom: 0; }
-      .card-meta { display: flex; flex-direction: column; font-size: 16px; line-height: 1.2; }
-      .meta-title { min-height: auto; }
-      .meta-context { min-height: auto; margin-bottom: 19.2px; }
-
-      .archive-carousel-bleed { margin-left: -40px; padding-left: 40px; padding-right: 40px; }
-      .archive-item-1-1 { flex: 0 0 calc((100vw - 80px - 20px) / 2); width: calc((100vw - 80px - 20px) / 2); }
-      .arch-year, .arch-context, .arch-copyright { display: none; }
-      .info-popover { display: none !important; }
-      .mobile-info-drawer { display: block; max-height: 0; opacity: 0; overflow: hidden; transition: all 0.3s ease; font-size: 16px; color: #000; }
-      .mobile-info-drawer.open { max-height: 400px; opacity: 1; margin-top: 10px; }
     }
   </style>
 
