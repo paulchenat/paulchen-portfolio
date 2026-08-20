@@ -6,10 +6,10 @@
   "furtherContext": "Event Poster\nTalk by Sir John Hegarty ",
   "copyright": "Applied Arts University Vienna",
   "theme": {
-    "backgroundColor": "#ffffff",
-    "textColor": "#000000",
+    "backgroundColor": "#00000",
+    "textColor": "#ffffff",
     "wavyColor": "#ff0000",
-    "isDarkTheme": true
+    "isDarkTheme": false
   },
   "thumbnailsDesktop": [
     "/images/thumbnails/marketing-isn-t-working/thumbnailsDesktop/0.jpg",
