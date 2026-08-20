@@ -52,7 +52,8 @@ const {
       font-weight: 400;
       line-height: 1.2;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      /* WICHTIG: overflow-x: clip zerstört position: sticky nicht! */
+      overflow-x: clip;
       width: 100%;
       transition: background-color 0.4s ease, color 0.4s ease;
     }
@@ -128,11 +129,9 @@ const {
       .content-grid { grid-template-columns: repeat(6, 1fr); padding-left: 40px; padding-right: 40px; }
     }
 
-    /* ==========================================================================
-       PERFORMANCE BADGE & PAYLOAD INSPECTOR (STANDARDMÄSSIG AUSGEBLENDET)
-       ========================================================================== */
+    /* PERFORMANCE BADGE (STANDARDMÄSSIG AUSGEBLENDET) */
     .perf-badge-container {
-      display: none; /* Für normale Besucher unsichtbar */
+      display: none;
       position: fixed;
       bottom: 16px;
       left: 16px;
@@ -154,16 +153,9 @@ const {
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
       transition: transform 0.2s ease;
     }
-
     .perf-badge:hover { transform: scale(1.05); }
 
-    .perf-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: #22c55e;
-    }
-
+    .perf-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #22c55e; }
     .perf-badge.heavy .perf-dot { background-color: #ef4444; }
     .perf-badge.moderate .perf-dot { background-color: #eab308; }
 
@@ -181,14 +173,13 @@ const {
       line-height: 1.4;
       box-shadow: 0 4px 16px rgba(0,0,0,0.25);
     }
-
     .perf-details-modal.open { display: block; }
   </style>
 </head>
 <body>
   <slot />
 
-  <!-- PERFORMANCE INSPECTOR BADGE (WIRD DURCH 3-FACH KLICK AKTIVIERT) -->
+  <!-- PERFORMANCE INSPECTOR BADGE -->
   <aside class="perf-badge-container" id="perfContainer">
     <div class="perf-badge" id="perfBadge" title="Klicken für Payload-Details">
       <span class="perf-dot" id="perfDot"></span>
@@ -197,35 +188,43 @@ const {
     <div class="perf-details-modal" id="perfModal">
       <div style="font-weight: 500; margin-bottom: 6px; border-bottom: 1px solid #333; padding-bottom: 4px;">Page Performance Inspector</div>
       <div id="perfBreakdown">Analysiere Assets...</div>
-      <div style="margin-top: 8px; font-size: 10px; color: #888;">Budget-Ziel: Unter 4 MB für maximale Geschwindigkeit</div>
+      <div style="margin-top: 8px; font-size: 10px; color: #888;">Tastenkürzel: Shift + P zum Umschalten</div>
     </div>
   </aside>
 
   <script is:inline>
-    // 1. Geheimer 3-Fach-Klick auf das Logo zum Umschalten der Badge
+    // 1. Geheimer 3-Fach Klick & Tastenkürzel (Shift + P)
+    function togglePerfBadge() {
+      const container = document.getElementById('perfContainer');
+      if (container) {
+        const isHidden = container.style.display === 'none' || getComputedStyle(container).display === 'none';
+        container.style.display = isHidden ? 'block' : 'none';
+      }
+    }
+
     let clickCount = 0;
     let clickTimer = null;
-    const brandLinks = document.querySelectorAll('.nav-brand');
 
-    brandLinks.forEach(brand => {
-      brand.addEventListener('click', (e) => {
+    document.addEventListener('click', (e) => {
+      const brand = e.target.closest('.nav-brand');
+      if (brand) {
         clickCount++;
         if (clickCount === 1) {
-          clickTimer = setTimeout(() => {
-            clickCount = 0; // Nach 600ms zurücksetzen
-          }, 600);
-        } else if (clickCount === 3) {
-          e.preventDefault(); // Navigation verhindern beim 3-Fach-Klick
-          clearTimeout(clickTimer);
+          clickTimer = setTimeout(() => { clickCount = 0; }, 500);
+        } else if (clickCount >= 3) {
+          e.preventDefault();
+          e.stopPropagation();
           clickCount = 0;
-          
-          const container = document.getElementById('perfContainer');
-          if (container) {
-            const isHidden = container.style.display === 'none' || getComputedStyle(container).display === 'none';
-            container.style.display = isHidden ? 'block' : 'none';
-          }
+          clearTimeout(clickTimer);
+          togglePerfBadge();
         }
-      });
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.shiftKey && (e.key === 'P' || e.key === 'p')) {
+        togglePerfBadge();
+      }
     });
 
     // 2. Echtzeit-Messung der geladenen Assets
@@ -276,7 +275,6 @@ const {
       }, 1000);
     });
 
-    // 3. Details auf Klick öffnen
     const badgeEl = document.getElementById('perfBadge');
     const modalEl = document.getElementById('perfModal');
     badgeEl?.addEventListener('click', (e) => {
