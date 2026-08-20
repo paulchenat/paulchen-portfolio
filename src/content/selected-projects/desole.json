@@ -1,0 +1,98 @@
+{
+  "title": "Désolé Book",
+  "order": 1,
+  "year": "2026",
+  "location": "Wien",
+  "furtherContext": "Typedesign ",
+  "theme": {
+    "backgroundColor": "#ffffff",
+    "textColor": "#000000",
+    "wavyColor": "#ff0000",
+    "isDarkTheme": false
+  },
+  "thumbnailsDesktop": [
+    "/images/thumbnails/desole/thumbnailsDesktop/0.jpg",
+    "/images/thumbnails/desole/thumbnailsDesktop/1.jpg",
+    "/images/thumbnails/desole/thumbnailsDesktop/2.jpg",
+    "/images/thumbnails/desole/thumbnailsDesktop/3.jpg",
+    "/images/thumbnails/desole/thumbnailsDesktop/4.jpg"
+  ],
+  "thumbnailMobile": "/images/thumbnails/desole/thumbnailMobile.jpg",
+  "heroDesktop": "/images/content/desole/heroDesktop.jpg",
+  "heroMobile": "/images/content/desole/heroMobile.jpg",
+  "blocks": [
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "media": "/images/content/desole/blocks/0/value/media.gif",
+        "text": "Platzhalter",
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "media": "/images/content/desole/blocks/1/value/media.jpg"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "media": "/images/content/desole/blocks/2/value/media.jpg"
+      }
+    },
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "media": "/images/content/desole/blocks/3/value/media.jpg"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "media": "/images/content/desole/blocks/4/value/media.jpg"
+      }
+    },
+    {
+      "discriminant": "portraitNoText",
+      "value": {
+        "media": "/images/content/desole/blocks/5/value/media.gif",
+        "mobileFullWidth": false
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "media": "/images/content/desole/blocks/6/value/media.jpg",
+        "text": "Platzhalter",
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "media": "/images/content/desole/blocks/7/value/media.gif"
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "media": "/images/content/desole/blocks/8/value/media.gif",
+        "text": "Platzhalter",
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "media": "/images/content/desole/blocks/9/value/media.jpg"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "media": "/images/content/desole/blocks/10/value/media.jpg"
+      }
+    }
+  ]
+}
