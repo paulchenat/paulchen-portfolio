@@ -24,6 +24,7 @@
     {
       "discriminant": "portraitWithText",
       "value": {
+        "adminLabel": "Poster",
         "media": "/images/content/desole/blocks/0/value/media.gif",
         "text": "Platzhalter",
         "textSize": "normal"
