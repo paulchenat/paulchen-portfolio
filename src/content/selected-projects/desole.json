@@ -79,6 +79,7 @@
     {
       "discriminant": "portraitNoText",
       "value": {
+        "adminLabel": "a Glyphe",
         "media": "/images/content/desole/blocks/6/value/media.gif",
         "hasAudio": false,
         "mobileFullWidth": false
