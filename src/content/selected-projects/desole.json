@@ -26,17 +26,14 @@
       "value": {
         "adminLabel": "Projekt-Intro poster",
         "media": "/images/content/desole/blocks/0/value/media.gif",
-        "text": "Your privacy matters to me. When you browse my design work on paulchen.at, your visit remains completely anonymous, no cookies are stored, tracked, or shared with third parties.\n\nYou can find all legal details regarding my identity in the Imprint and full information about data handling in the Privacy Policy.\n\nHave a wonderful day!",
+        "text": "Your privacy matters to me. When you browse my design work on paulchen.at, your visit remains completely anonymous, no cookies are stored, tracked, or shared with third parties.\n\nYou can find all legal details regarding my identity in the Imprint and full information about data handling in the Privacy Policy.\n\nHave a wonderful day!\n\n\nYour privacy matters to me. When you browse my design work on paulchen.at, your visit remains completely anonymous, no cookies are stored, tracked, or shared with third parties.\n\nYou can find all legal details regarding my identity in the Imprint and full information about data handling in the Privacy Policy.\n\nHave a wonderful day!",
         "textSize": "normal"
       }
     },
     {
-      "discriminant": "portraitWithText",
+      "discriminant": "landscapeStandard",
       "value": {
-        "adminLabel": "Poster",
-        "media": "/images/content/desole/blocks/1/value/media.gif",
-        "text": "Platzhalter",
-        "textSize": "normal"
+        "media": "/images/content/desole/blocks/1/value/media.jpg"
       }
     },
     {
@@ -52,28 +49,22 @@
       }
     },
     {
-      "discriminant": "landscapeStandard",
-      "value": {
-        "media": "/images/content/desole/blocks/4/value/media.jpg"
-      }
-    },
-    {
       "discriminant": "portraitNoText",
       "value": {
-        "media": "/images/content/desole/blocks/5/value/media.gif",
+        "media": "/images/content/desole/blocks/4/value/media.gif",
         "mobileFullWidth": false
       }
     },
     {
       "discriminant": "landscapeFullWidth",
       "value": {
-        "media": "/images/content/desole/blocks/6/value/media.jpg"
+        "media": "/images/content/desole/blocks/5/value/media.jpg"
       }
     },
     {
       "discriminant": "portraitWithText",
       "value": {
-        "media": "/images/content/desole/blocks/7/value/media.jpg",
+        "media": "/images/content/desole/blocks/6/value/media.jpg",
         "text": "Platzhalter",
         "textSize": "normal"
       }
@@ -81,13 +72,13 @@
     {
       "discriminant": "landscapeFullWidth",
       "value": {
-        "media": "/images/content/desole/blocks/8/value/media.gif"
+        "media": "/images/content/desole/blocks/7/value/media.gif"
       }
     },
     {
       "discriminant": "portraitWithText",
       "value": {
-        "media": "/images/content/desole/blocks/9/value/media.gif",
+        "media": "/images/content/desole/blocks/8/value/media.gif",
         "text": "Platzhalter",
         "textSize": "normal"
       }
@@ -95,13 +86,13 @@
     {
       "discriminant": "landscapeStandard",
       "value": {
-        "media": "/images/content/desole/blocks/10/value/media.jpg"
+        "media": "/images/content/desole/blocks/9/value/media.jpg"
       }
     },
     {
       "discriminant": "landscapeFullWidth",
       "value": {
-        "media": "/images/content/desole/blocks/11/value/media.jpg"
+        "media": "/images/content/desole/blocks/10/value/media.jpg"
       }
     }
   ]
