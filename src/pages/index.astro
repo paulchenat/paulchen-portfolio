@@ -99,24 +99,17 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
           {projects.length > 0 ? (
             projects.map((proj) => {
               const d = proj.data || {};
-              const thumb = d.thumbnails || {};
-              
-              // Desktop Medien
-              const dktVideo = d.videoLoopFile || d.videoLoop || thumb.desktopVideoLoop;
-              const dktImages = (d.thumbnailsDesktop && d.thumbnailsDesktop.length > 0) 
-                ? d.thumbnailsDesktop 
-                : (thumb.desktopScrubImages && thumb.desktopScrubImages.length > 0 ? thumb.desktopScrubImages : []);
-              
-              // Mobile Medien (Sichere Abfrage beider Datenstrukturen)
-              const mblVideo = d.mobileVideoLoop || thumb.mobileVideoLoop;
-              const mblImage = d.thumbnailMobile || thumb.mobileImage;
+              const dktVideo = d.videoLoopFile || d.videoLoop;
+              const dktImages = d.thumbnailsDesktop;
+              const mblVideo = d.mobileVideoLoop;
+              const mblImage = d.thumbnailMobile;
 
               return (
                 <article class="work-card">
                   <a href={`/projects/${proj.slug}`} style="color:inherit; text-decoration:none;">
                     <div class="scrub-container">
                       
-                      <!-- 📱 MOBILE THUMBNAIL (Wird nur auf Mobile angezeigt) -->
+                      <!-- 📱 MOBILE THUMBNAIL -->
                       <div class="mobile-thumb-box">
                         {mblVideo ? (
                           <video src={mblVideo} autoplay loop muted playsinline class="thumb-media-full" />
@@ -131,7 +124,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                         )}
                       </div>
 
-                      <!-- 🖥️ DESKTOP THUMBNAIL (Wird nur auf Desktop angezeigt) -->
+                      <!-- 🖥️ DESKTOP THUMBNAIL -->
                       <div class="desktop-thumb-box">
                         {dktVideo ? (
                           <video src={dktVideo} autoplay loop muted playsinline class="thumb-media-full" />
@@ -222,9 +215,8 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                 <div class="arch-copyright">{row.copyright || ''}</div>
               </div>
 
-              <!-- MOBILE INFO DRAWER: ZEIGT DEN VOLLEN TITEL UNGEKÜRZT -->
+              <!-- MOBILE INFO DRAWER: OHNE DOPPELTEN TITEL -->
               <div class="mobile-info-drawer">
-                <div class="drawer-title">{row.title || ''}</div>
                 {row.furtherContext && <div class="drawer-context">Mitwirkende: {row.furtherContext} ({row.year || ''})</div>}
                 {row.infoText && <div class="drawer-desc">{row.infoText}</div>}
                 {row.copyright && <div class="drawer-copyright">© {row.copyright}</div>}
@@ -397,29 +389,19 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       .work-card { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; align-items: start; }
       .scrub-container { aspect-ratio: 3 / 4 !important; margin-bottom: 0; }
 
-      /* MOBILE THUMBNAIL: ERZWINGT 3:4 FORMAT */
-      .mobile-thumb-box { display: block !important; width: 100%; height: 100%; position: relative; }
-      .desktop-thumb-box { display: none !important; }
-      .mobile-thumb-box img, .mobile-thumb-box video {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
+      .mobile-only-thumb { display: block; width: 100%; height: 100%; object-fit: cover; }
+      .desktop-only-thumb { display: none !important; }
 
-      /* 1 ZEILE ABSTAND ZWISCHEN TITEL & FURTHER CONTEXT */
       .card-meta { display: flex; flex-direction: column; font-size: 16px; line-height: 1.2; }
-      .meta-title { min-height: auto; margin-bottom: 19.2px !important; } /* EXAKT 1 ZEILE ABSTAND */
-      .meta-context { min-height: auto; margin-bottom: 19.2px !important; } /* EXAKT 1 ZEILE ABSTAND */
-      .meta-year-place { margin-bottom: 0; }
-      .meta-copyright { margin-bottom: 0; }
+      .meta-title { min-height: auto; margin-bottom: 19.2px !important; }
+      .meta-context { min-height: auto; margin-bottom: 19.2px !important; }
 
       .archive-carousel-bleed { margin-left: -40px; padding-left: 40px; padding-right: 40px; }
       .archive-item-1-1 { flex: 0 0 calc((100vw - 80px - 20px) / 2); width: calc((100vw - 80px - 20px) / 2); }
       
-      /* ARCHIV TITEL AUF MOBILE: MEHR PLATZ + '...' BEI ÜBERLÄNGE */
+      /* ARCHIV TITEL AUF MOBILE: 
+         Standardmäßig (geschlossen): 1 Zeile mit '...'
+         Wenn 'Info' geklickt wird (.open): Klappt an Ort und Stelle auf volle Länge auf! */
       .archive-meta-grid {
         display: flex;
         justify-content: space-between;
@@ -430,11 +412,19 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
 
       .arch-name {
         flex: 1;
-        min-width: 0; /* Verhindert Flexbox-Overflow */
+        min-width: 0;
         white-space: nowrap !important;
         overflow: hidden !important;
-        text-overflow: ellipsis !important; /* Kürzt bei Überlänge mit '...' ab */
+        text-overflow: ellipsis !important;
         margin-right: 16px;
+        transition: all 0.2s ease;
+      }
+
+      /* AUFGEKLAPPTER ZUSTAND: Titel zeigt alle Zeilen ungekürzt an! */
+      .archive-meta-grid.open .arch-name {
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
       }
 
       .arch-info {
@@ -444,7 +434,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       .arch-year, .arch-context, .arch-copyright { display: none; }
       .info-popover { display: none !important; }
 
-      /* MOBILE DRAWER: ZEIGT DEN VOLLEN TITEL UNGEKÜRZT */
+      /* MOBILE DRAWER: Nur noch Mitwirkende, Beschreibung & Copyright (kein doppelter Titel mehr!) */
       .mobile-info-drawer { 
         display: block; 
         max-height: 0; 
@@ -455,7 +445,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
         color: #000; 
       }
       .mobile-info-drawer.open { max-height: 500px; opacity: 1; margin-top: 10px; }
-      .drawer-title { font-weight: 500; margin-bottom: 6px; white-space: normal !important; }
       .drawer-context { margin-bottom: 6px; }
       .drawer-desc { margin-bottom: 6px; white-space: pre-line !important; }
       .drawer-copyright { font-size: 14px; color: inherit; }
@@ -479,11 +468,13 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       }
     });
 
+    // Mobile Info Drawer Toggle & Titel-Entfaltung an Ort und Stelle
     document.querySelectorAll('.arch-info-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         if (window.innerWidth > 768) return;
         const row = btn.closest('.archive-project-row');
         row.querySelector('.mobile-info-drawer')?.classList.toggle('open');
+        row.querySelector('.archive-meta-grid')?.classList.toggle('open'); // Klappt den Titel auf
       });
     });
 
