@@ -51,7 +51,6 @@ export default config({
 
         blocks: fields.blocks(
           {
-            // NEU: INTRO BLOCK (TEXT ZUERST AUF MOBILE)
             introPortraitWithText: {
               label: 'Projekt-Intro: 3:4 Bild + Text (TEXT ZUERST auf Mobile)',
               itemLabel: (props) => props.fields.adminLabel.value || 'Projekt-Intro (Text zuerst auf Mobile)',
@@ -143,7 +142,7 @@ export default config({
           defaultValue: 1,
         }),
         year: fields.text({ label: 'Jahr (z.B. 2022)' }),
-        furtherContext: fields.text({ label: 'Mitwirkende / Details' }),
+        furtherContext: fields.text({ label: 'Mitwirkende / Details', multiline: true }),
         infoText: fields.text({ label: 'Info Beschreibung (Pop-up Fenster)', multiline: true }),
         copyright: fields.text({ label: 'Copyright' }),
         gallery: fields.array(
@@ -186,10 +185,10 @@ export default config({
         selectedWorkTitle: fields.text({ label: 'Überschrift Bereich 1', defaultValue: 'Ausgewählte Projekte' }),
         archiveTitle: fields.text({ label: 'Überschrift Bereich 2', defaultValue: 'Archiv' }),
         
-        // FOOTER TEXTFELD
+        // FOOTER TEXTFELD MIT GENAUEN LINK-HINWEISEN
         footerText: fields.text({
           label: 'Footer Text (Rechtsbündig über 4 Spalten)',
-          description: 'Nutze ~Wort~ für Welle und [Linktext](/url) für Links zu Imprint / Privacy Policy',
+          description: 'Nutze ~Wort~ für Welle. Exakte Links so einfügen: [Imprint](/imprint) und [Privacy Policy](/privacy-policy)',
           multiline: true,
           defaultValue: 'Your privacy matters to me. When you browse my design work on paulchen.at, your visit remains completely anonymous, ~no cookies~ are stored, tracked, or shared with third parties.\n\nYou can find all legal details regarding my identity in the [Imprint](/imprint) and full information about data handling in the [Privacy Policy](/privacy-policy).\n\nHave a wonderful day!\nBest, Paul'
         }),
