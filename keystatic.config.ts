@@ -33,34 +33,66 @@ export default config({
           isDarkTheme: fields.checkbox({ label: 'Dark Mode Modus (Schwarzer Hintergrund / Weiße Welle)', defaultValue: false })
         }, { label: 'Projekt Farbschema (Theming)' }),
 
-        thumbnailsDesktop: fields.array(
-          fields.image({ label: 'Desktop Frame (4:3)', directory: 'public/images/thumbnails', publicPath: '/images/thumbnails/' }),
-          { label: 'Desktop Hover-Scrubbing Thumbnails (1 bis 5 Bilder)', validation: { length: { min: 1, max: 5 } } }
-        ),
-        thumbnailMobile: fields.image({ 
-          label: 'Mobile Thumbnail (3:4)', 
-          description: 'Wird auf Smartphones im 3:4 Format angezeigt',
-          directory: 'public/images/thumbnails', 
-          publicPath: '/images/thumbnails/' 
-        }),
-        videoLoopFile: fields.file({
-          label: 'Thumbnail Video-Loop hochladen (MP4)',
-          directory: 'public/videos',
-          publicPath: '/videos/',
-        }),
-        videoLoop: fields.text({ label: 'Oder: Externer MP4 Video-Loop URL' }),
+        // BEREICH 1: STARTSEITEN-THUMBNAILS (DESKTOP & MOBILE GETRENNT)
+        thumbnails: fields.object({
+          // Desktop (4:3)
+          desktopScrubImages: fields.array(
+            fields.image({ label: 'Desktop Frame (4:3)', directory: 'public/images/thumbnails', publicPath: '/images/thumbnails/' }),
+            { label: '🖥️ Desktop: 1 bis 5 Bilder für Hover-Scrubbing', validation: { length: { min: 0, max: 5 } } }
+          ),
+          desktopVideoLoop: fields.file({
+            label: '🖥️ Desktop: Video-Loop (MP4 4:3)',
+            description: 'Optional: Spielt auf Desktop als Video-Autoplay-Loop statt Bildern',
+            directory: 'public/videos',
+            publicPath: '/videos/',
+          }),
+          // Mobile (3:4)
+          mobileImage: fields.image({ 
+            label: '📱 Mobile: Bild-Thumbnail (3:4)', 
+            directory: 'public/images/thumbnails', 
+            publicPath: '/images/thumbnails/' 
+          }),
+          mobileVideoLoop: fields.file({
+            label: '📱 Mobile: Video-Loop (MP4 3:4)',
+            description: 'Optional: Eigenes Hochformat-Video für Smartphones',
+            directory: 'public/videos',
+            publicPath: '/videos/',
+          }),
+        }, { label: '1. Startseiten-Thumbnails (Desktop 4:3 / Mobile 3:4)' }),
 
-        // HEADER VIDEO & BILDER
-        heroDesktop: fields.image({ label: 'Header Bild Desktop (2:1)', directory: 'public/images/content', publicPath: '/images/content/' }),
-        heroMobile: fields.image({ label: 'Header Bild Mobile (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
-        heroVideoFile: fields.file({
-          label: 'Header Video direkt hochladen (MP4)',
-          directory: 'public/videos',
-          publicPath: '/videos/',
-        }),
-        heroVideoUrl: fields.text({ label: 'Oder: Externer Header Video URL (MP4)' }),
-        heroVideoHasAudio: fields.checkbox({ label: 'Header-Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false }),
+        // BEREICH 2: PROJEKT HEADER-MEDIEN (DESKTOP & MOBILE GETRENNT)
+        headerMedia: fields.object({
+          // Desktop (2:1)
+          desktopImage: fields.image({ 
+            label: '🖥️ Desktop: Header-Bild (2:1)', 
+            directory: 'public/images/content', 
+            publicPath: '/images/content/' 
+          }),
+          desktopVideo: fields.file({
+            label: '🖥️ Desktop: Header-Video (MP4 2:1)',
+            description: 'Querformat-Video für Desktop-Bildschirme',
+            directory: 'public/videos',
+            publicPath: '/videos/',
+          }),
+          // Mobile (3:4)
+          mobileImage: fields.image({ 
+            label: '📱 Mobile: Header-Bild (3:4)', 
+            directory: 'public/images/content', 
+            publicPath: '/images/content/' 
+          }),
+          mobileVideo: fields.file({
+            label: '📱 Mobile: Header-Video (MP4 3:4)',
+            description: 'Eigenes Hochformat-Video für Smartphones',
+            directory: 'public/videos',
+            publicPath: '/videos/',
+          }),
+          hasAudio: fields.checkbox({ 
+            label: 'Header-Video hat Ton (Zeigt "Ton an"-Button)', 
+            defaultValue: false 
+          }),
+        }, { label: '2. Projekt Header-Medien (Desktop 2:1 / Mobile 3:4)' }),
 
+        // BEREICH 3: MODULARE INHALTS-BLÖCKE
         blocks: fields.blocks(
           {
             introPortraitWithText: {
@@ -70,7 +102,6 @@ export default config({
                 adminLabel: fields.text({ label: 'Interner Block-Name', defaultValue: 'Projekt-Intro' }),
                 media: fields.image({ label: 'Bild (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoFile: fields.file({ label: 'Oder: Video direkt hochladen (MP4)', directory: 'public/videos', publicPath: '/videos/' }),
-                videoUrl: fields.text({ label: 'Oder: Externe Video URL (MP4)' }),
                 hasAudio: fields.checkbox({ label: 'Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false }),
                 text: fields.text({ label: 'Intro Beschreibungstext (~Wort~ für Welle, [Text](url) für Link)', multiline: true }),
                 textSize: fields.select({
@@ -87,7 +118,6 @@ export default config({
                 adminLabel: fields.text({ label: 'Interner Block-Name', defaultValue: 'Hochformat mit Text' }),
                 media: fields.image({ label: 'Bild (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoFile: fields.file({ label: 'Oder: Video direkt hochladen (MP4)', directory: 'public/videos', publicPath: '/videos/' }),
-                videoUrl: fields.text({ label: 'Oder: Externe Video URL (MP4)' }),
                 hasAudio: fields.checkbox({ label: 'Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false }),
                 text: fields.text({ label: 'Beschreibungstext (~Wort~ für Welle, [Text](url) für Link)', multiline: true }),
                 textSize: fields.select({
@@ -104,7 +134,6 @@ export default config({
                 adminLabel: fields.text({ label: 'Interner Block-Name', defaultValue: 'Querformat Standard' }),
                 media: fields.image({ label: 'Bild (3:2)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoFile: fields.file({ label: 'Oder: Video direkt hochladen (MP4)', directory: 'public/videos', publicPath: '/videos/' }),
-                videoUrl: fields.text({ label: 'Oder: Externe Video URL (MP4)' }),
                 hasAudio: fields.checkbox({ label: 'Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false })
               })
             },
@@ -128,7 +157,6 @@ export default config({
                 adminLabel: fields.text({ label: 'Interner Block-Name', defaultValue: 'Querformat Full Bleed' }),
                 media: fields.image({ label: 'Bild (3:2)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoFile: fields.file({ label: 'Oder: Video direkt hochladen (MP4)', directory: 'public/videos', publicPath: '/videos/' }),
-                videoUrl: fields.text({ label: 'Oder: Externe Video URL (MP4)' }),
                 hasAudio: fields.checkbox({ label: 'Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false })
               })
             },
@@ -139,13 +167,12 @@ export default config({
                 adminLabel: fields.text({ label: 'Interner Block-Name', defaultValue: 'Detailaufnahme' }),
                 media: fields.image({ label: 'Bild (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoFile: fields.file({ label: 'Oder: Video direkt hochladen (MP4)', directory: 'public/videos', publicPath: '/videos/' }),
-                videoUrl: fields.text({ label: 'Oder: Externe Video URL (MP4)' }),
                 hasAudio: fields.checkbox({ label: 'Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false }),
                 mobileFullWidth: fields.checkbox({ label: 'Auf Mobile über volle Bildschirmbreite', defaultValue: false })
               })
             }
           },
-          { label: 'Story Layout Blöcke' }
+          { label: '3. Story Layout Blöcke' }
         )
       }
     }),
@@ -171,7 +198,6 @@ export default config({
           fields.object({
             mediaFile: fields.image({ label: 'Quadratisches Bild (1:1 JPG/PNG/GIF)', directory: 'public/images/archive', publicPath: '/images/archive/' }),
             videoFile: fields.file({ label: 'Oder: 1:1 Video direkt hochladen (MP4)', directory: 'public/videos', publicPath: '/videos/' }),
-            videoUrl: fields.text({ label: 'Oder: Externe MP4 Video URL' }),
             hasAudio: fields.checkbox({ label: 'Video hat Ton', defaultValue: false }),
             isVideo: fields.checkbox({ label: 'Ist ein Video (zeigt Video-Badge)', defaultValue: false })
           }),
@@ -212,7 +238,7 @@ export default config({
           label: 'Footer Text (Rechtsbündig über 4 Spalten)',
           description: 'Nutze ~Wort~ für Welle. Exakte Links so einfügen: [Imprint](/imprint) und [Privacy Policy](/privacy-policy)',
           multiline: true,
-          defaultValue: 'Your privacy matters to me. When you browse my design work on paulchen.at, your visit remains completely anonymous, ~no cookies~ are stored, tracked, or shared with third parties.\n\nYou can find all legal details regarding my identity in the [Imprint](/imprint) and full information about data handling in the [Privacy Policy](/privacy-policy).\n\nHave a wonderful day!\nBest, Paul'
+          defaultValue: 'Your privacy matters to me. When you browse my design work on paulchen.at, your visit remains completely anonymous, ~no cookies~ are stored, tracked, or shared with third parties.\n\nYou can find all legal details regarding my identity in the [Imprint](/imprint) und full information about data handling in the [Privacy Policy](/privacy-policy).\n\nHave a wonderful day!\nBest, Paul'
         }),
       }
     }),
