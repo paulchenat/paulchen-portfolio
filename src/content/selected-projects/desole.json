@@ -41,18 +41,10 @@
       }
     },
     {
-      "discriminant": "landscapeStandard",
-      "value": {
-        "adminLabel": "Yoko",
-        "media": "/images/content/desole/blocks/2/value/media.jpg",
-        "hasAudio": false
-      }
-    },
-    {
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "eigentlich",
-        "media": "/images/content/desole/blocks/3/value/media.jpg",
+        "media": "/images/content/desole/blocks/2/value/media.jpg",
         "hasAudio": false,
         "text": "Platzhalter",
         "textSize": "normal"
@@ -62,14 +54,32 @@
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "ABC",
+        "media": "/images/content/desole/blocks/3/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "Text in allen sizes",
         "media": "/images/content/desole/blocks/4/value/media.jpg",
+        "hasAudio": false,
+        "text": "Platzhalter\n",
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "adminLabel": "Yoko",
+        "media": "/images/content/desole/blocks/5/value/media.jpg",
         "hasAudio": false
       }
     },
     {
       "discriminant": "portraitNoText",
       "value": {
-        "media": "/images/content/desole/blocks/5/value/media.gif",
+        "media": "/images/content/desole/blocks/6/value/media.gif",
         "hasAudio": false,
         "mobileFullWidth": false
       }
@@ -78,18 +88,8 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Untertitel",
-        "media": "/images/content/desole/blocks/6/value/media.jpg",
-        "hasAudio": false
-      }
-    },
-    {
-      "discriminant": "portraitWithText",
-      "value": {
-        "adminLabel": "Text in allen sizes",
         "media": "/images/content/desole/blocks/7/value/media.jpg",
-        "hasAudio": false,
-        "text": "Platzhalter\n",
-        "textSize": "normal"
+        "hasAudio": false
       }
     },
     {
