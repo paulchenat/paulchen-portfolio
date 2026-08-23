@@ -1,0 +1,33 @@
+{
+  "title": "Désolé Book in Use",
+  "order": 1,
+  "year": "2026",
+  "infoText": "The typeface Désolé Book was applied in the redesign of a vintage sewing machine oil label from the Netherlands.",
+  "gallery": [
+    {
+      "mediaFile": "/images/archive/desole-book-in-use/gallery/0/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/desole-book-in-use/gallery/1/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/desole-book-in-use/gallery/2/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/desole-book-in-use/gallery/3/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/desole-book-in-use/gallery/4/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    }
+  ]
+}
