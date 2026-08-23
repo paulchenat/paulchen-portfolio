@@ -167,61 +167,65 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       <div style="grid-column: 1 / -1;">
         <h2 class="section-title">{archiveTitle}</h2>
 
-        {archiveRows.map((row: any) => (
-          <div class="archive-project-row">
-            <div class="archive-carousel-bleed">
-              {row.gallery && row.gallery.map((item: any) => {
-                const videoSrc = item.videoFile || item.videoUrl || '';
-                return (
-                  <div 
-                    class="archive-item-1-1" 
-                    data-title={row.title || ''} 
-                    data-year={row.year || ''} 
-                    data-copyright={row.copyright || ''}
-                    data-src={item.mediaFile || ''}
-                    data-video={videoSrc}
-                  >
-                    {(item.isVideo || videoSrc) && <div class="video-badge">Video</div>}
-                    {videoSrc ? (
-                      <video src={videoSrc} muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; background:transparent;" />
-                    ) : item.mediaFile ? (
-                      <img 
-                        src={item.mediaFile} 
-                        alt={row.title || ''} 
-                        loading="lazy" 
-                        decoding="async" 
-                      />
-                    ) : (
-                      <div class="color-placeholder">1:1 Media</div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-            
-            <!-- 12-SPALTEN RASTER (TITEL 4 SPALTEN 1 BIS 4) -->
-            <div class="archive-meta-grid">
-              <div class="arch-name">{row.title || ''}</div>
-              <div class="arch-year">({row.year || ''})</div>
-              <div class="arch-context">{row.furtherContext || ''}</div>
-              <div class="arch-info">
-                <span class="wavy-link arch-info-btn">Info</span>
-                <div class="info-popover">{row.infoText || ''}</div>
+        {archiveRows.map((row: any) => {
+          const rowSlug = (row.title || 'item').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+          return (
+            <div class="archive-project-row">
+              <div class="archive-carousel-bleed">
+                {row.gallery && row.gallery.map((item: any, gIdx: number) => {
+                  const videoSrc = item.videoFile || item.videoUrl || '';
+                  const itemId = `${rowSlug}-${gIdx + 1}`;
+                  return (
+                    <div 
+                      class="archive-item-1-1" 
+                      data-id={itemId}
+                      data-title={row.title || ''} 
+                      data-year={row.year || ''} 
+                      data-copyright={row.copyright || ''}
+                      data-src={item.mediaFile || ''}
+                      data-video={videoSrc}
+                    >
+                      {(item.isVideo || videoSrc) && <div class="video-badge">Video</div>}
+                      {videoSrc ? (
+                        <video src={videoSrc} muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; background:transparent;" />
+                      ) : item.mediaFile ? (
+                        <img 
+                          src={item.mediaFile} 
+                          alt={row.title || ''} 
+                          loading="lazy" 
+                          decoding="async" 
+                        />
+                      ) : (
+                        <div class="color-placeholder">1:1 Media</div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-              <div class="arch-copyright">{row.copyright || ''}</div>
-            </div>
+              
+              <div class="archive-meta-grid">
+                <div class="arch-name">{row.title || ''}</div>
+                <div class="arch-year">({row.year || ''})</div>
+                <div class="arch-context">{row.furtherContext || ''}</div>
+                <div class="arch-info">
+                  <span class="wavy-link arch-info-btn">Info</span>
+                  <div class="info-popover">{row.infoText || ''}</div>
+                </div>
+                <div class="arch-copyright">{row.copyright || ''}</div>
+              </div>
 
-            <div class="mobile-info-drawer">
-              <div class="drawer-context">Mitwirkende: {row.furtherContext || ''} ({row.year || ''})</div>
-              <div class="drawer-desc">{row.infoText || ''}</div>
-              <div class="drawer-copyright">© {row.copyright || ''}</div>
+              <div class="mobile-info-drawer">
+                <div class="drawer-context">Mitwirkende: {row.furtherContext || ''} ({row.year || ''})</div>
+                <div class="drawer-desc">{row.infoText || ''}</div>
+                <div class="drawer-copyright">© {row.copyright || ''}</div>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
 
-    <!-- FOOTER: 24PX NORMALTEXT, RECHTS ÜBER 4 SPALTEN -->
+    <!-- FOOTER -->
     <footer class="content-grid site-footer">
       <div class="footer-text-col">
         <p set:html={parseFormattedText(footerText)} />
@@ -230,7 +234,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
 
   </main>
 
-  <!-- LIGHTBOX -->
+  <!-- LIGHTBOX MIT TEILBAREM DEEP-LINKING -->
   <div class="lightbox-modal" id="globalLightbox">
     <div class="lightbox-header">
       <span id="lbTitle">Projekt Titel</span>
@@ -323,6 +327,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       scroll-snap-align: start; 
       overflow: hidden; 
       flex-shrink: 0; 
+      cursor: pointer;
     }
     
     .archive-item-1-1 img, .archive-item-1-1 video { 
@@ -424,6 +429,9 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       });
     });
 
+    // ==============================================================================
+    // GLOBAL LIGHTBOX MIT SHAREABLE DEEP-LINKING
+    // ==============================================================================
     const lb = document.getElementById('globalLightbox');
     const lbTitle = document.getElementById('lbTitle');
     const lbCopyright = document.getElementById('lbCopyright');
@@ -434,7 +442,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     const archiveItems = Array.from(document.querySelectorAll('.archive-item-1-1'));
     let currentLbIndex = 0;
 
-    function renderLightboxItem(index) {
+    function renderLightboxItem(index, updateUrl = true) {
       if (index < 0) index = archiveItems.length - 1;
       if (index >= archiveItems.length) index = 0;
       currentLbIndex = index;
@@ -447,6 +455,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       const copyright = item.dataset.copyright || '';
       const src = item.dataset.src || item.querySelector('img')?.src || '';
       const video = item.dataset.video || '';
+      const itemId = item.dataset.id || '';
 
       lbTitle.innerText = `${title} (${year})`;
       lbCopyright.innerText = `© ${copyright}`;
@@ -458,22 +467,49 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       } else {
         lbStage.innerHTML = `<div style="font-size:16px; color:#999;">[ Kein Medium hinterlegt ]</div>`;
       }
+
+      // Aktualisiert die Webadresse im Browser mit ?view=id
+      if (updateUrl && itemId) {
+        const newUrl = new URL(window.location);
+        newUrl.searchParams.set('view', itemId);
+        window.history.replaceState({}, '', newUrl);
+      }
     }
 
     archiveItems.forEach((item, idx) => {
       item.addEventListener('click', () => {
-        renderLightboxItem(idx);
+        renderLightboxItem(idx, true);
         lb.classList.add('active');
         document.body.style.overflow = 'hidden';
       });
     });
 
-    lbPrev?.addEventListener('click', () => renderLightboxItem(currentLbIndex - 1));
-    lbNext?.addEventListener('click', () => renderLightboxItem(currentLbIndex + 1));
+    lbPrev?.addEventListener('click', () => renderLightboxItem(currentLbIndex - 1, true));
+    lbNext?.addEventListener('click', () => renderLightboxItem(currentLbIndex + 1, true));
+    
+    // Schließen der Lightbox & URL sauber zurücksetzen
     document.getElementById('lbClose')?.addEventListener('click', () => {
       lb.classList.remove('active');
       document.body.style.overflow = 'auto';
       lbStage.innerHTML = '';
+      
+      const cleanUrl = new URL(window.location);
+      cleanUrl.searchParams.delete('view');
+      window.history.replaceState({}, '', cleanUrl.pathname + (cleanUrl.search ? '?' + cleanUrl.searchParams.toString() : ''));
+    });
+
+    // Beim direkten Aufruf eines geteilten Links (?view=...) sofort öffnen
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const viewId = params.get('view');
+      if (viewId) {
+        const targetIdx = archiveItems.findIndex(item => item.dataset.id === viewId);
+        if (targetIdx !== -1) {
+          renderLightboxItem(targetIdx, false);
+          lb.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      }
     });
   </script>
 </Layout>
