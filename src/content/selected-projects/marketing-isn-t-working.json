@@ -21,6 +21,7 @@
   "thumbnailMobile": "/images/thumbnails/marketing-isn-t-working/thumbnailMobile.jpg",
   "heroDesktop": "/images/content/marketing-isn-t-working/heroDesktop.jpg",
   "heroMobile": "/images/content/marketing-isn-t-working/heroMobile.jpg",
+  "heroVideoFile": "/videos/marketing-isn-t-working/heroVideoFile.mp4",
   "blocks": [
     {
       "discriminant": "portraitWithText",
@@ -31,15 +32,23 @@
       }
     },
     {
-      "discriminant": "landscapeFullWidth",
+      "discriminant": "portraitWithText",
       "value": {
-        "media": "/images/content/marketing-isn-t-working/blocks/1/value/media.jpg"
+        "videoFile": "/videos/marketing-isn-t-working/blocks/1/value/videoFile.mp4",
+        "text": "platzhalter",
+        "textSize": "normal"
       }
     },
     {
       "discriminant": "landscapeFullWidth",
       "value": {
         "media": "/images/content/marketing-isn-t-working/blocks/2/value/media.jpg"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "media": "/images/content/marketing-isn-t-working/blocks/3/value/media.jpg"
       }
     }
   ]
