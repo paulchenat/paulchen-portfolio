@@ -118,7 +118,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                         ) : dktImages && dktImages.length > 0 ? (
                           <img src={dktImages[0]} alt={d.title || ''} class="thumb-media-full" loading="lazy" decoding="async" />
                         ) : (
-                          <div class="color-placeholder" style="background:#d83428;"><span>3:4</span></div>
+                          <div class="color-placeholder"><span>3:4</span></div>
                         )}
                       </div>
 
@@ -137,7 +137,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                             />
                           ))
                         ) : (
-                          <div class="color-placeholder" style="background:#d83428;"><span>4:3</span></div>
+                          <div class="color-placeholder"><span>4:3</span></div>
                         )}
                       </div>
 
@@ -160,7 +160,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       </div>
     </section>
 
-    <!-- ARCHIV -->
+    <!-- ARCHIV (100% TRANSPARENTE CONTAINER FÜR PNGS) -->
     <section class="archive-section content-grid">
       <div style="grid-column: 1 / -1;">
         <h2 class="section-title">{archiveTitle}</h2>
@@ -181,7 +181,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                   >
                     {(item.isVideo || videoSrc) && <div class="video-badge">Video</div>}
                     {videoSrc ? (
-                      <video src={videoSrc} muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
+                      <video src={videoSrc} muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; background:transparent;" />
                     ) : item.mediaFile ? (
                       <img 
                         src={item.mediaFile} 
@@ -190,7 +190,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                         decoding="async" 
                       />
                     ) : (
-                      <div class="color-placeholder" style="background:#1e40af;">1:1 Media</div>
+                      <div class="color-placeholder">1:1 Media</div>
                     )}
                   </div>
                 );
@@ -262,15 +262,39 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .selected-grid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 20px; row-gap: 60px; }
 
     .work-card { display: flex; flex-direction: column; }
-    .scrub-container { position: relative; width: 100%; aspect-ratio: 4 / 3; background-color: #111; overflow: hidden; margin-bottom: 14px; }
-    .scrub-item { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; transition: opacity 0.05s ease; }
+    
+    /* 100% TRANSPARENT: KEINE FARBE HINTER PNGS */
+    .scrub-container { 
+      position: relative; 
+      width: 100%; 
+      aspect-ratio: 4 / 3; 
+      background-color: transparent !important; 
+      border: none !important;
+      overflow: hidden; 
+      margin-bottom: 14px; 
+    }
+    
+    .scrub-item { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; transition: opacity 0.05s ease; background: transparent; }
     .scrub-item.active { opacity: 1; }
 
     .mobile-thumb-box { display: none; }
-    .desktop-thumb-box { display: block; width: 100%; height: 100%; position: relative; cursor: crosshair; }
-    .thumb-media-full { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .desktop-thumb-box { display: block; width: 100%; height: 100%; position: relative; cursor: crosshair; background: transparent; }
+    .thumb-media-full { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: transparent; }
 
-    .color-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; font-size: 16px; font-weight: 500; letter-spacing: 0.5px; }
+    .color-placeholder { 
+      position: absolute; 
+      inset: 0; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center; 
+      color: inherit; 
+      font-size: 16px; 
+      font-weight: 500; 
+      letter-spacing: 0.5px;
+      background: transparent !important;
+      border: 1px dashed rgba(128,128,128,0.3);
+    }
 
     .card-meta { display: grid; grid-template-columns: 1fr 1fr; column-gap: 12px; font-size: 16px; line-height: 1.2; }
     .card-meta p { white-space: pre-line !important; }
@@ -287,8 +311,28 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     }
     .archive-carousel-bleed::-webkit-scrollbar { display: none; }
     
-    .archive-item-1-1 { position: relative; flex: 0 0 calc((100vw - 80px - 80px) / 4.3); width: calc((100vw - 80px - 80px) / 4.3); aspect-ratio: 1 / 1 !important; background-color: #0b50d0; scroll-snap-align: start; overflow: hidden; flex-shrink: 0; }
-    .archive-item-1-1 img, .archive-item-1-1 video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    /* 100% TRANSPARENT IM ARCHIV: KEIN BLAUER HINTERGRUND MEHR */
+    .archive-item-1-1 { 
+      position: relative; 
+      flex: 0 0 calc((100vw - 80px - 80px) / 4.3); 
+      width: calc((100vw - 80px - 80px) / 4.3); 
+      aspect-ratio: 1 / 1 !important; 
+      background-color: transparent !important; 
+      border: none !important;
+      scroll-snap-align: start; 
+      overflow: hidden; 
+      flex-shrink: 0; 
+    }
+    
+    .archive-item-1-1 img, .archive-item-1-1 video { 
+      position: absolute; 
+      inset: 0; 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      background: transparent !important;
+    }
+    
     .video-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.75); color:#fff; font-size:12px; padding:3px 6px; border-radius:2px; z-index:2; }
 
     .archive-meta-grid { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; font-size: 16px; padding-top: 6px; }
@@ -309,8 +353,8 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .lightbox-modal { display: none; position: fixed; inset: 0; background: #ffffff; z-index: 10000; padding: 30px 40px; flex-direction: column; justify-content: space-between; }
     .lightbox-modal.active { display: flex; }
     .lightbox-header { display: flex; justify-content: space-between; font-size: 16px; align-items: center; }
-    .lightbox-stage { display: flex; align-items: center; justify-content: center; height: 75vh; width: 100%; }
-    .lightbox-stage img, .lightbox-stage video { max-height: 100%; max-width: 100%; object-fit: contain; }
+    .lightbox-stage { display: flex; align-items: center; justify-content: center; height: 75vh; width: 100%; background: transparent; }
+    .lightbox-stage img, .lightbox-stage video { max-height: 100%; max-width: 100%; object-fit: contain; background: transparent; }
     .lightbox-footer { display: flex; justify-content: space-between; font-size: 16px; align-items: center; }
     .lightbox-arrows { display: flex; gap: 24px; }
     .arrow-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: inherit; padding: 4px 8px; }
@@ -331,8 +375,8 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       .work-card { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; align-items: start; }
       .scrub-container { aspect-ratio: 3 / 4 !important; margin-bottom: 0; }
 
-      .mobile-thumb-box { display: block !important; width: 100%; height: 100%; position: relative; }
-      .desktop-thumb-box { display: none !important; }
+      .mobile-only-thumb { display: block; width: 100%; height: 100%; object-fit: cover; }
+      .desktop-only-thumb { display: none !important; }
 
       .card-meta { display: flex; flex-direction: column; font-size: 16px; line-height: 1.2; }
       .meta-title { min-height: auto; }
@@ -362,22 +406,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
         nav?.classList.add('collapsed');
       } else {
         nav?.classList.remove('collapsed');
-      }
-    });
-
-    document.querySelectorAll('.desktop-thumb-box').forEach(box => {
-      const items = box.querySelectorAll('.scrub-item');
-      const count = items.length;
-      if (count > 1) {
-        box.addEventListener('mousemove', (e) => {
-          if (window.innerWidth <= 768) return;
-          const rect = box.getBoundingClientRect();
-          const activeIndex = Math.floor(Math.max(0, Math.min(0.999, (e.clientX - rect.left) / rect.width)) * count);
-          items.forEach((item, i) => item.classList.toggle('active', i === activeIndex));
-        });
-        box.addEventListener('mouseleave', () => {
-          items.forEach((item, i) => item.classList.toggle('active', i === 0));
-        });
       }
     });
 
@@ -417,9 +445,9 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       lbCopyright.innerText = `© ${copyright}`;
 
       if (video) {
-        lbStage.innerHTML = `<video src="${video}" autoplay controls playsinline loop style="max-height:100%; max-width:100%; object-fit:contain;"></video>`;
+        lbStage.innerHTML = `<video src="${video}" autoplay controls playsinline loop style="max-height:100%; max-width:100%; object-fit:contain; background:transparent;"></video>`;
       } else if (src) {
-        lbStage.innerHTML = `<img src="${src}" alt="${title}" style="max-height:100%; max-width:100%; object-fit:contain;" />`;
+        lbStage.innerHTML = `<img src="${src}" alt="${title}" style="max-height:100%; max-width:100%; object-fit:contain; background:transparent;" />`;
       } else {
         lbStage.innerHTML = `<div style="font-size:16px; color:#999;">[ Kein Medium hinterlegt ]</div>`;
       }
