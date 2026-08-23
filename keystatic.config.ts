@@ -49,14 +49,29 @@ export default config({
         heroMobile: fields.image({ label: 'Header Bild Mobile (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
         heroVideoUrl: fields.text({ label: 'Optionaler Header Video URL (MP4)' }),
 
-        // MODULARE BLÖCKE MIT BENENNUNG FÜR EINFACHES VERSCHIEBEN
         blocks: fields.blocks(
           {
+            // NEU: INTRO BLOCK (TEXT ZUERST AUF MOBILE)
+            introPortraitWithText: {
+              label: 'Projekt-Intro: 3:4 Bild + Text (TEXT ZUERST auf Mobile)',
+              itemLabel: (props) => props.fields.adminLabel.value || 'Projekt-Intro (Text zuerst auf Mobile)',
+              schema: fields.object({
+                adminLabel: fields.text({ label: 'Interner Block-Name', defaultValue: 'Projekt-Intro' }),
+                media: fields.image({ label: 'Bild (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
+                videoUrl: fields.text({ label: 'Optionaler Video URL (MP4)' }),
+                text: fields.text({ label: 'Intro Beschreibungstext (~Wort~ für Welle, [Text](url) für Link)', multiline: true }),
+                textSize: fields.select({
+                  label: 'Textgröße',
+                  options: [{ label: 'Normal (24px DKT / 20px MBL)', value: 'normal' }, { label: 'Highlight Statement (40px DKT / 30px MBL)', value: 'large' }],
+                  defaultValue: 'normal'
+                })
+              })
+            },
             portraitWithText: {
-              label: 'Hochformat 3:4 mit Text links (2/3 Spalte)',
+              label: 'Hochformat 3:4 mit Text links (Standard: Bild oben auf Mobile)',
               itemLabel: (props) => props.fields.adminLabel.value || 'Hochformat mit Text',
               schema: fields.object({
-                adminLabel: fields.text({ label: 'Interner Block-Name (z.B. "Intro Beschreibung")', description: 'Hilft dir beim Sortieren der Blöcke' }),
+                adminLabel: fields.text({ label: 'Interner Block-Name (z.B. "Foto Detail")', description: 'Hilft dir beim Sortieren der Blöcke' }),
                 media: fields.image({ label: 'Bild (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoUrl: fields.text({ label: 'Optionaler Video URL (MP4)' }),
                 text: fields.text({ label: 'Beschreibungstext (~Wort~ für Welle, [Text](url) für Link)', multiline: true }),
@@ -146,7 +161,7 @@ export default config({
   // 3. SINGLETONS
   singletons: {
     settings: singleton({
-      label: 'Navbar & Seiten-Texte',
+      label: 'Navbar & Footer Einstellungen',
       path: 'src/content/singletons/settings',
       format: { data: 'json' },
       schema: {
@@ -166,10 +181,18 @@ export default config({
           ],
           defaultValue: 'email'
         }),
-        contactTarget: fields.text({ label: 'Kontakt-Ziel (z.B. hallo@paulchen.at, +43... oder https://...)', defaultValue: 'hallo@paulchen.at' }),
+        contactTarget: fields.text({ label: 'Kontakt-Ziel', defaultValue: 'hallo@paulchen.at' }),
         moreButtonText: fields.text({ label: 'Menü-Button Text (rechts)', defaultValue: 'mehr' }),
         selectedWorkTitle: fields.text({ label: 'Überschrift Bereich 1', defaultValue: 'Ausgewählte Projekte' }),
         archiveTitle: fields.text({ label: 'Überschrift Bereich 2', defaultValue: 'Archiv' }),
+        
+        // FOOTER TEXTFELD
+        footerText: fields.text({
+          label: 'Footer Text (Rechtsbündig über 4 Spalten)',
+          description: 'Nutze ~Wort~ für Welle und [Linktext](/url) für Links zu Imprint / Privacy Policy',
+          multiline: true,
+          defaultValue: 'Your privacy matters to me. When you browse my design work on paulchen.at, your visit remains completely anonymous, ~no cookies~ are stored, tracked, or shared with third parties.\n\nYou can find all legal details regarding my identity in the [Imprint](/imprint) and full information about data handling in the [Privacy Policy](/privacy-policy).\n\nHave a wonderful day!\nBest, Paul'
+        }),
       }
     }),
 
