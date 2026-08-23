@@ -17,6 +17,7 @@
     "/images/thumbnails/desole/thumbnailsDesktop/3.jpg",
     "/images/thumbnails/desole/thumbnailsDesktop/4.jpg"
   ],
+  "thumbnailMobile": "/images/thumbnails/desole/thumbnailMobile.jpg",
   "heroDesktop": "/images/content/desole/heroDesktop.jpg",
   "heroMobile": "/images/content/desole/heroMobile.jpg",
   "heroVideoHasAudio": false,
