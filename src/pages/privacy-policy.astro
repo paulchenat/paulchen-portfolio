@@ -1,9 +1,24 @@
 ---
 export const prerender = true;
 import Layout from '../layouts/layout.astro';
+
+const privacyFiles = import.meta.glob('../content/singletons/privacyPolicy.json', { eager: true });
+const privacyMod: any = Object.values(privacyFiles)[0];
+const data = privacyMod?.default || privacyMod || {};
+
+function parseFormattedText(text: string) {
+  if (!text) return '';
+  return text
+    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="wavy-link">$1</a>')
+    .replace(/~(.*?)~/g, '<span class="wavy-text">$1</span>');
+}
+
+const title = data.title || 'Privacy Policy';
+const intro = data.intro || 'Your privacy is important to me. This website is built with a privacy-first approach and does not track you.';
+const content = data.content || '';
 ---
 
-<Layout title="Privacy Policy — paulchen.at">
+<Layout title={`${title} — paulchen.at`}>
   <header class="sticky-nav nav-grid">
     <div class="nav-brand">
       <a href="/" class="wavy-link">paulchen.at</a>
@@ -18,31 +33,13 @@ import Layout from '../layouts/layout.astro';
 
   <main class="content-grid" style="padding-top: 140px; padding-bottom: 120px;">
     <div style="grid-column: 1 / -1; max-width: 750px; font-size: 16px; line-height: 1.4;">
-      <h1 style="font-size: 40px; font-weight: 400; margin-bottom: 40px;">Privacy Policy</h1>
+      <h1 style="font-size: 40px; font-weight: 400; margin-bottom: 40px;">{title}</h1>
       
-      <p style="margin-bottom: 24px; font-size: 20px;">
-        Your privacy is important to me. This website is built with a privacy-first approach and does not track you.
-      </p>
+      {intro && (
+        <p style="margin-bottom: 24px; font-size: 20px; white-space: pre-line !important;" set:html={parseFormattedText(intro)} />
+      )}
 
-      <h3 style="font-size: 20px; font-weight: 500; margin-top: 32px; margin-bottom: 12px;">1. No Cookies & No Tracking</h3>
-      <p style="margin-bottom: 20px;">
-        This website does not set any tracking cookies, analytics pixels, or advertising trackers. No personal data is collected or shared with third parties for marketing purposes.
-      </p>
-
-      <h3 style="font-size: 20px; font-weight: 500; margin-top: 32px; margin-bottom: 12px;">2. Hosting & Server Logs</h3>
-      <p style="margin-bottom: 20px;">
-        This site is hosted on Vercel Inc. (440 N Barranca Ave #4133, Covina, CA 91723, USA). When you access this website, the server automatically collects technical log files (such as IP address, browser type, and time of access) strictly to ensure security, stability, and fast content delivery (Art. 6 para. 1 lit. f GDPR).
-      </p>
-
-      <h3 style="font-size: 20px; font-weight: 500; margin-top: 32px; margin-bottom: 12px;">3. Direct Communication</h3>
-      <p style="margin-bottom: 20px;">
-        If you contact me via email, the information you provide will only be used to process your inquiry and for subsequent communication.
-      </p>
-
-      <h3 style="font-size: 20px; font-weight: 500; margin-top: 32px; margin-bottom: 12px;">4. Your Rights</h3>
-      <p style="margin-bottom: 20px;">
-        Under the GDPR, you have the right to information, correction, deletion, and restriction of processing of any personal data stored by us. You also have the right to lodge a complaint with the Austrian Data Protection Authority (Österreichische Datenschutzbehörde, <a href="https://www.dsb.gv.at" target="_blank" class="wavy-link">www.dsb.gv.at</a>).
-      </p>
+      <div style="white-space: pre-line !important;" set:html={parseFormattedText(content)} />
     </div>
   </main>
 
