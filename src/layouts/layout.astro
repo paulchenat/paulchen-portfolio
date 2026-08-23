@@ -12,6 +12,12 @@ const {
   ogImage = "/images/og-default.jpg",
   favicon = "/favicon.png"
 } = Astro.props;
+
+// WhatsApp & LinkedIn verlangen zwingend absolute URLs mit Domain
+const siteUrl = "https://www.paulchen.at";
+const absoluteOgImage = ogImage.startsWith('http') 
+  ? ogImage 
+  : `${siteUrl}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
 ---
 
 <!DOCTYPE html>
@@ -22,15 +28,17 @@ const {
   <title>{title}</title>
   <meta name="description" content={description}>
 
-  <!-- OpenGraph / Social Sharing -->
+  <!-- OpenGraph / Social Sharing (WhatsApp, LinkedIn, iMessage, Slack) -->
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
-  <meta property="og:image" content={ogImage}>
+  <meta property="og:image" content={absoluteOgImage}>
   <meta property="og:type" content="website">
+  
+  <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
-  <meta name="twitter:image" content={ogImage}>
+  <meta name="twitter:image" content={absoluteOgImage}>
   
   <link rel="icon" type="image/png" href={favicon}>
 
@@ -192,7 +200,6 @@ const {
   </aside>
 
   <script is:inline>
-    // 1. Geheimer 3-Fach Klick & Tastenkürzel (Shift + P)
     function togglePerfBadge() {
       const container = document.getElementById('perfContainer');
       if (container) {
@@ -227,7 +234,6 @@ const {
       }
     });
 
-    // 2. Präzise Payload-Messung
     async function runPayloadMeasurement() {
       const resources = performance.getEntriesByType('resource');
       let totalBytes = 0;
@@ -239,7 +245,6 @@ const {
       for (const r of resources) {
         let size = r.transferSize || r.encodedBodySize || r.decodedBodySize || 0;
         
-        // Fallback falls der Browser 0 meldet: Größe per HEAD abfragen
         if (size === 0 && r.name && (r.name.includes('/images/') || r.name.includes('/uploads/'))) {
           try {
             const res = await fetch(r.name, { method: 'HEAD' });
@@ -259,7 +264,6 @@ const {
         }
       }
 
-      // Bilder-Zählung auf der Seite absichern
       const domImgs = document.querySelectorAll('img');
       if (imgCount === 0 && domImgs.length > 0) imgCount = domImgs.length;
 
@@ -282,7 +286,7 @@ const {
       if (breakdown) {
         breakdown.innerHTML = `
           <div>Gesamtgewicht: <strong>${totalMB} MB</strong></div>
-          <div>Bilder: <strong>${imgCount} Dateien (${imgMB} MB)</strong></div>
+          <div>Bilder: <strong>${imgCount} Dateien (${imgMB > 0 ? imgMB + ' MB' : 'optimiert'})</strong></div>
           ${mediaCount > 0 ? `<div>Videos: <strong>${mediaCount} (${mediaMB} MB)</strong></div>` : ''}
         `;
       }
