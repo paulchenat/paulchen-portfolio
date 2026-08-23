@@ -76,6 +76,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     {orderedStream.map((item: any, streamIdx: number) => {
       const d = item.data || {};
       const isFirst = streamIdx === 0;
+      const heroVideo = d.heroVideoFile || d.heroVideoUrl;
       return (
         <div class="project-stream-wrapper" style="grid-column: 1 / -1; display: contents;">
           {!isFirst && (
@@ -89,9 +90,11 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                    data-text={d.theme?.textColor || '#000000'}
                    data-theme={d.theme?.isDarkTheme ? 'dark' : 'light'}>
             
-            <!-- 1. Header Bild (Bleibt auf Mobile sauber im 40px-Raster!) -->
+            <!-- 1. Header Bild / Video -->
             <div class="media-box block-hero">
-              {d.heroDesktop || d.heroMobile ? (
+              {heroVideo ? (
+                <video src={heroVideo} autoplay loop muted playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
+              ) : (d.heroDesktop || d.heroMobile) ? (
                 <picture class="hero-picture">
                   {d.heroMobile && <source media="(max-width: 768px)" srcset={d.heroMobile} />}
                   <img 
@@ -128,6 +131,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
             {Array.isArray(d.blocks) && d.blocks.map((block: any) => {
               if (!block) return null;
               const val = block.value || {};
+              const blockVideo = val.videoFile || val.videoUrl;
 
               // INTRO BLOCK: 3-ZEILIGE INITIALE + TEXT ZUERST AUF MOBILE + 100VW BILD
               if (block.discriminant === 'introPortraitWithText') {
@@ -140,12 +144,13 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                       </div>
                     </div>
                     <div class="media-box portrait-media-right">
-                      {val.media && <img src={val.media} alt="" loading="lazy" decoding="async" />}
-                      {val.videoUrl && (
-                        <video playsinline loop muted autoplay>
-                          <source src={val.videoUrl} type="video/mp4" />
+                      {blockVideo ? (
+                        <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                          <source src={blockVideo} type="video/mp4" />
                         </video>
-                      )}
+                      ) : val.media ? (
+                        <img src={val.media} alt="" loading="lazy" decoding="async" />
+                      ) : null}
                     </div>
                   </section>
                 );
@@ -162,12 +167,13 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                       </div>
                     </div>
                     <div class="media-box portrait-media-right">
-                      {val.media && <img src={val.media} alt="" loading="lazy" decoding="async" />}
-                      {val.videoUrl && (
-                        <video playsinline loop muted autoplay>
-                          <source src={val.videoUrl} type="video/mp4" />
+                      {blockVideo ? (
+                        <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                          <source src={blockVideo} type="video/mp4" />
                         </video>
-                      )}
+                      ) : val.media ? (
+                        <img src={val.media} alt="" loading="lazy" decoding="async" />
+                      ) : null}
                     </div>
                   </section>
                 );
@@ -176,12 +182,13 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
               if (block.discriminant === 'landscapeStandard') {
                 return (
                   <div class="media-box block-landscape-standard">
-                    {val.media && <img src={val.media} alt="" loading="lazy" decoding="async" />}
-                    {val.videoUrl && (
-                      <video playsinline loop muted autoplay>
-                        <source src={val.videoUrl} type="video/mp4" />
+                    {blockVideo ? (
+                      <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                        <source src={blockVideo} type="video/mp4" />
                       </video>
-                    )}
+                    ) : val.media ? (
+                      <img src={val.media} alt="" loading="lazy" decoding="async" />
+                    ) : null}
                   </div>
                 );
               }
@@ -196,12 +203,13 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
               if (block.discriminant === 'landscapeFullWidth') {
                 return (
                   <div class="media-box block-landscape-fullwidth">
-                    {val.media && <img src={val.media} alt="" loading="lazy" decoding="async" />}
-                    {val.videoUrl && (
-                      <video playsinline loop muted autoplay>
-                        <source src={val.videoUrl} type="video/mp4" />
+                    {blockVideo ? (
+                      <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                        <source src={blockVideo} type="video/mp4" />
                       </video>
-                    )}
+                    ) : val.media ? (
+                      <img src={val.media} alt="" loading="lazy" decoding="async" />
+                    ) : null}
                   </div>
                 );
               }
@@ -209,12 +217,13 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                 return (
                   <section class="block-portrait-no-text">
                     <div class="media-box portrait-only-media">
-                      {val.media && <img src={val.media} alt="" loading="lazy" decoding="async" />}
-                      {val.videoUrl && (
-                        <video playsinline loop muted autoplay>
-                          <source src={val.videoUrl} type="video/mp4" />
+                      {blockVideo ? (
+                        <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                          <source src={blockVideo} type="video/mp4" />
                         </video>
-                      )}
+                      ) : val.media ? (
+                        <img src={val.media} alt="" loading="lazy" decoding="async" />
+                      ) : null}
                     </div>
                   </section>
                 );
@@ -237,7 +246,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
   </main>
 
   <style>
-    /* FLIESSENDE PROPORTIONALE MARGIN (MAX 160PX AUF 15", SCHRUMPFT PROZENTUAL AUF KLEINEREN BILDSCHIRMEN) */
     :root {
       --content-margin: clamp(60px, 9.5vw, 160px) !important;
     }
@@ -270,8 +278,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .info-col { display: flex; flex-direction: column; justify-content: space-between; }
     .slot-3-rows { min-height: 57.6px; margin-bottom: 4px; }
 
-    /* 2-SPALTER DESKTOP:
-       Text startet bei 50% Bildhöhe und dehnt sich bei mehr Inhalt nach oben aus */
     .block-portrait-with-text {
       grid-column: 1 / -1;
       display: grid;
@@ -325,7 +331,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .block-centered-text.normal { font-size: 24px; line-height: 1.2; max-width: 650px; margin-left: auto; margin-right: auto; }
     .block-centered-text p { white-space: pre-line !important; }
 
-    /* FULL BLEED DESKTOP */
     .block-landscape-fullwidth {
       grid-column: 1 / -1;
       width: 100vw;
@@ -343,7 +348,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
 
     .next-project-divider { grid-column: 1 / -1; margin-top: 80px; margin-bottom: 60px; text-align: center; font-size: 16px; color: #888; letter-spacing: 0.5px; }
 
-    /* FOOTER */
     .site-footer { padding-top: 80px; padding-bottom: 80px; }
     .footer-text-col { grid-column: 9 / 13; font-size: 24px; line-height: 1.2; white-space: pre-line !important; }
     .footer-text-col p { white-space: pre-line !important; }
@@ -358,7 +362,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       .nav-mobile-collapsed { display: block; grid-column: 1 / 7; margin-bottom: 8px; }
       .nav-more { grid-column: 1 / 7; text-align: left; }
 
-      /* HEADER-BILD BLEIBT AUF MOBILE IM 40PX RASTER (KEIN 100VW AUSBRUCH!) */
+      /* HEADER-BILD BLEIBT AUF MOBILE IM 40PX RASTER */
       .block-hero { 
         width: 100% !important; 
         position: relative !important; 
@@ -370,7 +374,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
         margin-bottom: 20px; 
       }
 
-      /* ALLE ANDEREN PROJEKT-BILDER SIND AUF MOBILE 100VW FULL-WIDTH */
+      /* ALLE ANDEREN PROJEKT-MEDIEN SIND AUF MOBILE 100VW FULL-WIDTH */
       .portrait-media-right,
       .block-landscape-standard,
       .block-landscape-fullwidth,
@@ -392,7 +396,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       .portrait-media-right { order: 1; }
       .portrait-text-left { order: 2; height: auto; display: block; padding-top: 0; margin-bottom: 12px; }
 
-      /* INTRO BLOCK: TEXT ZUERST VOR DEM 100VW BILD */
       .block-intro-text-first .portrait-text-left { order: 1 !important; margin-bottom: 20px; }
       .block-intro-text-first .portrait-media-right { order: 2 !important; }
 
@@ -400,7 +403,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       .portrait-text-left.text-normal .text-wrapper { font-size: 20px; }
       .portrait-text-left.text-large .text-wrapper { font-size: 30px; }
 
-      /* 3-ZEILIGE INITIALE AUF MOBILE */
       .block-intro-text-first .text-wrapper > p:first-of-type::first-letter,
       .block-intro-text-first .text-wrapper > p:first-child::first-letter {
         font-size: 3.1em;
