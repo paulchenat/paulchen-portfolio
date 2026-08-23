@@ -54,7 +54,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
 
 const d = project.data || {};
 
-// Dynamisches OpenGraph Vorschaubild für dieses Projekt
 let projectOgImage = d.heroDesktop;
 if (!projectOgImage) {
   if (d.thumbnailsDesktop && d.thumbnailsDesktop.length > 0) {
@@ -182,129 +181,76 @@ const projectDescription = d.furtherContext
               </div>
             </div>
 
-            <!-- 3. Modulare Blöcke -->
+            <!-- 3. Modulare Blöcke (Reine deklarative JSX-Bedingungen ohne if) -->
             {Array.isArray(pData.blocks) && pData.blocks.map((block: any) => {
               if (!block) return null;
               const val = block.value || {};
               const blockVideo = val.videoFile || val.videoUrl;
               const blockHasAudio = Boolean(val.hasAudio);
+              const isLarge = val.textSize === 'large';
 
-              // INTRO BLOCK: 3-ZEILIGE INITIALE + TEXT ZUERST AUF MOBILE
-              if (block.discriminant === 'introPortraitWithText') {
-                const isLarge = val.textSize === 'large';
-                return (
-                  <section class="block-portrait-with-text block-intro-text-first">
-                    <div class={`portrait-text-left ${isLarge ? 'text-large' : 'text-normal'}`}>
-                      <div class="text-wrapper">
-                        <p set:html={parseFormattedText(val.text)} />
+              return (
+                <div class="block-stream-item" style="grid-column: 1 / -1; display: contents;">
+                  
+                  {/* INTRO BLOCK: 3-ZEILIGE INITIALE + TEXT ZUERST AUF MOBILE */}
+                  {block.discriminant === 'introPortraitWithText' && (
+                    <section class="block-portrait-with-text block-intro-text-first">
+                      <div class={`portrait-text-left ${isLarge ? 'text-large' : 'text-normal'}`}>
+                        <div class="text-wrapper">
+                          <p set:html={parseFormattedText(val.text)} />
+                        </div>
                       </div>
-                    </div>
-                    <div class="media-box portrait-media-right">
-                      {blockVideo ? (
-                        <>
-                          <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                            <source src={blockVideo} type="video/mp4" />
-                          </video>
-                          {blockHasAudio && (
-                            <div class="video-controls">
-                              <button class="video-btn" onclick="togglePlay(this)">Pause</button>
-                              <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
-                            </div>
-                          )}
-                        </>
-                      ) : val.media ? (
-                        <img src={val.media} alt="" loading="lazy" decoding="async" />
-                      ) : null}
-                    </div>
-                  </section>
-                );
-              }
-
-              // STANDARD 2-SPALTER
-              if (block.discriminant === 'portraitWithText') {
-                const isLarge = val.textSize === 'large';
-                return (
-                  <section class="block-portrait-with-text">
-                    <div class={`portrait-text-left ${isLarge ? 'text-large' : 'text-normal'}`}>
-                      <div class="text-wrapper">
-                        <p set:html={parseFormattedText(val.text)} />
+                      <div class="media-box portrait-media-right">
+                        {blockVideo ? (
+                          <>
+                            <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                              <source src={blockVideo} type="video/mp4" />
+                            </video>
+                            {blockHasAudio && (
+                              <div class="video-controls">
+                                <button class="video-btn" onclick="togglePlay(this)">Pause</button>
+                                <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
+                              </div>
+                            )}
+                          </>
+                        ) : val.media ? (
+                          <img src={val.media} alt="" loading="lazy" decoding="async" />
+                        ) : null}
                       </div>
-                    </div>
-                    <div class="media-box portrait-media-right">
-                      {blockVideo ? (
-                        <>
-                          <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                            <source src={blockVideo} type="video/mp4" />
-                          </video>
-                          {blockHasAudio && (
-                            <div class="video-controls">
-                              <button class="video-btn" onclick="togglePlay(this)">Pause</button>
-                              <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
-                            </div>
-                          )}
-                        </>
-                      ) : val.media ? (
-                        <img src={val.media} alt="" loading="lazy" decoding="async" />
-                      ) : null}
-                    </div>
-                  </section>
-                );
-              }
+                    </section>
+                  )}
 
-              if (block.discriminant === 'landscapeStandard') {
-                return (
-                  <div class="media-box block-landscape-standard">
-                    {blockVideo ? (
-                      <>
-                        <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                          <source src={blockVideo} type="video/mp4" />
-                        </video>
-                        {blockHasAudio && (
-                          <div class="video-controls">
-                            <button class="video-btn" onclick="togglePlay(this)">Pause</button>
-                            <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
-                          </div>
-                        )}
-                      </>
-                    ) : val.media ? (
-                      <img src={val.media} alt="" loading="lazy" decoding="async" />
-                    ) : null}
-                  </div>
-                );
-              }
-              if (block.discriminant === 'centeredStatement') {
-                const isLarge = val.textSize === 'large';
-                return (
-                  <div class={`block-centered-text ${isLarge ? 'large' : 'normal'}`}>
-                    <p set:html={parseFormattedText(val.statement)} />
-                  </div>
-                );
-              }
-              if (block.discriminant === 'landscapeFullWidth') {
-                return (
-                  <div class="media-box block-landscape-fullwidth">
-                    {blockVideo ? (
-                      <>
-                        <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                          <source src={blockVideo} type="video/mp4" />
-                        </video>
-                        {blockHasAudio && (
-                          <div class="video-controls">
-                            <button class="video-btn" onclick="togglePlay(this)">Pause</button>
-                            <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
-                          </div>
-                        )}
-                      </>
-                    ) : val.media ? (
-                      <img src={val.media} alt="" loading="lazy" decoding="async" />
-                    ) : null}
-                  </div>
-                );
-              }
-              if (block.discriminant === 'portraitNoText') {
-                return (
-                  <section class={`block-portrait-no-text ${val.mobileFullWidth ? 'block-portrait-mobile-fullwidth' : ''}`}>
-                    <div class="media-box portrait-only-media">
+                  {/* STANDARD 2-SPALTER */}
+                  {block.discriminant === 'portraitWithText' && (
+                    <section class="block-portrait-with-text">
+                      <div class={`portrait-text-left ${isLarge ? 'text-large' : 'text-normal'}`}>
+                        <div class="text-wrapper">
+                          <p set:html={parseFormattedText(val.text)} />
+                        </div>
+                      </div>
+                      <div class="media-box portrait-media-right">
+                        {blockVideo ? (
+                          <>
+                            <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                              <source src={blockVideo} type="video/mp4" />
+                            </video>
+                            {blockHasAudio && (
+                              <div class="video-controls">
+                                <button class="video-btn" onclick="togglePlay(this)">Pause</button>
+                                <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
+                              </div>
+                            )}
+                          </>
+                        ) : val.media ? (
+                          <img src={val.media} alt="" loading="lazy" decoding="async" />
+                        ) : null}
+                      </div>
+                    </section>
+                  )}
+
+                  {/* QUERFORMAT STANDARD */}
+                  {block.discriminant === 'landscapeStandard' && (
+                    <div class="media-box block-landscape-standard">
                       {blockVideo ? (
                         <>
                           <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
@@ -321,10 +267,61 @@ const projectDescription = d.furtherContext
                         <img src={val.media} alt="" loading="lazy" decoding="async" />
                       ) : null}
                     </div>
-                  </section>
-                );
-              }
-              return null;
+                  )}
+
+                  {/* ZENTRIERTES STATEMENT */}
+                  {block.discriminant === 'centeredStatement' && (
+                    <div class={`block-centered-text ${isLarge ? 'large' : 'normal'}`}>
+                      <p set:html={parseFormattedText(val.statement)} />
+                    </div>
+                  )}
+
+                  {/* QUERFORMAT FULL WIDTH */}
+                  {block.discriminant === 'landscapeFullWidth' && (
+                    <div class="media-box block-landscape-fullwidth">
+                      {blockVideo ? (
+                        <>
+                          <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                            <source src={blockVideo} type="video/mp4" />
+                          </video>
+                          {blockHasAudio && (
+                            <div class="video-controls">
+                              <button class="video-btn" onclick="togglePlay(this)">Pause</button>
+                              <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
+                            </div>
+                          )}
+                        </>
+                      ) : val.media ? (
+                        <img src={val.media} alt="" loading="lazy" decoding="async" />
+                      ) : null}
+                    </div>
+                  )}
+
+                  {/* HOCHFORMAT OHNE TEXT */}
+                  {block.discriminant === 'portraitNoText' && (
+                    <section class={`block-portrait-no-text ${val.mobileFullWidth ? 'block-portrait-mobile-fullwidth' : ''}`}>
+                      <div class="media-box portrait-only-media">
+                        {blockVideo ? (
+                          <>
+                            <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                              <source src={blockVideo} type="video/mp4" />
+                            </video>
+                            {blockHasAudio && (
+                              <div class="video-controls">
+                                <button class="video-btn" onclick="togglePlay(this)">Pause</button>
+                                <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
+                              </div>
+                            )}
+                          </>
+                        ) : val.media ? (
+                          <img src={val.media} alt="" loading="lazy" decoding="async" />
+                        ) : null}
+                      </div>
+                    </section>
+                  )}
+
+                </div>
+              );
             })}
 
           </article>
@@ -542,548 +539,6 @@ const projectDescription = d.furtherContext
       .block-portrait-no-text { grid-template-columns: 1fr; margin-bottom: 60px; }
       .portrait-only-media { grid-column: 1 / -1; }
       .block-portrait-mobile-fullwidth .media-box { width: 100vw; position: relative; left: 50%; margin-left: -50vw; aspect-ratio: 3 / 4; }
-
-      .site-footer { padding-top: 60px; padding-bottom: 60px; }
-      .footer-text-col { grid-column: 1 / 7; font-size: 20px; line-height: 1.2; }
-    }
-  </style>
-
-  <script is:inline>
-    function togglePlay(btn) {
-      const video = btn.closest('.media-box').querySelector('video');
-      if (!video) return;
-      if (video.paused) {
-        video.play();
-        btn.innerText = 'Pause';
-      } else {
-        video.pause();
-        btn.innerText = 'Play';
-      }
-    }
-
-    function toggleMute(btn) {
-      const video = btn.closest('.media-box').querySelector('video');
-      if (!video) return;
-      video.muted = !video.muted;
-      btn.innerText = video.muted ? 'Ton an' : 'Stumm';
-    }
-
-    const obsOptions = {
-      rootMargin: '-30% 0px -50% 0px',
-      threshold: 0
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const bg = entry.target.getAttribute('data-bg');
-          const text = entry.target.getAttribute('data-text');
-          const theme = entry.target.getAttribute('data-theme');
-          document.documentElement.style.setProperty('--bg-color', bg);
-          document.documentElement.style.setProperty('--text-color', text);
-          if (theme === 'dark') {
-            document.body.classList.add('theme-dark');
-          } else {
-            document.body.classList.remove('theme-dark');
-          }
-        }
-      });
-    }, obsOptions);
-
-    document.querySelectorAll('.project-case-wrapper').forEach(p => observer.observe(p));
-  </script>
-</Layout>// 3. Globales SEO-Bild als Fallback
-// ==============================================================================
-let projectOgImage = header.desktopImage || d.heroDesktop;
-
-if (!projectOgImage) {
-  if (thumb.desktopScrubImages && thumb.desktopScrubImages.length > 0) {
-    projectOgImage = thumb.desktopScrubImages[0];
-  } else if (d.thumbnailsDesktop && d.thumbnailsDesktop.length > 0) {
-    projectOgImage = d.thumbnailsDesktop[0];
-  } else if (thumb.mobileImage || d.thumbnailMobile) {
-    projectOgImage = thumb.mobileImage || d.thumbnailMobile;
-  }
-}
-
-if (!projectOgImage) {
-  projectOgImage = seo.ogImage || "/images/og-default.jpg";
-}
-
-const projectDescription = d.furtherContext 
-  ? `${d.title} — ${d.furtherContext.replace(/\n/g, ' ')} (${d.year || ''})`
-  : `Case Study zu ${d.title} von Paul Neuburger.`;
----
-
-<Layout 
-  title={`${d.title || 'Projekt'} — paulchen.at`}
-  description={projectDescription}
-  ogImage={projectOgImage}
-  favicon={seo.favicon}
-  isProjectPage={true}
->
-  
-  <!-- NAVBAR -->
-  <header class="sticky-nav nav-grid" id="mainNav">
-    <div class="nav-brand">
-      <a href="/" class="wavy-link">{brandName}</a>
-    </div>
-    
-    <div class="nav-bio">
-      <span set:html={parseFormattedText(navbarBio)} /> <a href={contactHref} class="wavy-link">{contactLabel}</a>
-    </div>
-
-    <div class="nav-mobile-collapsed">
-      <a href={contactHref} class="wavy-link">{contactLabel}</a>
-    </div>
-
-    <div class="nav-more">
-      <a href="/ueber-mich" class="hover-wavy">{moreLabel}</a>
-    </div>
-  </header>
-
-  <!-- ENDLOSER PROJEKT STREAM -->
-  <main class="content-grid project-main-grid" id="projectContainer">
-    
-    {orderedStream.map((item: any, streamIdx: number) => {
-      const pData = item.data || {};
-      const isFirst = streamIdx === 0;
-      const pHeader = pData.headerMedia || {};
-
-      // Desktop Header Medien
-      const dktHeaderVideo = pHeader.desktopVideo || pData.heroVideoFile || pData.heroVideoUrl;
-      const dktHeaderImg = pHeader.desktopImage || pData.heroDesktop;
-
-      // Mobile Header Medien
-      const mblHeaderVideo = pHeader.mobileVideo;
-      const mblHeaderImg = pHeader.mobileImage || pData.heroMobile;
-
-      const heroHasAudio = Boolean(pHeader.hasAudio ?? pData.heroVideoHasAudio);
-
-      return (
-        <div class="project-stream-wrapper" style="grid-column: 1 / -1; display: contents;">
-          {!isFirst && (
-            <div class="next-project-divider">
-              <span>— Nächstes Projekt: {pData.title || ''} —</span>
-            </div>
-          )}
-
-          <article class="project-case-wrapper" 
-                   data-bg={pData.theme?.backgroundColor || '#ffffff'} 
-                   data-text={pData.theme?.textColor || '#000000'}
-                   data-theme={pData.theme?.isDarkTheme ? 'dark' : 'light'}>
-            
-            <!-- 1. Header Bild / Video (Desktop 2:1 & Mobile 3:4 getrennt) -->
-            <div class="media-box block-hero">
-              
-              <!-- 📱 MOBILE HEADER (<= 768px: 3:4 Format) -->
-              <div class="mobile-header-box">
-                {mblHeaderVideo ? (
-                  <video src={mblHeaderVideo} autoplay loop muted playsinline class="hero-media-full" />
-                ) : mblHeaderImg ? (
-                  <img src={mblHeaderImg} alt={pData.title || ''} class="hero-media-full" loading={isFirst ? "eager" : "lazy"} decoding="async" />
-                ) : dktHeaderVideo ? (
-                  <video src={dktHeaderVideo} autoplay loop muted playsinline class="hero-media-full" />
-                ) : dktHeaderImg ? (
-                  <img src={dktHeaderImg} alt={pData.title || ''} class="hero-media-full" loading={isFirst ? "eager" : "lazy"} decoding="async" />
-                ) : (
-                  <div class="color-placeholder" style="background:#e5e510; color:#000;"><span>3:4 Header</span></div>
-                )}
-              </div>
-
-              <!-- 🖥️ DESKTOP HEADER (> 768px: 2:1 Format) -->
-              <div class="desktop-header-box">
-                {dktHeaderVideo ? (
-                  <video src={dktHeaderVideo} autoplay loop muted playsinline class="hero-media-full" />
-                ) : dktHeaderImg ? (
-                  <img src={dktHeaderImg} alt={pData.title || ''} class="hero-media-full" loading={isFirst ? "eager" : "lazy"} decoding="async" />
-                ) : (
-                  <div class="color-placeholder" style="background:#e5e510; color:#000;"><span>2:1 Header</span></div>
-                )}
-              </div>
-
-              {heroHasAudio && (
-                <div class="video-controls">
-                  <button class="video-btn" onclick="togglePlay(this)">Pause</button>
-                  <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
-                </div>
-              )}
-            </div>
-
-            <!-- 2. Projekt-Info -->
-            <div class="project-info-block">
-              <div class="info-col">
-                <div class="slot-3-rows">
-                  <p>{pData.title || ''}</p>
-                </div>
-                <p>{pData.year || ''} {pData.location || ''}</p>
-              </div>
-              <div class="info-col">
-                <div class="slot-3-rows">
-                  <p>{pData.furtherContext || ''}</p>
-                </div>
-                <p>{pData.copyright || ''}</p>
-              </div>
-            </div>
-
-            <!-- 3. Modulare Blöcke -->
-            {Array.isArray(pData.blocks) && pData.blocks.map((block: any) => {
-              if (!block) return null;
-              const val = block.value || {};
-              const blockVideo = val.videoFile || val.videoUrl;
-              const blockHasAudio = Boolean(val.hasAudio);
-
-              // INTRO BLOCK: 3-ZEILIGE INITIALE + TEXT ZUERST AUF MOBILE
-              if (block.discriminant === 'introPortraitWithText') {
-                const isLarge = val.textSize === 'large';
-                return (
-                  <section class="block-portrait-with-text block-intro-text-first">
-                    <div class={`portrait-text-left ${isLarge ? 'text-large' : 'text-normal'}`}>
-                      <div class="text-wrapper">
-                        <p set:html={parseFormattedText(val.text)} />
-                      </div>
-                    </div>
-                    <div class="media-box portrait-media-right">
-                      {blockVideo ? (
-                        <>
-                          <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                            <source src={blockVideo} type="video/mp4" />
-                          </video>
-                          {blockHasAudio && (
-                            <div class="video-controls">
-                              <button class="video-btn" onclick="togglePlay(this)">Pause</button>
-                              <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
-                            </div>
-                          )}
-                        </>
-                      ) : val.media ? (
-                        <img src={val.media} alt="" loading="lazy" decoding="async" />
-                      ) : null}
-                    </div>
-                  </section>
-                );
-              }
-
-              // STANDARD 2-SPALTER
-              if (block.discriminant === 'portraitWithText') {
-                const isLarge = val.textSize === 'large';
-                return (
-                  <section class="block-portrait-with-text">
-                    <div class={`portrait-text-left ${isLarge ? 'text-large' : 'text-normal'}`}>
-                      <div class="text-wrapper">
-                        <p set:html={parseFormattedText(val.text)} />
-                      </div>
-                    </div>
-                    <div class="media-box portrait-media-right">
-                      {blockVideo ? (
-                        <>
-                          <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                            <source src={blockVideo} type="video/mp4" />
-                          </video>
-                          {blockHasAudio && (
-                            <div class="video-controls">
-                              <button class="video-btn" onclick="togglePlay(this)">Pause</button>
-                              <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
-                            </div>
-                          )}
-                        </>
-                      ) : val.media ? (
-                        <img src={val.media} alt="" loading="lazy" decoding="async" />
-                      ) : null}
-                    </div>
-                  </section>
-                );
-              }
-
-              if (block.discriminant === 'landscapeStandard') {
-                return (
-                  <div class="media-box block-landscape-standard">
-                    {blockVideo ? (
-                      <>
-                        <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                          <source src={blockVideo} type="video/mp4" />
-                        </video>
-                        {blockHasAudio && (
-                          <div class="video-controls">
-                            <button class="video-btn" onclick="togglePlay(this)">Pause</button>
-                            <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
-                          </div>
-                        )}
-                      </>
-                    ) : val.media ? (
-                      <img src={val.media} alt="" loading="lazy" decoding="async" />
-                    ) : null}
-                  </div>
-                );
-              }
-              if (block.discriminant === 'centeredStatement') {
-                const isLarge = val.textSize === 'large';
-                return (
-                  <div class={`block-centered-text ${isLarge ? 'large' : 'normal'}`}>
-                    <p set:html={parseFormattedText(val.statement)} />
-                  </div>
-                );
-              }
-              if (block.discriminant === 'landscapeFullWidth') {
-                return (
-                  <div class="media-box block-landscape-fullwidth">
-                    {blockVideo ? (
-                      <>
-                        <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                          <source src={blockVideo} type="video/mp4" />
-                        </video>
-                        {blockHasAudio && (
-                          <div class="video-controls">
-                            <button class="video-btn" onclick="togglePlay(this)">Pause</button>
-                            <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
-                          </div>
-                        )}
-                      </>
-                    ) : val.media ? (
-                      <img src={val.media} alt="" loading="lazy" decoding="async" />
-                    ) : null}
-                  </div>
-                );
-              }
-              if (block.discriminant === 'portraitNoText') {
-                return (
-                  <section class="block-portrait-no-text">
-                    <div class="media-box portrait-only-media">
-                      {blockVideo ? (
-                        <>
-                          <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                            <source src={blockVideo} type="video/mp4" />
-                          </video>
-                          {blockHasAudio && (
-                            <div class="video-controls">
-                              <button class="video-btn" onclick="togglePlay(this)">Pause</button>
-                              <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
-                            </div>
-                          )}
-                        </>
-                      ) : val.media ? (
-                        <img src={val.media} alt="" loading="lazy" decoding="async" />
-                      ) : null}
-                    </div>
-                  </section>
-                );
-              }
-              return null;
-            })}
-
-          </article>
-        </div>
-      );
-    })}
-
-    <!-- FOOTER -->
-    <footer class="site-footer" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px;">
-      <div class="footer-text-col">
-        <p set:html={parseFormattedText(footerText)} />
-      </div>
-    </footer>
-
-  </main>
-
-  <style>
-    :root {
-      --content-margin: clamp(60px, 9.5vw, 160px) !important;
-    }
-
-    .sticky-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; background: transparent; padding-top: 20px; padding-bottom: 20px; font-size: 24px; pointer-events: none; color: var(--text-color); transition: color 0.4s ease; }
-    .sticky-nav a, .sticky-nav span { pointer-events: auto; }
-    .nav-brand { grid-column: 1 / 3; }
-    .nav-bio { grid-column: 3 / 11; white-space: pre-line !important; }
-    .nav-more { grid-column: 11 / 13; text-align: right; }
-    .nav-mobile-collapsed { display: none; }
-
-    .project-main-grid {
-      padding-left: var(--content-margin);
-      padding-right: var(--content-margin);
-      padding-top: 140px;
-      padding-bottom: 100px;
-      width: 100%;
-    }
-
-    .project-case-wrapper { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; width: 100%; padding-bottom: 60px; }
-
-    .media-box { position: relative; width: 100%; background-color: transparent; border: none !important; overflow: hidden; }
-    .media-box img, .media-box video, .hero-picture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; }
-    
-    .mobile-header-box { display: none; }
-    .desktop-header-box { display: block; width: 100%; height: 100%; position: relative; }
-    .hero-media-full { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-
-    .color-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; }
-
-    .video-controls {
-      position: absolute;
-      bottom: 14px;
-      right: 14px;
-      display: flex;
-      gap: 8px;
-      z-index: 20;
-    }
-
-    .video-btn {
-      background: rgba(0, 0, 0, 0.85);
-      color: #ffffff;
-      border: none;
-      padding: 5px 10px;
-      font-size: 13px;
-      font-family: inherit;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: background 0.2s ease;
-    }
-
-    .video-btn:hover { background: #000000; }
-
-    .block-hero { grid-column: 1 / -1; aspect-ratio: 2 / 1; margin-bottom: 20px; }
-    .project-info-block { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; font-size: 16px; line-height: 1.2; margin-bottom: 60px; }
-    .project-info-block p, .slot-3-rows p { white-space: pre-line !important; }
-    .info-col { display: flex; flex-direction: column; justify-content: space-between; }
-    .slot-3-rows { min-height: 57.6px; margin-bottom: 4px; }
-
-    .block-portrait-with-text {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      column-gap: 20px;
-      align-items: stretch;
-      margin-bottom: 60px;
-    }
-
-    .portrait-text-left {
-      grid-column: 1 / 7;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
-    .portrait-text-left .text-wrapper {
-      min-height: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      width: 66.666%;
-      white-space: pre-line !important;
-    }
-
-    .portrait-text-left.text-normal .text-wrapper { font-size: 24px; line-height: 1.2; }
-    .portrait-text-left.text-large .text-wrapper { font-size: 40px; line-height: 1.2; }
-    .portrait-text-left p, .text-wrapper p { white-space: pre-line !important; }
-    .portrait-media-right { grid-column: 7 / 13; aspect-ratio: 3 / 4; }
-
-    /* 3-ZEILIGE INITIALE */
-    .block-intro-text-first .text-wrapper > p:first-of-type::first-letter,
-    .block-intro-text-first .text-wrapper > p:first-child::first-letter {
-      -webkit-initial-letter: 3;
-      initial-letter: 3;
-      float: left;
-      font-size: 3.3em;
-      line-height: 0.82;
-      padding-right: 0.15em;
-      padding-top: 0.05em;
-      font-family: inherit;
-      font-weight: 400;
-    }
-
-    .block-landscape-standard { grid-column: 1 / -1; aspect-ratio: 3 / 2; margin-bottom: 60px; }
-    .block-centered-text { grid-column: 1 / -1; text-align: center; margin-top: 60px; margin-bottom: 120px; padding: 60px 0; white-space: pre-line !important; }
-    .block-centered-text.large { font-size: 40px; line-height: 1.2; max-width: 850px; margin-left: auto; margin-right: auto; }
-    .block-centered-text.normal { font-size: 24px; line-height: 1.2; max-width: 650px; margin-left: auto; margin-right: auto; }
-    .block-centered-text p { white-space: pre-line !important; }
-
-    /* FULL BLEED DESKTOP */
-    .block-landscape-fullwidth {
-      grid-column: 1 / -1;
-      width: 100vw;
-      position: relative;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
-      aspect-ratio: 3 / 2;
-      margin-bottom: 60px;
-    }
-
-    .block-portrait-no-text { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; margin-bottom: 60px; }
-    .portrait-only-media { grid-column: 7 / 13; aspect-ratio: 3 / 4; }
-
-    .next-project-divider { grid-column: 1 / -1; margin-top: 80px; margin-bottom: 60px; text-align: center; font-size: 16px; color: #888; letter-spacing: 0.5px; }
-
-    .site-footer { padding-top: 80px; padding-bottom: 80px; }
-    .footer-text-col { grid-column: 9 / 13; font-size: 24px; line-height: 1.2; white-space: pre-line !important; }
-    .footer-text-col p { white-space: pre-line !important; }
-
-    @media (max-width: 768px) {
-      :root { --content-margin: 40px !important; }
-      .project-main-grid { padding-left: 40px; padding-right: 40px; padding-top: 55px; padding-bottom: 80px; }
-      .project-case-wrapper { grid-template-columns: repeat(6, 1fr); }
-      .sticky-nav { font-size: 20px; padding-top: 16px; padding-bottom: 16px; }
-      .nav-brand { grid-column: 1 / 7; margin-bottom: 8px; }
-      .nav-bio { display: none; }
-      .nav-mobile-collapsed { display: block; grid-column: 1 / 7; margin-bottom: 8px; }
-      .nav-more { grid-column: 1 / 7; text-align: left; }
-
-      /* HEADER-BILD BLEIBT AUF MOBILE IM 40PX RASTER */
-      .block-hero { 
-        width: 100% !important; 
-        position: relative !important; 
-        left: auto !important; 
-        margin-left: 0 !important; 
-        margin-right: 0 !important; 
-        aspect-ratio: 3 / 4; 
-        margin-top: 0; 
-        margin-bottom: 20px; 
-      }
-
-      .mobile-header-box { display: block !important; width: 100%; height: 100%; position: relative; }
-      .desktop-header-box { display: none !important; }
-
-      /* ALLE ANDEREN PROJEKT-MEDIEN SIND AUF MOBILE 100VW FULL-WIDTH */
-      .portrait-media-right,
-      .block-landscape-standard,
-      .block-landscape-fullwidth,
-      .portrait-only-media {
-        width: 100vw !important;
-        position: relative !important;
-        left: 50% !important;
-        margin-left: -50vw !important;
-        margin-right: -50vw !important;
-      }
-
-      .portrait-media-right, .portrait-only-media { aspect-ratio: 3 / 4; }
-      .block-landscape-standard, .block-landscape-fullwidth { aspect-ratio: 3 / 2; margin-bottom: 60px; }
-
-      .project-info-block { grid-template-columns: 1fr 1fr; column-gap: 16px; margin-bottom: 60px; }
-      .slot-3-rows { min-height: 57.6px; }
-
-      .block-portrait-with-text { grid-template-columns: 1fr; row-gap: 28px; margin-bottom: 60px; display: flex; flex-direction: column; }
-      .portrait-media-right { order: 1; }
-      .portrait-text-left { order: 2; height: auto; display: block; padding-top: 0; margin-bottom: 12px; }
-
-      .block-intro-text-first .portrait-text-left { order: 1 !important; margin-bottom: 20px; }
-      .block-intro-text-first .portrait-media-right { order: 2 !important; }
-
-      .portrait-text-left .text-wrapper { min-height: auto; width: 100%; font-size: 20px; }
-      .portrait-text-left.text-normal .text-wrapper { font-size: 20px; }
-      .portrait-text-left.text-large .text-wrapper { font-size: 30px; }
-
-      .block-intro-text-first .text-wrapper > p:first-of-type::first-letter,
-      .block-intro-text-first .text-wrapper > p:first-child::first-letter {
-        font-size: 3.1em;
-        line-height: 0.8;
-      }
-
-      .block-centered-text { margin-top: 40px; margin-bottom: 80px; padding: 20px 0; }
-      .block-centered-text.large { font-size: 30px; }
-
-      .block-portrait-no-text { grid-template-columns: 1fr; margin-bottom: 60px; }
 
       .site-footer { padding-top: 60px; padding-bottom: 60px; }
       .footer-text-col { grid-column: 1 / 7; font-size: 20px; line-height: 1.2; }
