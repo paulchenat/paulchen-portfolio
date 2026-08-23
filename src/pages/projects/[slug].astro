@@ -77,6 +77,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       const d = item.data || {};
       const isFirst = streamIdx === 0;
       const heroVideo = d.heroVideoFile || d.heroVideoUrl;
+      const heroHasAudio = Boolean(d.heroVideoHasAudio);
       return (
         <div class="project-stream-wrapper" style="grid-column: 1 / -1; display: contents;">
           {!isFirst && (
@@ -93,7 +94,15 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
             <!-- 1. Header Bild / Video -->
             <div class="media-box block-hero">
               {heroVideo ? (
-                <video src={heroVideo} autoplay loop muted playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
+                <>
+                  <video src={heroVideo} autoplay loop muted playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
+                  {heroHasAudio && (
+                    <div class="video-controls">
+                      <button class="video-btn" onclick="togglePlay(this)">Pause</button>
+                      <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
+                    </div>
+                  )}
+                </>
               ) : (d.heroDesktop || d.heroMobile) ? (
                 <picture class="hero-picture">
                   {d.heroMobile && <source media="(max-width: 768px)" srcset={d.heroMobile} />}
@@ -132,8 +141,9 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
               if (!block) return null;
               const val = block.value || {};
               const blockVideo = val.videoFile || val.videoUrl;
+              const blockHasAudio = Boolean(val.hasAudio);
 
-              // INTRO BLOCK: 3-ZEILIGE INITIALE + TEXT ZUERST AUF MOBILE + 100VW BILD
+              // INTRO BLOCK
               if (block.discriminant === 'introPortraitWithText') {
                 const isLarge = val.textSize === 'large';
                 return (
@@ -145,9 +155,17 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                     </div>
                     <div class="media-box portrait-media-right">
                       {blockVideo ? (
-                        <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                          <source src={blockVideo} type="video/mp4" />
-                        </video>
+                        <>
+                          <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                            <source src={blockVideo} type="video/mp4" />
+                          </video>
+                          {blockHasAudio && (
+                            <div class="video-controls">
+                              <button class="video-btn" onclick="togglePlay(this)">Pause</button>
+                              <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
+                            </div>
+                          )}
+                        </>
                       ) : val.media ? (
                         <img src={val.media} alt="" loading="lazy" decoding="async" />
                       ) : null}
@@ -168,9 +186,17 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                     </div>
                     <div class="media-box portrait-media-right">
                       {blockVideo ? (
-                        <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                          <source src={blockVideo} type="video/mp4" />
-                        </video>
+                        <>
+                          <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                            <source src={blockVideo} type="video/mp4" />
+                          </video>
+                          {blockHasAudio && (
+                            <div class="video-controls">
+                              <button class="video-btn" onclick="togglePlay(this)">Pause</button>
+                              <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
+                            </div>
+                          )}
+                        </>
                       ) : val.media ? (
                         <img src={val.media} alt="" loading="lazy" decoding="async" />
                       ) : null}
@@ -183,9 +209,17 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                 return (
                   <div class="media-box block-landscape-standard">
                     {blockVideo ? (
-                      <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                        <source src={blockVideo} type="video/mp4" />
-                      </video>
+                      <>
+                        <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                          <source src={blockVideo} type="video/mp4" />
+                        </video>
+                        {blockHasAudio && (
+                          <div class="video-controls">
+                            <button class="video-btn" onclick="togglePlay(this)">Pause</button>
+                            <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
+                          </div>
+                        )}
+                      </>
                     ) : val.media ? (
                       <img src={val.media} alt="" loading="lazy" decoding="async" />
                     ) : null}
@@ -204,9 +238,17 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                 return (
                   <div class="media-box block-landscape-fullwidth">
                     {blockVideo ? (
-                      <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                        <source src={blockVideo} type="video/mp4" />
-                      </video>
+                      <>
+                        <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                          <source src={blockVideo} type="video/mp4" />
+                        </video>
+                        {blockHasAudio && (
+                          <div class="video-controls">
+                            <button class="video-btn" onclick="togglePlay(this)">Pause</button>
+                            <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
+                          </div>
+                        )}
+                      </>
                     ) : val.media ? (
                       <img src={val.media} alt="" loading="lazy" decoding="async" />
                     ) : null}
@@ -215,12 +257,20 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
               }
               if (block.discriminant === 'portraitNoText') {
                 return (
-                  <section class="block-portrait-no-text">
+                  <section class={`block-portrait-no-text ${val.mobileFullWidth ? 'block-portrait-mobile-fullwidth' : ''}`}>
                     <div class="media-box portrait-only-media">
                       {blockVideo ? (
-                        <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-                          <source src={blockVideo} type="video/mp4" />
-                        </video>
+                        <>
+                          <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                            <source src={blockVideo} type="video/mp4" />
+                          </video>
+                          {blockHasAudio && (
+                            <div class="video-controls">
+                              <button class="video-btn" onclick="togglePlay(this)">Pause</button>
+                              <button class="video-btn" onclick="toggleMute(this)">Ton an</button>
+                            </div>
+                          )}
+                        </>
                       ) : val.media ? (
                         <img src={val.media} alt="" loading="lazy" decoding="async" />
                       ) : null}
@@ -272,6 +322,32 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .hero-picture { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
     .color-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; }
 
+    /* VIDEO CONTROLS */
+    .video-controls {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      display: flex;
+      gap: 8px;
+      z-index: 20;
+    }
+
+    .video-btn {
+      background: rgba(0, 0, 0, 0.85);
+      color: #ffffff;
+      border: none;
+      padding: 5px 10px;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 0.2s ease;
+    }
+
+    .video-btn:hover {
+      background: #000000;
+    }
+
     .block-hero { grid-column: 1 / -1; aspect-ratio: 2 / 1; margin-bottom: 20px; }
     .project-info-block { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; font-size: 16px; line-height: 1.2; margin-bottom: 60px; }
     .project-info-block p, .slot-3-rows p { white-space: pre-line !important; }
@@ -311,7 +387,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .portrait-text-left p, .text-wrapper p { white-space: pre-line !important; }
     .portrait-media-right { grid-column: 7 / 13; aspect-ratio: 3 / 4; }
 
-    /* 3-ZEILIGE INITIALE FÜR DAS INTRO ELEMENT */
+    /* 3-ZEILIGE INITIALE */
     .block-intro-text-first .text-wrapper > p:first-of-type::first-letter,
     .block-intro-text-first .text-wrapper > p:first-child::first-letter {
       -webkit-initial-letter: 3;
@@ -362,7 +438,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       .nav-mobile-collapsed { display: block; grid-column: 1 / 7; margin-bottom: 8px; }
       .nav-more { grid-column: 1 / 7; text-align: left; }
 
-      /* HEADER-BILD BLEIBT AUF MOBILE IM 40PX RASTER */
       .block-hero { 
         width: 100% !important; 
         position: relative !important; 
@@ -374,7 +449,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
         margin-bottom: 20px; 
       }
 
-      /* ALLE ANDEREN PROJEKT-MEDIEN SIND AUF MOBILE 100VW FULL-WIDTH */
       .portrait-media-right,
       .block-landscape-standard,
       .block-landscape-fullwidth,
@@ -420,6 +494,27 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
   </style>
 
   <script is:inline>
+    // Video Play/Pause Steuerung
+    function togglePlay(btn) {
+      const video = btn.closest('.media-box').querySelector('video');
+      if (!video) return;
+      if (video.paused) {
+        video.play();
+        btn.innerText = 'Pause';
+      } else {
+        video.pause();
+        btn.innerText = 'Play';
+      }
+    }
+
+    // Video Ton An/Aus Steuerung
+    function toggleMute(btn) {
+      const video = btn.closest('.media-box').querySelector('video');
+      if (!video) return;
+      video.muted = !video.muted;
+      btn.innerText = video.muted ? 'Ton an' : 'Stumm';
+    }
+
     const obsOptions = {
       rootMargin: '-30% 0px -50% 0px',
       threshold: 0
