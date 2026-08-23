@@ -97,56 +97,55 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
           {projects.length > 0 ? (
             projects.map((proj) => {
               const d = proj.data || {};
-              const videoSrc = d.videoLoopFile || d.videoLoop;
+              const thumb = d.thumbnails || {};
+              
+              // Desktop Medien
+              const dktVideo = thumb.desktopVideoLoop || d.videoLoopFile || d.videoLoop;
+              const dktImages = (thumb.desktopScrubImages && thumb.desktopScrubImages.length > 0) ? thumb.desktopScrubImages : d.thumbnailsDesktop;
+              
+              // Mobile Medien
+              const mblVideo = thumb.mobileVideoLoop;
+              const mblImage = thumb.mobileImage || d.thumbnailMobile;
+
               return (
                 <article class="work-card">
                   <a href={`/projects/${proj.slug}`} style="color:inherit; text-decoration:none;">
-                    <div class="scrub-container" data-scrub-type={videoSrc ? "video" : "images"}>
-                      <!-- 1. Video Autoplay Loop (falls MP4 hochgeladen wurde) -->
-                      {videoSrc ? (
-                        <video 
-                          src={videoSrc} 
-                          autoplay 
-                          loop 
-                          muted 
-                          playsinline 
-                          class="scrub-item active" 
-                          style="object-fit:cover;"
-                        />
-                      ) : (
-                        <>
-                          <!-- 2. Mobile Thumbnail -->
-                          {d.thumbnailMobile && (
+                    <div class="scrub-container">
+                      
+                      <!-- 📱 MOBILE THUMBNAIL (Wird nur auf Mobile <= 768px gerendert) -->
+                      <div class="mobile-thumb-box">
+                        {mblVideo ? (
+                          <video src={mblVideo} autoplay loop muted playsinline class="thumb-media-full" />
+                        ) : mblImage ? (
+                          <img src={mblImage} alt={d.title || ''} class="thumb-media-full" loading="lazy" decoding="async" />
+                        ) : dktVideo ? (
+                          <video src={dktVideo} autoplay loop muted playsinline class="thumb-media-full" />
+                        ) : dktImages && dktImages.length > 0 ? (
+                          <img src={dktImages[0]} alt={d.title || ''} class="thumb-media-full" loading="lazy" decoding="async" />
+                        ) : (
+                          <div class="color-placeholder" style="background:#d83428;"><span>3:4</span></div>
+                        )}
+                      </div>
+
+                      <!-- 🖥️ DESKTOP THUMBNAIL (Wird nur auf Desktop > 768px gerendert) -->
+                      <div class="desktop-thumb-box">
+                        {dktVideo ? (
+                          <video src={dktVideo} autoplay loop muted playsinline class="thumb-media-full" />
+                        ) : dktImages && dktImages.length > 0 ? (
+                          dktImages.map((imgSrc: string, idx: number) => (
                             <img 
-                              src={d.thumbnailMobile} 
+                              src={imgSrc} 
                               alt={d.title || ''} 
-                              class="mobile-only-thumb"
-                              loading="lazy"
+                              class={`scrub-item ${idx === 0 ? 'active' : ''}`}
+                              loading={idx === 0 ? "eager" : "lazy"}
                               decoding="async"
                             />
-                          )}
+                          ))
+                        ) : (
+                          <div class="color-placeholder" style="background:#d83428;"><span>4:3</span></div>
+                        )}
+                      </div>
 
-                          <!-- 3. Desktop Hover-Scrubbing Thumbnails -->
-                          {d.thumbnailsDesktop && d.thumbnailsDesktop.length > 0 ? (
-                            d.thumbnailsDesktop.map((imgSrc: string, idx: number) => (
-                              <img 
-                                src={imgSrc} 
-                                alt={d.title || ''} 
-                                class={`scrub-item desktop-only-thumb ${idx === 0 ? 'active' : ''}`}
-                                loading={idx === 0 ? "eager" : "lazy"}
-                                decoding="async"
-                              />
-                            ))
-                          ) : (
-                            !d.thumbnailMobile && (
-                              <div class="scrub-item active color-placeholder" style="background:#d83428;">
-                                <span>3:4</span>
-                                <span style="font-size:13px; margin-top:4px;">{d.title || 'Projekt'}</span>
-                              </div>
-                            )
-                          )}
-                        </>
-                      )}
                     </div>
                   </a>
                   
@@ -268,12 +267,13 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .selected-grid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 20px; row-gap: 60px; }
 
     .work-card { display: flex; flex-direction: column; }
-    .scrub-container { position: relative; width: 100%; aspect-ratio: 4 / 3; background-color: #111; overflow: hidden; margin-bottom: 14px; cursor: crosshair; }
+    .scrub-container { position: relative; width: 100%; aspect-ratio: 4 / 3; background-color: #111; overflow: hidden; margin-bottom: 14px; }
     .scrub-item { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; transition: opacity 0.05s ease; }
     .scrub-item.active { opacity: 1; }
 
-    .mobile-only-thumb { display: none; }
-    .desktop-only-thumb { display: block; }
+    .mobile-thumb-box { display: none; }
+    .desktop-thumb-box { display: block; width: 100%; height: 100%; position: relative; cursor: crosshair; }
+    .thumb-media-full { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
     .color-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; font-size: 16px; font-weight: 500; letter-spacing: 0.5px; }
 
@@ -291,6 +291,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       display: flex; align-items: flex-start; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 14px; cursor: grab; scrollbar-width: none; -ms-overflow-style: none;
     }
     .archive-carousel-bleed::-webkit-scrollbar { display: none; }
+    
     .archive-item-1-1 { position: relative; flex: 0 0 calc((100vw - 80px - 80px) / 4.3); width: calc((100vw - 80px - 80px) / 4.3); aspect-ratio: 1 / 1 !important; background-color: #0b50d0; scroll-snap-align: start; overflow: hidden; flex-shrink: 0; }
     .archive-item-1-1 img, .archive-item-1-1 video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .video-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.75); color:#fff; font-size:12px; padding:3px 6px; border-radius:2px; z-index:2; }
@@ -335,8 +336,9 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       .work-card { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; align-items: start; }
       .scrub-container { aspect-ratio: 3 / 4 !important; margin-bottom: 0; }
 
-      .mobile-only-thumb { display: block; width: 100%; height: 100%; object-fit: cover; }
-      .desktop-only-thumb { display: none !important; }
+      /* Umschaltung: Mobile Thumbnail sichtbar, Desktop ausgeblendet */
+      .mobile-thumb-box { display: block !important; width: 100%; height: 100%; position: relative; }
+      .desktop-thumb-box { display: none !important; }
 
       .card-meta { display: flex; flex-direction: column; font-size: 16px; line-height: 1.2; }
       .meta-title { min-height: auto; }
@@ -366,6 +368,23 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
         nav?.classList.add('collapsed');
       } else {
         nav?.classList.remove('collapsed');
+      }
+    });
+
+    // Desktop Hover Scrubbing
+    document.querySelectorAll('.desktop-thumb-box').forEach(box => {
+      const items = box.querySelectorAll('.scrub-item');
+      const count = items.length;
+      if (count > 1) {
+        box.addEventListener('mousemove', (e) => {
+          if (window.innerWidth <= 768) return;
+          const rect = box.getBoundingClientRect();
+          const activeIndex = Math.floor(Math.max(0, Math.min(0.999, (e.clientX - rect.left) / rect.width)) * count);
+          items.forEach((item, i) => item.classList.toggle('active', i === activeIndex));
+        });
+        box.addEventListener('mouseleave', () => {
+          items.forEach((item, i) => item.classList.toggle('active', i === 0));
+        });
       }
     });
 
