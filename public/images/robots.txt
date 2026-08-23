@@ -1,0 +1,59 @@
+# ==============================================================================
+# ROBOTS.TXT — PAULCHEN.AT
+# ==============================================================================
+
+# 1. NORMALE SUCHMASCHINEN (Google, Bing, DuckDuckGo, Ecosia)
+# Voller Zugriff für normales SEO-Ranking in den Suchergebnissen
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: DuckDuckBot
+User-agent: YandexBot
+Allow: /
+Disallow: /keystatic
+Disallow: /api/
+
+# 2. AI-SUCHMASCHINEN (ChatGPT Search, Perplexity, Apple Intelligence)
+# Erlaubt: Startseite & Über-mich für Markenbekanntheit & Auffindbarkeit
+# Gesperrt: Projekt-Inhalte & Rohdaten
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Applebot
+Allow: /$
+Allow: /ueber-mich
+Disallow: /projects/
+Disallow: /images/
+Disallow: /keystatic
+Disallow: /api/
+
+# 3. REINE AI-TRAININGS-SCRAPER (OpenAI Training, Anthropic, Common Crawl, Meta, ByteDance)
+# Geschützt: Keine Bild- & Video-Absaugung für KI-Modelltraining
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: CCBot
+User-agent: Google-Extended
+User-agent: Meta-ExternalAgent
+User-agent: FacebookBot
+User-agent: Bytespider
+User-agent: cohere-ai
+User-agent: Diffbot
+Allow: /$
+Allow: /ueber-mich
+Disallow: /projects/
+Disallow: /images/
+Disallow: /keystatic
+Disallow: /api/
+Disallow: /*.mp4$
+Disallow: /*.webp$
+Disallow: /*.jpg$
+Disallow: /*.png$
+
+# 4. STANDARD-REGEL FÜR ALLE ANDEREN CRAWLER
+User-agent: *
+Allow: /
+Disallow: /keystatic
+Disallow: /api/
+
+# 5. SITEMAP LOCATION
+Sitemap: https://www.paulchen.at/sitemap.xml
