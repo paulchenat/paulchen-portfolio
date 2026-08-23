@@ -34,35 +34,25 @@
       }
     },
     {
-      "discriminant": "portraitWithText",
+      "discriminant": "landscapeFullWidth",
       "value": {
-        "adminLabel": "groß",
-        "videoFile": "/videos/marketing-isn-t-working/blocks/1/value/videoFile.mp4",
-        "hasAudio": false,
-        "text": "platzhalter",
-        "textSize": "normal"
+        "media": "/images/content/marketing-isn-t-working/blocks/1/value/media.jpg",
+        "hasAudio": false
       }
     },
     {
-      "discriminant": "portraitWithText",
+      "discriminant": "portraitNoText",
       "value": {
-        "adminLabel": "klein",
-        "videoFile": "/videos/marketing-isn-t-working/blocks/2/value/videoFile.mp4",
+        "adminLabel": "Detailaufnahme",
+        "media": "/images/content/marketing-isn-t-working/blocks/2/value/media.jpg",
         "hasAudio": false,
-        "textSize": "normal"
+        "mobileFullWidth": false
       }
     },
     {
       "discriminant": "landscapeFullWidth",
       "value": {
         "media": "/images/content/marketing-isn-t-working/blocks/3/value/media.jpg",
-        "hasAudio": false
-      }
-    },
-    {
-      "discriminant": "landscapeFullWidth",
-      "value": {
-        "media": "/images/content/marketing-isn-t-working/blocks/4/value/media.jpg",
         "hasAudio": false
       }
     }
