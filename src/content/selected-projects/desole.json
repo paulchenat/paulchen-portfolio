@@ -121,18 +121,10 @@
       }
     },
     {
-      "discriminant": "landscapeStandard",
-      "value": {
-        "adminLabel": "Merch",
-        "media": "/images/content/desole/blocks/11/value/media.jpg",
-        "hasAudio": false
-      }
-    },
-    {
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Ende",
-        "media": "/images/content/desole/blocks/12/value/media.jpg",
+        "media": "/images/content/desole/blocks/11/value/media.jpg",
         "hasAudio": false
       }
     }
