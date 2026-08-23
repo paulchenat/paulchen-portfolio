@@ -97,37 +97,55 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
           {projects.length > 0 ? (
             projects.map((proj) => {
               const d = proj.data || {};
+              const videoSrc = d.videoLoopFile || d.videoLoop;
               return (
                 <article class="work-card">
                   <a href={`/projects/${proj.slug}`} style="color:inherit; text-decoration:none;">
-                    <div class="scrub-container" data-scrub-type="images">
-                      {d.thumbnailMobile && (
-                        <img 
-                          src={d.thumbnailMobile} 
-                          alt={d.title || ''} 
-                          class="mobile-only-thumb"
-                          loading="lazy"
-                          decoding="async"
+                    <div class="scrub-container" data-scrub-type={videoSrc ? "video" : "images"}>
+                      <!-- 1. Video Autoplay Loop (falls MP4 hochgeladen wurde) -->
+                      {videoSrc ? (
+                        <video 
+                          src={videoSrc} 
+                          autoplay 
+                          loop 
+                          muted 
+                          playsinline 
+                          class="scrub-item active" 
+                          style="object-fit:cover;"
                         />
-                      )}
-
-                      {d.thumbnailsDesktop && d.thumbnailsDesktop.length > 0 ? (
-                        d.thumbnailsDesktop.map((imgSrc: string, idx: number) => (
-                          <img 
-                            src={imgSrc} 
-                            alt={d.title || ''} 
-                            class={`scrub-item desktop-only-thumb ${idx === 0 ? 'active' : ''}`}
-                            loading={idx === 0 ? "eager" : "lazy"}
-                            decoding="async"
-                          />
-                        ))
                       ) : (
-                        !d.thumbnailMobile && (
-                          <div class="scrub-item active color-placeholder" style="background:#d83428;">
-                            <span>3:4</span>
-                            <span style="font-size:13px; margin-top:4px;">{d.title || 'Projekt'}</span>
-                          </div>
-                        )
+                        <>
+                          <!-- 2. Mobile Thumbnail -->
+                          {d.thumbnailMobile && (
+                            <img 
+                              src={d.thumbnailMobile} 
+                              alt={d.title || ''} 
+                              class="mobile-only-thumb"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          )}
+
+                          <!-- 3. Desktop Hover-Scrubbing Thumbnails -->
+                          {d.thumbnailsDesktop && d.thumbnailsDesktop.length > 0 ? (
+                            d.thumbnailsDesktop.map((imgSrc: string, idx: number) => (
+                              <img 
+                                src={imgSrc} 
+                                alt={d.title || ''} 
+                                class={`scrub-item desktop-only-thumb ${idx === 0 ? 'active' : ''}`}
+                                loading={idx === 0 ? "eager" : "lazy"}
+                                decoding="async"
+                              />
+                            ))
+                          ) : (
+                            !d.thumbnailMobile && (
+                              <div class="scrub-item active color-placeholder" style="background:#d83428;">
+                                <span>3:4</span>
+                                <span style="font-size:13px; margin-top:4px;">{d.title || 'Projekt'}</span>
+                              </div>
+                            )
+                          )}
+                        </>
                       )}
                     </div>
                   </a>
@@ -156,28 +174,33 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
         {archiveRows.map((row: any) => (
           <div class="archive-project-row">
             <div class="archive-carousel-bleed">
-              {row.gallery && row.gallery.map((item: any) => (
-                <div 
-                  class="archive-item-1-1" 
-                  data-title={row.title || ''} 
-                  data-year={row.year || ''} 
-                  data-copyright={row.copyright || ''}
-                  data-src={item.mediaFile || ''}
-                  data-video={item.videoUrl || ''}
-                >
-                  {item.isVideo && <div class="video-badge">Video</div>}
-                  {item.mediaFile ? (
-                    <img 
-                      src={item.mediaFile} 
-                      alt={row.title || ''} 
-                      loading="lazy" 
-                      decoding="async" 
-                    />
-                  ) : (
-                    <div class="color-placeholder" style="background:#1e40af;">1:1 Media</div>
-                  )}
-                </div>
-              ))}
+              {row.gallery && row.gallery.map((item: any) => {
+                const videoSrc = item.videoFile || item.videoUrl || '';
+                return (
+                  <div 
+                    class="archive-item-1-1" 
+                    data-title={row.title || ''} 
+                    data-year={row.year || ''} 
+                    data-copyright={row.copyright || ''}
+                    data-src={item.mediaFile || ''}
+                    data-video={videoSrc}
+                  >
+                    {(item.isVideo || videoSrc) && <div class="video-badge">Video</div>}
+                    {videoSrc ? (
+                      <video src={videoSrc} muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
+                    ) : item.mediaFile ? (
+                      <img 
+                        src={item.mediaFile} 
+                        alt={row.title || ''} 
+                        loading="lazy" 
+                        decoding="async" 
+                      />
+                    ) : (
+                      <div class="color-placeholder" style="background:#1e40af;">1:1 Media</div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
             
             <div class="archive-meta-grid">
@@ -201,7 +224,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       </div>
     </section>
 
-    <!-- FOOTER: RECHTS ÜBER 4 SPALTEN (IN NORMALER TEXTGRÖSSE 24PX / 20PX) -->
+    <!-- FOOTER -->
     <footer class="content-grid site-footer">
       <div class="footer-text-col">
         <p set:html={parseFormattedText(footerText)} />
@@ -268,10 +291,8 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       display: flex; align-items: flex-start; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 14px; cursor: grab; scrollbar-width: none; -ms-overflow-style: none;
     }
     .archive-carousel-bleed::-webkit-scrollbar { display: none; }
-    
-    /* 4 BILDER IM BLICKFELD (TEILUNG DURCH 4.3) */
     .archive-item-1-1 { position: relative; flex: 0 0 calc((100vw - 80px - 80px) / 4.3); width: calc((100vw - 80px - 80px) / 4.3); aspect-ratio: 1 / 1 !important; background-color: #0b50d0; scroll-snap-align: start; overflow: hidden; flex-shrink: 0; }
-    .archive-item-1-1 img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .archive-item-1-1 img, .archive-item-1-1 video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .video-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.75); color:#fff; font-size:12px; padding:3px 6px; border-radius:2px; z-index:2; }
 
     .archive-meta-grid { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; font-size: 16px; padding-top: 6px; }
@@ -285,22 +306,10 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .arch-info:hover .info-popover { display: block; }
     .mobile-info-drawer { display: none; }
 
-    /* FOOTER STYLES: 24PX NORMALTEXT, 80PX ABSTAND */
-    .site-footer {
-      padding-top: 80px;
-      padding-bottom: 100px;
-    }
-    .footer-text-col {
-      grid-column: 9 / 13;
-      font-size: 24px;
-      line-height: 1.2;
-      white-space: pre-line !important;
-    }
-    .footer-text-col p {
-      white-space: pre-line !important;
-    }
+    .site-footer { padding-top: 80px; padding-bottom: 100px; }
+    .footer-text-col { grid-column: 9 / 13; font-size: 24px; line-height: 1.2; white-space: pre-line !important; }
+    .footer-text-col p { white-space: pre-line !important; }
 
-    /* Lightbox */
     .lightbox-modal { display: none; position: fixed; inset: 0; background: #ffffff; z-index: 10000; padding: 30px 40px; flex-direction: column; justify-content: space-between; }
     .lightbox-modal.active { display: flex; }
     .lightbox-header { display: flex; justify-content: space-between; font-size: 16px; align-items: center; }
@@ -357,22 +366,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
         nav?.classList.add('collapsed');
       } else {
         nav?.classList.remove('collapsed');
-      }
-    });
-
-    document.querySelectorAll('.scrub-container').forEach(box => {
-      const items = box.querySelectorAll('.scrub-item');
-      const count = items.length;
-      if (count > 1) {
-        box.addEventListener('mousemove', (e) => {
-          if (window.innerWidth <= 768) return;
-          const rect = box.getBoundingClientRect();
-          const activeIndex = Math.floor(Math.max(0, Math.min(0.999, (e.clientX - rect.left) / rect.width)) * count);
-          items.forEach((item, i) => item.classList.toggle('active', i === activeIndex));
-        });
-        box.addEventListener('mouseleave', () => {
-          items.forEach((item, i) => item.classList.toggle('active', i === 0));
-        });
       }
     });
 
