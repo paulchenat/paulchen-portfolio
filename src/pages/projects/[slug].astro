@@ -89,7 +89,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                    data-text={d.theme?.textColor || '#000000'}
                    data-theme={d.theme?.isDarkTheme ? 'dark' : 'light'}>
             
-            <!-- 1. Header Bild (Desktop 2:1 / Mobile 3:4 Full-Width) -->
+            <!-- 1. Header Bild (Bleibt auf Mobile sauber im 40px-Raster!) -->
             <div class="media-box block-hero">
               {d.heroDesktop || d.heroMobile ? (
                 <picture class="hero-picture">
@@ -129,7 +129,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
               if (!block) return null;
               const val = block.value || {};
 
-              // INTRO BLOCK: 3-ZEILIGE INITIALE + TEXT ZUERST AUF MOBILE
+              // INTRO BLOCK: 3-ZEILIGE INITIALE + TEXT ZUERST AUF MOBILE + 100VW BILD
               if (block.discriminant === 'introPortraitWithText') {
                 const isLarge = val.textSize === 'large';
                 return (
@@ -237,8 +237,9 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
   </main>
 
   <style>
+    /* FLIESSENDE PROPORTIONALE MARGIN (MAX 160PX AUF 15", SCHRUMPFT PROZENTUAL AUF KLEINEREN BILDSCHIRMEN) */
     :root {
-      --content-margin: 180px !important;
+      --content-margin: clamp(60px, 9.5vw, 160px) !important;
     }
 
     .sticky-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; background: transparent; padding-top: 20px; padding-bottom: 20px; font-size: 24px; pointer-events: none; color: var(--text-color); transition: color 0.4s ease; }
@@ -270,9 +271,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .slot-3-rows { min-height: 57.6px; margin-bottom: 4px; }
 
     /* 2-SPALTER DESKTOP:
-       Text-Spalte hat 100% Höhe wie das Bild.
-       min-height: 50% sorgt dafür, dass die Oberkante exakt bei 50% Bildhöhe startet.
-       justify-content: flex-end sorgt dafür, dass sich langer Text nach oben ausdehnt! */
+       Text startet bei 50% Bildhöhe und dehnt sich bei mehr Inhalt nach oben aus */
     .block-portrait-with-text {
       grid-column: 1 / -1;
       display: grid;
@@ -287,13 +286,13 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end; /* Basis ist unten */
+      justify-content: flex-end;
       padding-top: 0;
       padding-bottom: 0;
     }
 
     .portrait-text-left .text-wrapper {
-      min-height: 50%; /* Oberkante startet bei 50% der Bildhöhe */
+      min-height: 50%;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -306,7 +305,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .portrait-text-left p, .text-wrapper p { white-space: pre-line !important; }
     .portrait-media-right { grid-column: 7 / 13; aspect-ratio: 3 / 4; }
 
-    /* 3-ZEILIGE INITIALE (DROP CAP) NUR FÜR DAS INTRO ELEMENT */
+    /* 3-ZEILIGE INITIALE FÜR DAS INTRO ELEMENT */
     .block-intro-text-first .text-wrapper > p:first-of-type::first-letter,
     .block-intro-text-first .text-wrapper > p:first-child::first-letter {
       -webkit-initial-letter: 3;
@@ -349,9 +348,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .footer-text-col { grid-column: 9 / 13; font-size: 24px; line-height: 1.2; white-space: pre-line !important; }
     .footer-text-col p { white-space: pre-line !important; }
 
-    /* ==========================================================================
-       RESPONSIVE MOBILE (<= 768px): ALLE MEDIEN 100VW FULL-WIDTH
-       ========================================================================== */
     @media (max-width: 768px) {
       :root { --content-margin: 40px !important; }
       .project-main-grid { padding-left: 40px; padding-right: 40px; padding-top: 55px; padding-bottom: 80px; }
@@ -362,8 +358,19 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       .nav-mobile-collapsed { display: block; grid-column: 1 / 7; margin-bottom: 8px; }
       .nav-more { grid-column: 1 / 7; text-align: left; }
 
-      /* ALLE MEDIEN AUF MOBILE AUSNAHMSLOS 100VW FULL-WIDTH */
-      .block-hero,
+      /* HEADER-BILD BLEIBT AUF MOBILE IM 40PX RASTER (KEIN 100VW AUSBRUCH!) */
+      .block-hero { 
+        width: 100% !important; 
+        position: relative !important; 
+        left: auto !important; 
+        margin-left: 0 !important; 
+        margin-right: 0 !important; 
+        aspect-ratio: 3 / 4; 
+        margin-top: 0; 
+        margin-bottom: 20px; 
+      }
+
+      /* ALLE ANDEREN PROJEKT-BILDER SIND AUF MOBILE 100VW FULL-WIDTH */
       .portrait-media-right,
       .block-landscape-standard,
       .block-landscape-fullwidth,
@@ -375,7 +382,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
         margin-right: -50vw !important;
       }
 
-      .block-hero { aspect-ratio: 3 / 4; margin-top: 0; margin-bottom: 20px; }
       .portrait-media-right, .portrait-only-media { aspect-ratio: 3 / 4; }
       .block-landscape-standard, .block-landscape-fullwidth { aspect-ratio: 3 / 2; margin-bottom: 60px; }
 
@@ -386,7 +392,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       .portrait-media-right { order: 1; }
       .portrait-text-left { order: 2; height: auto; display: block; padding-top: 0; margin-bottom: 12px; }
 
-      /* INTRO BLOCK AUF MOBILE: TEXT ZUERST VOR DEM 100VW BILD */
+      /* INTRO BLOCK: TEXT ZUERST VOR DEM 100VW BILD */
       .block-intro-text-first .portrait-text-left { order: 1 !important; margin-bottom: 20px; }
       .block-intro-text-first .portrait-media-right { order: 2 !important; }
 
