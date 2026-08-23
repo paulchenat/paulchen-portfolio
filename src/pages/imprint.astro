@@ -1,9 +1,23 @@
 ---
 export const prerender = true;
 import Layout from '../layouts/layout.astro';
+
+const imprintFiles = import.meta.glob('../content/singletons/imprint.json', { eager: true });
+const imprintMod: any = Object.values(imprintFiles)[0];
+const data = imprintMod?.default || imprintMod || {};
+
+function parseFormattedText(text: string) {
+  if (!text) return '';
+  return text
+    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="wavy-link">$1</a>')
+    .replace(/~(.*?)~/g, '<span class="wavy-text">$1</span>');
+}
+
+const title = data.title || 'Imprint';
+const content = data.content || '';
 ---
 
-<Layout title="Imprint — paulchen.at">
+<Layout title={`${title} — paulchen.at`}>
   <header class="sticky-nav nav-grid">
     <div class="nav-brand">
       <a href="/" class="wavy-link">paulchen.at</a>
@@ -18,36 +32,8 @@ import Layout from '../layouts/layout.astro';
 
   <main class="content-grid" style="padding-top: 140px; padding-bottom: 120px;">
     <div style="grid-column: 1 / -1; max-width: 750px; font-size: 16px; line-height: 1.4;">
-      <h1 style="font-size: 40px; font-weight: 400; margin-bottom: 40px;">Imprint</h1>
-      
-      <p style="margin-bottom: 24px;">
-        <strong>Information according to § 5 ECG and disclosure according to § 25 MedienG:</strong>
-      </p>
-
-      <p style="margin-bottom: 20px;">
-        <strong>Paul Neuburger</strong><br>
-        Creative Direction & Branding<br>
-        [Straße und Hausnummer]<br>
-        [PLZ] [Ort], Austria
-      </p>
-
-      <p style="margin-bottom: 20px;">
-        <strong>Contact:</strong><br>
-        E-Mail: <a href="mailto:hallo@paulchen.at" class="wavy-link">hallo@paulchen.at</a><br>
-        Website: <a href="https://www.paulchen.at" class="wavy-link">paulchen.at</a>
-      </p>
-
-      <p style="margin-bottom: 20px;">
-        <strong>Object of the company:</strong> Creative Direction, Advertising & Graphic Design<br>
-        <strong>Chamber membership:</strong> Austrian Federal Economic Chamber (WKO), Fachgruppe Werbung und Marktkommunikation<br>
-        <strong>Applicable legislation:</strong> Gewerbeordnung (<a href="https://www.ris.bka.gv.at" target="_blank" class="wavy-link">www.ris.bka.gv.at</a>)<br>
-        <strong>Supervisory authority:</strong> Magistrat der Stadt Wien / Bezirkshauptmannschaft
-      </p>
-
-      <p style="margin-top: 40px;">
-        <strong>Basic direction of the website (Blattlinie):</strong><br>
-        Presentation of independent creative work, brand design concepts, and visual communication.
-      </p>
+      <h1 style="font-size: 40px; font-weight: 400; margin-bottom: 40px;">{title}</h1>
+      <div style="white-space: pre-line !important;" set:html={parseFormattedText(content)} />
     </div>
   </main>
 
