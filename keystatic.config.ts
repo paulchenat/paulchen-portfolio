@@ -33,7 +33,6 @@ export default config({
           isDarkTheme: fields.checkbox({ label: 'Dark Mode Modus (Schwarzer Hintergrund / Weiße Welle)', defaultValue: false })
         }, { label: 'Projekt Farbschema (Theming)' }),
 
-        // THUMBNAILS & VIDEO-UPLOAD FÜR DIE STARTSEITE
         thumbnailsDesktop: fields.array(
           fields.image({ label: 'Desktop Frame (4:3)', directory: 'public/images/thumbnails', publicPath: '/images/thumbnails/' }),
           { label: 'Desktop Hover-Scrubbing Thumbnails (1 bis 5 Bilder)', validation: { length: { min: 1, max: 5 } } }
@@ -45,23 +44,22 @@ export default config({
           publicPath: '/images/thumbnails/' 
         }),
         videoLoopFile: fields.file({
-          label: 'Thumbnail Video-Loop direkt hochladen (MP4)',
-          description: 'Lädt die MP4-Datei direkt in dein Projekt hoch (spielt als Autoplay-Loop auf der Startseite)',
+          label: 'Thumbnail Video-Loop hochladen (MP4)',
           directory: 'public/videos',
           publicPath: '/videos/',
         }),
         videoLoop: fields.text({ label: 'Oder: Externer MP4 Video-Loop URL' }),
 
-        // HEADER MEDIEN (BILD ODER DIREKTER VIDEO-UPLOAD)
+        // HEADER VIDEO & BILDER
         heroDesktop: fields.image({ label: 'Header Bild Desktop (2:1)', directory: 'public/images/content', publicPath: '/images/content/' }),
         heroMobile: fields.image({ label: 'Header Bild Mobile (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
         heroVideoFile: fields.file({
           label: 'Header Video direkt hochladen (MP4)',
-          description: 'Lädt das Header-Video direkt hoch',
           directory: 'public/videos',
           publicPath: '/videos/',
         }),
         heroVideoUrl: fields.text({ label: 'Oder: Externer Header Video URL (MP4)' }),
+        heroVideoHasAudio: fields.checkbox({ label: 'Header-Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false }),
 
         blocks: fields.blocks(
           {
@@ -73,6 +71,7 @@ export default config({
                 media: fields.image({ label: 'Bild (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoFile: fields.file({ label: 'Oder: Video direkt hochladen (MP4)', directory: 'public/videos', publicPath: '/videos/' }),
                 videoUrl: fields.text({ label: 'Oder: Externe Video URL (MP4)' }),
+                hasAudio: fields.checkbox({ label: 'Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false }),
                 text: fields.text({ label: 'Intro Beschreibungstext (~Wort~ für Welle, [Text](url) für Link)', multiline: true }),
                 textSize: fields.select({
                   label: 'Textgröße',
@@ -82,13 +81,14 @@ export default config({
               })
             },
             portraitWithText: {
-              label: 'Hochformat 3:4 mit Text links (Standard: Bild oben auf Mobile)',
+              label: 'Hochformat 3:4 mit Text links',
               itemLabel: (props) => props.fields.adminLabel.value || 'Hochformat mit Text',
               schema: fields.object({
-                adminLabel: fields.text({ label: 'Interner Block-Name (z.B. "Foto Detail")', description: 'Hilft dir beim Sortieren der Blöcke' }),
+                adminLabel: fields.text({ label: 'Interner Block-Name', defaultValue: 'Hochformat mit Text' }),
                 media: fields.image({ label: 'Bild (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoFile: fields.file({ label: 'Oder: Video direkt hochladen (MP4)', directory: 'public/videos', publicPath: '/videos/' }),
                 videoUrl: fields.text({ label: 'Oder: Externe Video URL (MP4)' }),
+                hasAudio: fields.checkbox({ label: 'Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false }),
                 text: fields.text({ label: 'Beschreibungstext (~Wort~ für Welle, [Text](url) für Link)', multiline: true }),
                 textSize: fields.select({
                   label: 'Textgröße',
@@ -101,17 +101,18 @@ export default config({
               label: 'Querformat Standard (3:2 im Raster)',
               itemLabel: (props) => props.fields.adminLabel.value || 'Querformat Standard (3:2)',
               schema: fields.object({
-                adminLabel: fields.text({ label: 'Interner Block-Name (z.B. "Foto Serie")', description: 'Hilft dir beim Sortieren der Blöcke' }),
+                adminLabel: fields.text({ label: 'Interner Block-Name', defaultValue: 'Querformat Standard' }),
                 media: fields.image({ label: 'Bild (3:2)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoFile: fields.file({ label: 'Oder: Video direkt hochladen (MP4)', directory: 'public/videos', publicPath: '/videos/' }),
-                videoUrl: fields.text({ label: 'Oder: Externe Video URL (MP4)' })
+                videoUrl: fields.text({ label: 'Oder: Externe Video URL (MP4)' }),
+                hasAudio: fields.checkbox({ label: 'Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false })
               })
             },
             centeredStatement: {
               label: 'Zentriertes Statement (mit 120px Puffer)',
               itemLabel: (props) => props.fields.adminLabel.value || 'Zentriertes Statement',
               schema: fields.object({
-                adminLabel: fields.text({ label: 'Interner Block-Name (z.B. "Großes Zitat")', description: 'Hilft dir beim Sortieren der Blöcke' }),
+                adminLabel: fields.text({ label: 'Interner Block-Name', defaultValue: 'Großes Zitat' }),
                 statement: fields.text({ label: 'Zitat / Statement (~Wort~ für Welle)', multiline: true }),
                 textSize: fields.select({
                   label: 'Textgröße',
@@ -124,20 +125,22 @@ export default config({
               label: 'Querformat Ganze Breite (3:2 Full Bleed)',
               itemLabel: (props) => props.fields.adminLabel.value || 'Querformat Ganze Breite (Full Bleed)',
               schema: fields.object({
-                adminLabel: fields.text({ label: 'Interner Block-Name (z.B. "Panorama Foto")', description: 'Hilft dir beim Sortieren der Blöcke' }),
+                adminLabel: fields.text({ label: 'Interner Block-Name', defaultValue: 'Querformat Full Bleed' }),
                 media: fields.image({ label: 'Bild (3:2)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoFile: fields.file({ label: 'Oder: Video direkt hochladen (MP4)', directory: 'public/videos', publicPath: '/videos/' }),
-                videoUrl: fields.text({ label: 'Oder: Externe Video URL (MP4)' })
+                videoUrl: fields.text({ label: 'Oder: Externe Video URL (MP4)' }),
+                hasAudio: fields.checkbox({ label: 'Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false })
               })
             },
             portraitNoText: {
               label: 'Hochformat 3:4 ohne Text (Rechtsbündig)',
               itemLabel: (props) => props.fields.adminLabel.value || 'Hochformat 3:4 Rechts',
               schema: fields.object({
-                adminLabel: fields.text({ label: 'Interner Block-Name (z.B. "Detailaufnahme")', description: 'Hilft dir beim Sortieren der Blöcke' }),
+                adminLabel: fields.text({ label: 'Interner Block-Name', defaultValue: 'Detailaufnahme' }),
                 media: fields.image({ label: 'Bild (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
                 videoFile: fields.file({ label: 'Oder: Video direkt hochladen (MP4)', directory: 'public/videos', publicPath: '/videos/' }),
                 videoUrl: fields.text({ label: 'Oder: Externe Video URL (MP4)' }),
+                hasAudio: fields.checkbox({ label: 'Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false }),
                 mobileFullWidth: fields.checkbox({ label: 'Auf Mobile über volle Bildschirmbreite', defaultValue: false })
               })
             }
@@ -147,7 +150,7 @@ export default config({
       }
     }),
 
-    // 2. ARCHIVE (MIT DIREKTEM MP4-UPLOAD PRO ASSET)
+    // 2. ARCHIVE
     archive: collection({
       label: 'Archiv Zeilen',
       slugField: 'title',
@@ -169,6 +172,7 @@ export default config({
             mediaFile: fields.image({ label: 'Quadratisches Bild (1:1 JPG/PNG/GIF)', directory: 'public/images/archive', publicPath: '/images/archive/' }),
             videoFile: fields.file({ label: 'Oder: 1:1 Video direkt hochladen (MP4)', directory: 'public/videos', publicPath: '/videos/' }),
             videoUrl: fields.text({ label: 'Oder: Externe MP4 Video URL' }),
+            hasAudio: fields.checkbox({ label: 'Video hat Ton', defaultValue: false }),
             isVideo: fields.checkbox({ label: 'Ist ein Video (zeigt Video-Badge)', defaultValue: false })
           }),
           { label: '1:1 Medien (Bis zu 10)' }
