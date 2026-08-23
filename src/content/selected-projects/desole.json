@@ -77,6 +77,7 @@
     {
       "discriminant": "landscapeFullWidth",
       "value": {
+        "adminLabel": "Untertitel",
         "media": "/images/content/desole/blocks/6/value/media.jpg",
         "hasAudio": false
       }
