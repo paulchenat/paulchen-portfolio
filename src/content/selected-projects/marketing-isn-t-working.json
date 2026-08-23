@@ -34,21 +34,30 @@
     {
       "discriminant": "portraitWithText",
       "value": {
+        "adminLabel": "groß",
         "videoFile": "/videos/marketing-isn-t-working/blocks/1/value/videoFile.mp4",
         "text": "platzhalter",
         "textSize": "normal"
       }
     },
     {
-      "discriminant": "landscapeFullWidth",
+      "discriminant": "portraitWithText",
       "value": {
-        "media": "/images/content/marketing-isn-t-working/blocks/2/value/media.jpg"
+        "adminLabel": "klein",
+        "videoFile": "/videos/marketing-isn-t-working/blocks/2/value/videoFile.mp4",
+        "textSize": "normal"
       }
     },
     {
       "discriminant": "landscapeFullWidth",
       "value": {
         "media": "/images/content/marketing-isn-t-working/blocks/3/value/media.jpg"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "media": "/images/content/marketing-isn-t-working/blocks/4/value/media.jpg"
       }
     }
   ]
