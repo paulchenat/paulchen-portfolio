@@ -89,7 +89,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                    data-text={d.theme?.textColor || '#000000'}
                    data-theme={d.theme?.isDarkTheme ? 'dark' : 'light'}>
             
-            <!-- 1. Header Bild -->
+            <!-- 1. Header Bild (Desktop 2:1 / Mobile 3:4 Full-Width) -->
             <div class="media-box block-hero">
               {d.heroDesktop || d.heroMobile ? (
                 <picture class="hero-picture">
@@ -129,7 +129,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
               if (!block) return null;
               const val = block.value || {};
 
-              // INTRO BLOCK: TEXT ZUERST AUF MOBILE
+              // INTRO BLOCK: 3-ZEILIGE INITIALE + TEXT ZUERST AUF MOBILE
               if (block.discriminant === 'introPortraitWithText') {
                 const isLarge = val.textSize === 'large';
                 return (
@@ -151,7 +151,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                 );
               }
 
-              // STANDARD 2-SPALTER (UNTEN BÜNDIG ZENTRIERT)
+              // STANDARD 2-SPALTER
               if (block.discriminant === 'portraitWithText') {
                 const isLarge = val.textSize === 'large';
                 return (
@@ -207,7 +207,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
               }
               if (block.discriminant === 'portraitNoText') {
                 return (
-                  <section class={`block-portrait-no-text ${val.mobileFullWidth ? 'block-portrait-mobile-fullwidth' : ''}`}>
+                  <section class="block-portrait-no-text">
                     <div class="media-box portrait-only-media">
                       {val.media && <img src={val.media} alt="" loading="lazy" decoding="async" />}
                       {val.videoUrl && (
@@ -227,7 +227,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       );
     })}
 
-    <!-- FOOTER (24PX NORMALTEXT) -->
+    <!-- FOOTER -->
     <footer class="site-footer" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px;">
       <div class="footer-text-col">
         <p set:html={parseFormattedText(footerText)} />
@@ -269,21 +269,56 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .info-col { display: flex; flex-direction: column; justify-content: space-between; }
     .slot-3-rows { min-height: 57.6px; margin-bottom: 4px; }
 
-    /* 2-SPALTER: BÜNDIG UNTEN (ALIGN-ITEMS: END) -> Kurzer Text sitzt unten, langer Text dehnt sich nach oben aus */
+    /* 2-SPALTER DESKTOP:
+       Text-Spalte hat 100% Höhe wie das Bild.
+       min-height: 50% sorgt dafür, dass die Oberkante exakt bei 50% Bildhöhe startet.
+       justify-content: flex-end sorgt dafür, dass sich langer Text nach oben ausdehnt! */
     .block-portrait-with-text {
       grid-column: 1 / -1;
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       column-gap: 20px;
-      align-items: end;
+      align-items: stretch;
       margin-bottom: 60px;
     }
 
-    .portrait-text-left { grid-column: 1 / 7; padding-top: 0; padding-bottom: 0; }
-    .portrait-text-left.text-normal .text-wrapper { font-size: 24px; line-height: 1.2; width: 66.666%; white-space: pre-line !important; }
-    .portrait-text-left.text-large .text-wrapper { font-size: 40px; line-height: 1.2; width: 66.666%; white-space: pre-line !important; }
+    .portrait-text-left {
+      grid-column: 1 / 7;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end; /* Basis ist unten */
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .portrait-text-left .text-wrapper {
+      min-height: 50%; /* Oberkante startet bei 50% der Bildhöhe */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 66.666%;
+      white-space: pre-line !important;
+    }
+
+    .portrait-text-left.text-normal .text-wrapper { font-size: 24px; line-height: 1.2; }
+    .portrait-text-left.text-large .text-wrapper { font-size: 40px; line-height: 1.2; }
     .portrait-text-left p, .text-wrapper p { white-space: pre-line !important; }
     .portrait-media-right { grid-column: 7 / 13; aspect-ratio: 3 / 4; }
+
+    /* 3-ZEILIGE INITIALE (DROP CAP) NUR FÜR DAS INTRO ELEMENT */
+    .block-intro-text-first .text-wrapper > p:first-of-type::first-letter,
+    .block-intro-text-first .text-wrapper > p:first-child::first-letter {
+      -webkit-initial-letter: 3;
+      initial-letter: 3;
+      float: left;
+      font-size: 3.3em;
+      line-height: 0.82;
+      padding-right: 0.15em;
+      padding-top: 0.05em;
+      font-family: inherit;
+      font-weight: 400;
+    }
 
     .block-landscape-standard { grid-column: 1 / -1; aspect-ratio: 3 / 2; margin-bottom: 60px; }
     .block-centered-text { grid-column: 1 / -1; text-align: center; margin-top: 60px; margin-bottom: 120px; padding: 60px 0; white-space: pre-line !important; }
@@ -291,7 +326,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .block-centered-text.normal { font-size: 24px; line-height: 1.2; max-width: 650px; margin-left: auto; margin-right: auto; }
     .block-centered-text p { white-space: pre-line !important; }
 
-    /* FULL BLEED */
+    /* FULL BLEED DESKTOP */
     .block-landscape-fullwidth {
       grid-column: 1 / -1;
       width: 100vw;
@@ -314,6 +349,9 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .footer-text-col { grid-column: 9 / 13; font-size: 24px; line-height: 1.2; white-space: pre-line !important; }
     .footer-text-col p { white-space: pre-line !important; }
 
+    /* ==========================================================================
+       RESPONSIVE MOBILE (<= 768px): ALLE MEDIEN 100VW FULL-WIDTH
+       ========================================================================== */
     @media (max-width: 768px) {
       :root { --content-margin: 40px !important; }
       .project-main-grid { padding-left: 40px; padding-right: 40px; padding-top: 55px; padding-bottom: 80px; }
@@ -324,36 +362,49 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       .nav-mobile-collapsed { display: block; grid-column: 1 / 7; margin-bottom: 8px; }
       .nav-more { grid-column: 1 / 7; text-align: left; }
 
+      /* ALLE MEDIEN AUF MOBILE AUSNAHMSLOS 100VW FULL-WIDTH */
+      .block-hero,
+      .portrait-media-right,
+      .block-landscape-standard,
+      .block-landscape-fullwidth,
+      .portrait-only-media {
+        width: 100vw !important;
+        position: relative !important;
+        left: 50% !important;
+        margin-left: -50vw !important;
+        margin-right: -50vw !important;
+      }
+
       .block-hero { aspect-ratio: 3 / 4; margin-top: 0; margin-bottom: 20px; }
+      .portrait-media-right, .portrait-only-media { aspect-ratio: 3 / 4; }
+      .block-landscape-standard, .block-landscape-fullwidth { aspect-ratio: 3 / 2; margin-bottom: 60px; }
+
       .project-info-block { grid-template-columns: 1fr 1fr; column-gap: 16px; margin-bottom: 60px; }
       .slot-3-rows { min-height: 57.6px; }
 
-      .block-portrait-with-text { grid-template-columns: 1fr; row-gap: 28px; margin-bottom: 60px; }
-      .portrait-media-right { grid-column: 1 / -1; order: 1; }
-      .portrait-text-left { grid-column: 1 / -1; order: 2; padding-top: 0; margin-bottom: 12px; }
+      .block-portrait-with-text { grid-template-columns: 1fr; row-gap: 28px; margin-bottom: 60px; display: flex; flex-direction: column; }
+      .portrait-media-right { order: 1; }
+      .portrait-text-left { order: 2; height: auto; display: block; padding-top: 0; margin-bottom: 12px; }
 
-      /* INTRO BLOCK AUF MOBILE: TEXT ZUERST */
+      /* INTRO BLOCK AUF MOBILE: TEXT ZUERST VOR DEM 100VW BILD */
       .block-intro-text-first .portrait-text-left { order: 1 !important; margin-bottom: 20px; }
       .block-intro-text-first .portrait-media-right { order: 2 !important; }
 
-      .portrait-text-left.text-normal .text-wrapper { font-size: 20px; width: 100%; }
-      .portrait-text-left.text-large .text-wrapper { font-size: 30px; width: 100%; }
+      .portrait-text-left .text-wrapper { min-height: auto; width: 100%; font-size: 20px; }
+      .portrait-text-left.text-normal .text-wrapper { font-size: 20px; }
+      .portrait-text-left.text-large .text-wrapper { font-size: 30px; }
 
-      .block-landscape-standard { margin-bottom: 60px; }
+      /* 3-ZEILIGE INITIALE AUF MOBILE */
+      .block-intro-text-first .text-wrapper > p:first-of-type::first-letter,
+      .block-intro-text-first .text-wrapper > p:first-child::first-letter {
+        font-size: 3.1em;
+        line-height: 0.8;
+      }
+
       .block-centered-text { margin-top: 40px; margin-bottom: 80px; padding: 20px 0; }
       .block-centered-text.large { font-size: 30px; }
 
-      .block-landscape-fullwidth {
-        width: 100vw;
-        position: relative;
-        left: 50%;
-        margin-left: -50vw;
-        margin-bottom: 60px;
-      }
-
       .block-portrait-no-text { grid-template-columns: 1fr; margin-bottom: 60px; }
-      .portrait-only-media { grid-column: 1 / -1; }
-      .block-portrait-mobile-fullwidth .media-box { width: 100vw; position: relative; left: 50%; margin-left: -50vw; aspect-ratio: 3 / 4; }
 
       .site-footer { padding-top: 60px; padding-bottom: 60px; }
       .footer-text-col { grid-column: 1 / 7; font-size: 20px; line-height: 1.2; }
