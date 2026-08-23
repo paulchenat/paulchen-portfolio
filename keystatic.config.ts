@@ -184,8 +184,6 @@ export default config({
         moreButtonText: fields.text({ label: 'Menü-Button Text (rechts)', defaultValue: 'mehr' }),
         selectedWorkTitle: fields.text({ label: 'Überschrift Bereich 1', defaultValue: 'Ausgewählte Projekte' }),
         archiveTitle: fields.text({ label: 'Überschrift Bereich 2', defaultValue: 'Archiv' }),
-        
-        // FOOTER TEXTFELD MIT GENAUEN LINK-HINWEISEN
         footerText: fields.text({
           label: 'Footer Text (Rechtsbündig über 4 Spalten)',
           description: 'Nutze ~Wort~ für Welle. Exakte Links so einfügen: [Imprint](/imprint) und [Privacy Policy](/privacy-policy)',
@@ -204,6 +202,27 @@ export default config({
         bio: fields.text({ label: 'Ausführliche Biografie', multiline: true }),
         clients: fields.text({ label: 'Kundenliste & Agenturen', multiline: true }),
         awards: fields.text({ label: 'Auszeichnungen & Presse', multiline: true }),
+      }
+    }),
+
+    imprint: singleton({
+      label: 'Seite: Impressum',
+      path: 'src/content/singletons/imprint',
+      format: { data: 'json' },
+      schema: {
+        title: fields.text({ label: 'Überschrift', defaultValue: 'Imprint' }),
+        content: fields.text({ label: 'Impressum Inhalt', multiline: true })
+      }
+    }),
+
+    privacyPolicy: singleton({
+      label: 'Seite: Privacy Policy (Datenschutz)',
+      path: 'src/content/singletons/privacyPolicy',
+      format: { data: 'json' },
+      schema: {
+        title: fields.text({ label: 'Überschrift', defaultValue: 'Privacy Policy' }),
+        intro: fields.text({ label: 'Intro Text (größer)', multiline: true }),
+        content: fields.text({ label: 'Datenschutzerklärung Inhalt', multiline: true })
       }
     }),
 
