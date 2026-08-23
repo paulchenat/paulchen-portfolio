@@ -121,6 +121,7 @@
     {
       "discriminant": "landscapeStandard",
       "value": {
+        "adminLabel": "Merch",
         "media": "/images/content/desole/blocks/11/value/media.jpg",
         "hasAudio": false
       }
