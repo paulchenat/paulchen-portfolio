@@ -99,17 +99,24 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
           {projects.length > 0 ? (
             projects.map((proj) => {
               const d = proj.data || {};
-              const dktVideo = d.videoLoopFile || d.videoLoop;
-              const dktImages = d.thumbnailsDesktop;
-              const mblVideo = d.mobileVideoLoop;
-              const mblImage = d.thumbnailMobile;
+              const thumb = d.thumbnails || {};
+              
+              // Desktop Medien
+              const dktVideo = d.videoLoopFile || d.videoLoop || thumb.desktopVideoLoop;
+              const dktImages = (d.thumbnailsDesktop && d.thumbnailsDesktop.length > 0) 
+                ? d.thumbnailsDesktop 
+                : (thumb.desktopScrubImages && thumb.desktopScrubImages.length > 0 ? thumb.desktopScrubImages : []);
+              
+              // Mobile Medien (Sichere Abfrage beider Datenstrukturen)
+              const mblVideo = d.mobileVideoLoop || thumb.mobileVideoLoop;
+              const mblImage = d.thumbnailMobile || thumb.mobileImage;
 
               return (
                 <article class="work-card">
                   <a href={`/projects/${proj.slug}`} style="color:inherit; text-decoration:none;">
                     <div class="scrub-container">
                       
-                      <!-- 📱 MOBILE THUMBNAIL -->
+                      <!-- 📱 MOBILE THUMBNAIL (Wird nur auf Mobile angezeigt) -->
                       <div class="mobile-thumb-box">
                         {mblVideo ? (
                           <video src={mblVideo} autoplay loop muted playsinline class="thumb-media-full" />
@@ -124,7 +131,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                         )}
                       </div>
 
-                      <!-- 🖥️ DESKTOP THUMBNAIL -->
+                      <!-- 🖥️ DESKTOP THUMBNAIL (Wird nur auf Desktop angezeigt) -->
                       <div class="desktop-thumb-box">
                         {dktVideo ? (
                           <video src={dktVideo} autoplay loop muted playsinline class="thumb-media-full" />
@@ -203,6 +210,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                 })}
               </div>
               
+              <!-- 12-SPALTEN RASTER -->
               <div class="archive-meta-grid">
                 <div class="arch-name">{row.title || ''}</div>
                 <div class="arch-year">({row.year || ''})</div>
@@ -214,10 +222,12 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                 <div class="arch-copyright">{row.copyright || ''}</div>
               </div>
 
+              <!-- MOBILE INFO DRAWER: ZEIGT DEN VOLLEN TITEL UNGEKÜRZT -->
               <div class="mobile-info-drawer">
-                <div class="drawer-context">Mitwirkende: {row.furtherContext || ''} ({row.year || ''})</div>
-                <div class="drawer-desc">{row.infoText || ''}</div>
-                <div class="drawer-copyright">© {row.copyright || ''}</div>
+                <div class="drawer-title">{row.title || ''}</div>
+                {row.furtherContext && <div class="drawer-context">Mitwirkende: {row.furtherContext} ({row.year || ''})</div>}
+                {row.infoText && <div class="drawer-desc">{row.infoText}</div>}
+                {row.copyright && <div class="drawer-copyright">© {row.copyright}</div>}
               </div>
             </div>
           );
@@ -234,7 +244,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
 
   </main>
 
-  <!-- LIGHTBOX MIT TEILBAREM DEEP-LINKING -->
+  <!-- LIGHTBOX -->
   <div class="lightbox-modal" id="globalLightbox">
     <div class="lightbox-header">
       <span id="lbTitle">Projekt Titel</span>
@@ -387,20 +397,68 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       .work-card { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; align-items: start; }
       .scrub-container { aspect-ratio: 3 / 4 !important; margin-bottom: 0; }
 
-      .mobile-only-thumb { display: block; width: 100%; height: 100%; object-fit: cover; }
-      .desktop-only-thumb { display: none !important; }
+      /* MOBILE THUMBNAIL: ERZWINGT 3:4 FORMAT */
+      .mobile-thumb-box { display: block !important; width: 100%; height: 100%; position: relative; }
+      .desktop-thumb-box { display: none !important; }
+      .mobile-thumb-box img, .mobile-thumb-box video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
 
+      /* 1 ZEILE ABSTAND ZWISCHEN TITEL & FURTHER CONTEXT */
       .card-meta { display: flex; flex-direction: column; font-size: 16px; line-height: 1.2; }
-      .meta-title { min-height: auto; }
-      .meta-context { min-height: auto; margin-bottom: 19.2px; }
+      .meta-title { min-height: auto; margin-bottom: 19.2px !important; } /* EXAKT 1 ZEILE ABSTAND */
+      .meta-context { min-height: auto; margin-bottom: 19.2px !important; } /* EXAKT 1 ZEILE ABSTAND */
+      .meta-year-place { margin-bottom: 0; }
+      .meta-copyright { margin-bottom: 0; }
 
       .archive-carousel-bleed { margin-left: -40px; padding-left: 40px; padding-right: 40px; }
       .archive-item-1-1 { flex: 0 0 calc((100vw - 80px - 20px) / 2); width: calc((100vw - 80px - 20px) / 2); }
+      
+      /* ARCHIV TITEL AUF MOBILE: MEHR PLATZ + '...' BEI ÜBERLÄNGE */
+      .archive-meta-grid {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 16px;
+        width: 100%;
+      }
+
+      .arch-name {
+        flex: 1;
+        min-width: 0; /* Verhindert Flexbox-Overflow */
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important; /* Kürzt bei Überlänge mit '...' ab */
+        margin-right: 16px;
+      }
+
+      .arch-info {
+        flex-shrink: 0;
+      }
+
       .arch-year, .arch-context, .arch-copyright { display: none; }
       .info-popover { display: none !important; }
-      .mobile-info-drawer { display: block; max-height: 0; opacity: 0; overflow: hidden; transition: all 0.3s ease; font-size: 16px; color: #000; }
-      .mobile-info-drawer.open { max-height: 400px; opacity: 1; margin-top: 10px; }
-      .drawer-desc, .drawer-context { white-space: pre-line !important; }
+
+      /* MOBILE DRAWER: ZEIGT DEN VOLLEN TITEL UNGEKÜRZT */
+      .mobile-info-drawer { 
+        display: block; 
+        max-height: 0; 
+        opacity: 0; 
+        overflow: hidden; 
+        transition: all 0.3s ease; 
+        font-size: 16px; 
+        color: #000; 
+      }
+      .mobile-info-drawer.open { max-height: 500px; opacity: 1; margin-top: 10px; }
+      .drawer-title { font-weight: 500; margin-bottom: 6px; white-space: normal !important; }
+      .drawer-context { margin-bottom: 6px; }
+      .drawer-desc { margin-bottom: 6px; white-space: pre-line !important; }
+      .drawer-copyright { font-size: 14px; color: inherit; }
 
       .site-footer { padding-top: 60px; padding-bottom: 60px; }
       .footer-text-col { grid-column: 1 / 7; font-size: 20px; line-height: 1.2; }
@@ -429,9 +487,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       });
     });
 
-    // ==============================================================================
-    // GLOBAL LIGHTBOX MIT SHAREABLE DEEP-LINKING
-    // ==============================================================================
     const lb = document.getElementById('globalLightbox');
     const lbTitle = document.getElementById('lbTitle');
     const lbCopyright = document.getElementById('lbCopyright');
@@ -468,7 +523,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
         lbStage.innerHTML = `<div style="font-size:16px; color:#999;">[ Kein Medium hinterlegt ]</div>`;
       }
 
-      // Aktualisiert die Webadresse im Browser mit ?view=id
       if (updateUrl && itemId) {
         const newUrl = new URL(window.location);
         newUrl.searchParams.set('view', itemId);
@@ -487,7 +541,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     lbPrev?.addEventListener('click', () => renderLightboxItem(currentLbIndex - 1, true));
     lbNext?.addEventListener('click', () => renderLightboxItem(currentLbIndex + 1, true));
     
-    // Schließen der Lightbox & URL sauber zurücksetzen
     document.getElementById('lbClose')?.addEventListener('click', () => {
       lb.classList.remove('active');
       document.body.style.overflow = 'auto';
@@ -498,7 +551,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       window.history.replaceState({}, '', cleanUrl.pathname + (cleanUrl.search ? '?' + cleanUrl.searchParams.toString() : ''));
     });
 
-    // Beim direkten Aufruf eines geteilten Links (?view=...) sofort öffnen
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
       const viewId = params.get('view');
