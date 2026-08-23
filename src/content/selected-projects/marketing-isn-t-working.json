@@ -21,7 +21,7 @@
   "thumbnailMobile": "/images/thumbnails/marketing-isn-t-working/thumbnailMobile.jpg",
   "heroDesktop": "/images/content/marketing-isn-t-working/heroDesktop.jpg",
   "heroMobile": "/images/content/marketing-isn-t-working/heroMobile.jpg",
-  "heroVideoFile": "/videos/marketing-isn-t-working/heroVideoFile.mp4",
+  "heroMobileVideoFile": "/videos/marketing-isn-t-working/heroMobileVideoFile.mp4",
   "heroVideoHasAudio": true,
   "blocks": [
     {
