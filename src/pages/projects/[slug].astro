@@ -46,6 +46,7 @@ const contactLabel = settings.contactLinkText || 'write me';
 const contactPrefix = settings.contactType === 'email' ? 'mailto:' : settings.contactType === 'tel' ? 'tel:' : '';
 const contactHref = settings.contactTarget ? `${contactPrefix}${settings.contactTarget}` : 'mailto:hallo@paulchen.at';
 const moreLabel = settings.moreButtonText || 'mehr';
+const footerText = settings.footerText || 'Your privacy matters to me. When you browse my design work on paulchen.at, your visit remains completely anonymous, ~no cookies~ are stored, tracked, or shared with third parties.\n\nYou can find all legal details regarding my identity in the [Imprint](/imprint) and full information about data handling in the [Privacy Policy](/privacy-policy).\n\nHave a wonderful day!\nBest, Paul';
 ---
 
 <Layout title={`${project.data?.title || 'Projekt'} — paulchen.at`}>
@@ -70,7 +71,7 @@ const moreLabel = settings.moreButtonText || 'mehr';
   </header>
 
   <!-- ENDLOSER PROJEKT STREAM -->
-  <main class="content-grid" id="projectContainer">
+  <main class="content-grid project-main-grid" id="projectContainer">
     
     {orderedStream.map((item: any, streamIdx: number) => {
       const d = item.data || {};
@@ -128,6 +129,29 @@ const moreLabel = settings.moreButtonText || 'mehr';
               if (!block) return null;
               const val = block.value || {};
 
+              // INTRO BLOCK: TEXT ZUERST AUF MOBILE
+              if (block.discriminant === 'introPortraitWithText') {
+                const isLarge = val.textSize === 'large';
+                return (
+                  <section class="block-portrait-with-text block-intro-text-first">
+                    <div class={`portrait-text-left ${isLarge ? 'text-large' : 'text-normal'}`}>
+                      <div class="text-wrapper">
+                        <p set:html={parseFormattedText(val.text)} />
+                      </div>
+                    </div>
+                    <div class="media-box portrait-media-right">
+                      {val.media && <img src={val.media} alt="" loading="lazy" decoding="async" />}
+                      {val.videoUrl && (
+                        <video playsinline loop muted autoplay>
+                          <source src={val.videoUrl} type="video/mp4" />
+                        </video>
+                      )}
+                    </div>
+                  </section>
+                );
+              }
+
+              // STANDARD 2-SPALTER MIT VERTIKALER ZENTRIERUNG
               if (block.discriminant === 'portraitWithText') {
                 const isLarge = val.textSize === 'large';
                 return (
@@ -148,6 +172,7 @@ const moreLabel = settings.moreButtonText || 'mehr';
                   </section>
                 );
               }
+
               if (block.discriminant === 'landscapeStandard') {
                 return (
                   <div class="media-box block-landscape-standard">
@@ -202,9 +227,20 @@ const moreLabel = settings.moreButtonText || 'mehr';
       );
     })}
 
+    <!-- FOOTER -->
+    <footer class="site-footer" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px;">
+      <div class="footer-text-col">
+        <p set:html={parseFormattedText(footerText)} />
+      </div>
+    </footer>
+
   </main>
 
   <style>
+    :root {
+      --content-margin: 180px !important; /* FESTE 180PX MARGIN AUF DESKTOP */
+    }
+
     .sticky-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; background: transparent; padding-top: 20px; padding-bottom: 20px; font-size: 24px; pointer-events: none; color: var(--text-color); transition: color 0.4s ease; }
     .sticky-nav a, .sticky-nav span { pointer-events: auto; }
     .nav-brand { grid-column: 1 / 3; }
@@ -212,7 +248,14 @@ const moreLabel = settings.moreButtonText || 'mehr';
     .nav-more { grid-column: 11 / 13; text-align: right; }
     .nav-mobile-collapsed { display: none; }
 
-    main { padding-top: 140px; padding-bottom: 160px; width: 100%; }
+    .project-main-grid {
+      padding-left: var(--content-margin);
+      padding-right: var(--content-margin);
+      padding-top: 140px;
+      padding-bottom: 120px;
+      width: 100%;
+    }
+
     .project-case-wrapper { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; width: 100%; padding-bottom: 60px; }
 
     .media-box { position: relative; width: 100%; background-color: transparent; border: none !important; overflow: hidden; }
@@ -222,12 +265,20 @@ const moreLabel = settings.moreButtonText || 'mehr';
 
     .block-hero { grid-column: 1 / -1; aspect-ratio: 2 / 1; margin-bottom: 20px; }
     .project-info-block { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; font-size: 16px; line-height: 1.2; margin-bottom: 60px; }
-    .project-info-block p { white-space: pre-line; }
     .info-col { display: flex; flex-direction: column; justify-content: space-between; }
     .slot-3-rows { min-height: 57.6px; margin-bottom: 4px; }
 
-    .block-portrait-with-text { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; align-items: start; margin-bottom: 60px; }
-    .portrait-text-left { grid-column: 1 / 7; padding-top: 24px; }
+    /* 2-SPALTER: VERTIKAL IN DER MITTE ZENTRIERT */
+    .block-portrait-with-text {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 20px;
+      align-items: center; /* Vertikale Zentrierung */
+      margin-bottom: 60px;
+    }
+
+    .portrait-text-left { grid-column: 1 / 7; padding-top: 0; }
     .portrait-text-left.text-normal .text-wrapper { font-size: 24px; line-height: 1.2; width: 66.666%; white-space: pre-line; }
     .portrait-text-left.text-large .text-wrapper { font-size: 40px; line-height: 1.2; width: 66.666%; white-space: pre-line; }
     .portrait-media-right { grid-column: 7 / 13; aspect-ratio: 3 / 4; }
@@ -237,7 +288,7 @@ const moreLabel = settings.moreButtonText || 'mehr';
     .block-centered-text.large { font-size: 40px; line-height: 1.2; max-width: 850px; margin-left: auto; margin-right: auto; }
     .block-centered-text.normal { font-size: 24px; line-height: 1.2; max-width: 650px; margin-left: auto; margin-right: auto; }
 
-    /* FULL BLEED: PERFEKT AUF DEM SCREEN ZENTRIERT OHNE VERSATZ */
+    /* FULL BLEED: PERFEKT ZENTRIERT ÜBER 100VW */
     .block-landscape-fullwidth {
       grid-column: 1 / -1;
       width: 100vw;
@@ -255,7 +306,12 @@ const moreLabel = settings.moreButtonText || 'mehr';
 
     .next-project-divider { grid-column: 1 / -1; margin-top: 80px; margin-bottom: 60px; text-align: center; font-size: 16px; color: #888; letter-spacing: 0.5px; }
 
+    .site-footer { padding-top: 120px; padding-bottom: 80px; }
+    .footer-text-col { grid-column: 9 / 13; font-size: 16px; line-height: 1.3; white-space: pre-line; }
+
     @media (max-width: 768px) {
+      :root { --content-margin: 40px !important; }
+      .project-main-grid { padding-left: 40px; padding-right: 40px; padding-top: 55px; padding-bottom: 80px; }
       .project-case-wrapper { grid-template-columns: repeat(6, 1fr); }
       .sticky-nav { font-size: 20px; padding-top: 16px; padding-bottom: 16px; }
       .nav-brand { grid-column: 1 / 7; margin-bottom: 8px; }
@@ -263,14 +319,19 @@ const moreLabel = settings.moreButtonText || 'mehr';
       .nav-mobile-collapsed { display: block; grid-column: 1 / 7; margin-bottom: 8px; }
       .nav-more { grid-column: 1 / 7; text-align: left; }
 
-      main { padding-top: 55px; padding-bottom: 80px; }
       .block-hero { aspect-ratio: 3 / 4; margin-top: 0; margin-bottom: 20px; }
       .project-info-block { grid-template-columns: 1fr 1fr; column-gap: 16px; margin-bottom: 60px; }
       .slot-3-rows { min-height: 57.6px; }
 
+      /* STANDARD 2-SPALTER AUF MOBILE (BILD ZUERST) */
       .block-portrait-with-text { grid-template-columns: 1fr; row-gap: 28px; margin-bottom: 60px; }
       .portrait-media-right { grid-column: 1 / -1; order: 1; }
       .portrait-text-left { grid-column: 1 / -1; order: 2; padding-top: 0; margin-bottom: 12px; }
+
+      /* INTRO BLOCK AUF MOBILE (TEXT ZUERST!) */
+      .block-intro-text-first .portrait-text-left { order: 1 !important; margin-bottom: 20px; }
+      .block-intro-text-first .portrait-media-right { order: 2 !important; }
+
       .portrait-text-left.text-normal .text-wrapper { font-size: 20px; width: 100%; }
       .portrait-text-left.text-large .text-wrapper { font-size: 30px; width: 100%; }
 
@@ -278,21 +339,20 @@ const moreLabel = settings.moreButtonText || 'mehr';
       .block-centered-text { margin-top: 40px; margin-bottom: 80px; padding: 20px 0; }
       .block-centered-text.large { font-size: 30px; }
 
-      .block-portrait-no-text { grid-template-columns: 1fr; margin-bottom: 60px; }
-      .portrait-only-media { grid-column: 1 / -1; }
-      
-      .block-portrait-mobile-fullwidth {
-        grid-template-columns: 1fr;
-        margin-bottom: 60px;
-      }
-
-      .block-portrait-mobile-fullwidth .media-box {
+      .block-landscape-fullwidth {
         width: 100vw;
         position: relative;
         left: 50%;
         margin-left: -50vw;
-        aspect-ratio: 3 / 4;
+        margin-bottom: 60px;
       }
+
+      .block-portrait-no-text { grid-template-columns: 1fr; margin-bottom: 60px; }
+      .portrait-only-media { grid-column: 1 / -1; }
+      .block-portrait-mobile-fullwidth .media-box { width: 100vw; position: relative; left: 50%; margin-left: -50vw; aspect-ratio: 3 / 4; }
+
+      .site-footer { padding-top: 60px; padding-bottom: 60px; }
+      .footer-text-col { grid-column: 1 / 7; }
     }
   </style>
 
