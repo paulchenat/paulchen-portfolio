@@ -28,7 +28,7 @@
         "adminLabel": "Projekt-Intro poster",
         "media": "/images/content/desole/blocks/0/value/media.gif",
         "hasAudio": false,
-        "text": "Your privacy matters to me. When you browse my design work on paulchen.at, your visit remains completely anonymous, no cookies are stored, tracked, or shared with third parties.\n\nYou can find all legal details regarding my identity in the Imprint and full information about data handling in the Privacy Policy.\n\nHave a wonderful day!",
+        "text": "How much stubborn individuality can a text typeface possess before it ceases to be functional? And does it ever need to apologize for it?",
         "textSize": "normal"
       }
     },
@@ -41,12 +41,20 @@
       }
     },
     {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "adminLabel": "Untertitel",
+        "media": "/images/content/desole/blocks/2/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "eigentlich",
-        "media": "/images/content/desole/blocks/2/value/media.jpg",
+        "media": "/images/content/desole/blocks/3/value/media.jpg",
         "hasAudio": false,
-        "text": "Platzhalter",
+        "text": "Diving headfirst into type design for the very first time means completely reimagining your favorite creative tool. The initial concept for Désolé Book was born amidst the vibrant clamor of Marseille’s backstreets, eventually crystallizing in Vienna under the cinematic spell of the Nouvelle Vague.",
         "textSize": "normal"
       }
     },
@@ -54,7 +62,7 @@
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "ABC",
-        "media": "/images/content/desole/blocks/3/value/media.jpg",
+        "media": "/images/content/desole/blocks/4/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -62,9 +70,9 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Text in allen sizes",
-        "media": "/images/content/desole/blocks/4/value/media.jpg",
+        "media": "/images/content/desole/blocks/5/value/media.jpg",
         "hasAudio": false,
-        "text": "Platzhalter\n",
+        "text": "Thousands of anchor points, endless optical corrections, and the craft of the manual within the digital. Every curve was drawn by hand in Glyphs 3, discarded, and readjusted. Building typography from scratch radically transformed how I perceive radii and counters, you learn to stop thinking in letters and start thinking in realms of light and shadow.",
         "textSize": "normal"
       }
     },
@@ -72,7 +80,7 @@
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "Yoko",
-        "media": "/images/content/desole/blocks/5/value/media.jpg",
+        "media": "/images/content/desole/blocks/6/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -80,17 +88,9 @@
       "discriminant": "portraitNoText",
       "value": {
         "adminLabel": "a Glyphe",
-        "media": "/images/content/desole/blocks/6/value/media.gif",
+        "media": "/images/content/desole/blocks/7/value/media.gif",
         "hasAudio": false,
         "mobileFullWidth": false
-      }
-    },
-    {
-      "discriminant": "landscapeFullWidth",
-      "value": {
-        "adminLabel": "Untertitel",
-        "media": "/images/content/desole/blocks/7/value/media.jpg",
-        "hasAudio": false
       }
     },
     {
@@ -107,7 +107,7 @@
         "adminLabel": "Linien",
         "media": "/images/content/desole/blocks/9/value/media.jpg",
         "hasAudio": false,
-        "text": "Your privacy matters to me. When you browse my design work on paulchen.at, your visit remains completely anonymous, no cookies are stored, tracked, or shared with third parties.  You can find all legal details regarding my identity in the Imprint and full information about data handling in the Privacy Policy.  Have a wonderful day!Your privacy matters to me. When you browse my design work on paulchen.at, your visit remains completely anonymous, no cookies are stored, tracked, or shared with third parties.  You can find all legal details regarding my identity in the Imprint and full information about data handling in the Privacy Policy.  Have a wonderful day!",
+        "text": "The result is a typeface built upon the architecture of a sturdy slab serif, one that excels as body copy, yet unapologetically refuses to be tame or invisible. It carries an imperfect, deeply personal soul in its glyphs, standing tall with a confidence that never asks for forgiveness.",
         "textSize": "normal"
       }
     },
@@ -117,7 +117,7 @@
         "adminLabel": "Zine",
         "media": "/images/content/desole/blocks/10/value/media.gif",
         "hasAudio": false,
-        "text": "Your privacy matters to me. When you browse my design work on paulchen.at, your visit remains completely anonymous, no cookies are stored, tracked, or shared with third parties.  You can find all legal details regarding my identity in the Imprint and full information about data handling in the Privacy Policy.  Have a wonderful day!",
+        "text": "The allure lay in crafting a typeface that feels familiar and dependable at first glance, yet reveals a sharp, rebellious streak in its details. Much like the cinema of the French New Wave, Désolé breaks traditional conventions without sacrificing legibility. A brick dressed in refined elegance.",
         "textSize": "normal"
       }
     },
