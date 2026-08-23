@@ -1,4 +1,60 @@
-{
-  "title": "Imprint",
-  "content": "Information according to § 5 ECG and disclosure according to § 25 MedienG:\n\nPaul Neuburger\nCreative Direction & Branding\n[Straße und Hausnummer]\n[PLZ] [Ort], Austria\n\nContact:\nE-Mail: hallo@paulchen.at\nWebsite: paulchen.at\n\nObject of the company: Creative Direction, Advertising & Graphic Design\nChamber membership: Austrian Federal Economic Chamber (WKO), Fachgruppe Werbung und Marktkommunikation\nApplicable legislation: Gewerbeordnung (www.ris.bka.gv.at)\nSupervisory authority: Magistrat der Stadt Wien / Bezirkshauptmannschaft\n\nBasic direction of the website (Blattlinie):\nPresentation of independent creative work, brand design concepts, and visual communication."
-}
+---
+export const prerender = true;
+import Layout from '../layouts/layout.astro';
+---
+
+<Layout title="Imprint — paulchen.at">
+  <header class="sticky-nav nav-grid">
+    <div class="nav-brand">
+      <a href="/" class="wavy-link">paulchen.at</a>
+    </div>
+    <div class="nav-bio">
+      <a href="mailto:hallo@paulchen.at" class="wavy-link">write me</a>
+    </div>
+    <div class="nav-more">
+      <a href="/" class="hover-wavy">← Zurück</a>
+    </div>
+  </header>
+
+  <main class="content-grid" style="padding-top: 140px; padding-bottom: 120px;">
+    <div style="grid-column: 1 / -1; max-width: 750px; font-size: 16px; line-height: 1.4;">
+      <h1 style="font-size: 40px; font-weight: 400; margin-bottom: 40px;">Imprint</h1>
+      
+      <p style="margin-bottom: 24px;">
+        <strong>Information according to § 5 ECG and disclosure according to § 25 MedienG:</strong>
+      </p>
+
+      <p style="margin-bottom: 20px;">
+        <strong>Paul Neuburger</strong><br>
+        Creative Direction & Branding<br>
+        [Straße und Hausnummer]<br>
+        [PLZ] [Ort], Austria
+      </p>
+
+      <p style="margin-bottom: 20px;">
+        <strong>Contact:</strong><br>
+        E-Mail: <a href="mailto:hallo@paulchen.at" class="wavy-link">hallo@paulchen.at</a><br>
+        Website: <a href="https://www.paulchen.at" class="wavy-link">paulchen.at</a>
+      </p>
+
+      <p style="margin-bottom: 20px;">
+        <strong>Object of the company:</strong> Creative Direction, Advertising & Graphic Design<br>
+        <strong>Chamber membership:</strong> Austrian Federal Economic Chamber (WKO), Fachgruppe Werbung und Marktkommunikation<br>
+        <strong>Applicable legislation:</strong> Gewerbeordnung (<a href="https://www.ris.bka.gv.at" target="_blank" class="wavy-link">www.ris.bka.gv.at</a>)<br>
+        <strong>Supervisory authority:</strong> Magistrat der Stadt Wien / Bezirkshauptmannschaft
+      </p>
+
+      <p style="margin-top: 40px;">
+        <strong>Basic direction of the website (Blattlinie):</strong><br>
+        Presentation of independent creative work, brand design concepts, and visual communication.
+      </p>
+    </div>
+  </main>
+
+  <style>
+    .sticky-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; background: transparent; padding-top: 20px; padding-bottom: 20px; font-size: 24px; }
+    .nav-brand { grid-column: 1 / 3; }
+    .nav-bio { grid-column: 3 / 11; }
+    .nav-more { grid-column: 11 / 13; text-align: right; }
+  </style>
+</Layout>
