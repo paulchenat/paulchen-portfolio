@@ -1,0 +1,22 @@
+{
+  "title": "VIP / Patentamt Austria",
+  "order": 1,
+  "year": "2026",
+  "location": "Wien",
+  "furtherContext": "unreleased Pitch\nDirect-mailing\ncampaign",
+  "theme": {
+    "backgroundColor": "#ffffff",
+    "textColor": "#000000",
+    "wavyColor": "#ff0000",
+    "isDarkTheme": true
+  },
+  "thumbnailsDesktop": [
+    "/images/thumbnails/vip-patentamt-austria/thumbnailsDesktop/0.jpg",
+    "/images/thumbnails/vip-patentamt-austria/thumbnailsDesktop/1.jpg",
+    "/images/thumbnails/vip-patentamt-austria/thumbnailsDesktop/2.jpg",
+    "/images/thumbnails/vip-patentamt-austria/thumbnailsDesktop/3.jpg",
+    "/images/thumbnails/vip-patentamt-austria/thumbnailsDesktop/4.jpg"
+  ],
+  "heroVideoHasAudio": false,
+  "blocks": []
+}
