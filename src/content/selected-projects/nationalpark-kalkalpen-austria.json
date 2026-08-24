@@ -13,6 +13,7 @@
   },
   "thumbnailsDesktop": [],
   "videoLoopFile": "/videos/nationalpark-kalkalpen-austria/videoLoopFile.mp4",
+  "mobileVideoLoop": "/videos/nationalpark-kalkalpen-austria/mobileVideoLoop.mp4",
   "heroVideoHasAudio": false,
   "blocks": []
 }
