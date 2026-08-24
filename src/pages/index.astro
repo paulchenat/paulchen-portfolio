@@ -7,11 +7,11 @@ const archiveFiles = import.meta.glob('../content/archive/*.json', { eager: true
 const settingsFiles = import.meta.glob('../content/singletons/settings.json', { eager: true });
 const seoFiles = import.meta.glob('../content/singletons/seo.json', { eager: true });
 
-// UNIVERSAL-NORMALISIERER: Fängt alle alten & neuen CMS-Strukturen fehlerfrei ab
+// UNIVERSAL-NORMALISIERER: Fängt alle CMS-Strukturen fehlerfrei ab
 function getProjectThumbnails(d: any) {
   const thumb = d.thumbnails || {};
   
-  // 1. Mobile Bild (prüft flache & verschachtelte CMS-Keys)
+  // 1. Mobile Bild
   const mobileImage = d.thumbnailMobile || thumb.mobileImage || null;
   
   // 2. Mobile Video
@@ -89,20 +89,26 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
   favicon={seo.favicon}
 >
   
-  <div class="hero-top-spacer"></div>
+  <div class="hero-top-spacer" id="topSpacer"></div>
 
-  <!-- NAVBAR -->
+  <!-- NAVBAR MIT WEICHER FALT-ANIMATION -->
   <header class="sticky-nav nav-grid" id="mainNav">
     <div class="nav-brand">
       <a href="/" class="wavy-link">{brandName}</a>
     </div>
     
-    <div class="nav-bio">
-      <span set:html={parseFormattedText(navbarBio)} /> <a href={contactHref} class="wavy-link">{contactLabel}</a>
+    <!-- LANGER FLIESSTEXT (FALTET SICH WEICH ZUSAMMEN AUF MOBILE) -->
+    <div class="nav-bio-accordion">
+      <div class="nav-bio-inner">
+        <span set:html={parseFormattedText(navbarBio)} /> <a href={contactHref} class="wavy-link">{contactLabel}</a>
+      </div>
     </div>
 
-    <div class="nav-mobile-collapsed">
-      <a href={contactHref} class="wavy-link">{contactLabel}</a>
+    <!-- EINGEKLAPPTER WRITE ME LINK (FALTET SICH WEICH AUF) -->
+    <div class="nav-collapsed-link">
+      <div class="nav-collapsed-inner">
+        <a href={contactHref} class="wavy-link">{contactLabel}</a>
+      </div>
     </div>
 
     <div class="nav-more">
@@ -130,7 +136,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                   <a href={`/projects/${proj.slug}`} style="color:inherit; text-decoration:none;">
                     <div class="scrub-container">
                       
-                      <!-- 📱 MOBILE THUMBNAIL (100% Priorität für Mobile-Bilder & Mobile-Videos) -->
+                      <!-- 📱 MOBILE THUMBNAIL -->
                       <div class="mobile-thumb-box">
                         {mobileVideo ? (
                           <video src={mobileVideo} autoplay loop muted playsinline class="thumb-media-full" />
@@ -145,7 +151,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                         )}
                       </div>
 
-                      <!-- 🖥️ DESKTOP THUMBNAIL (Wird nur auf Desktop gerendert) -->
+                      <!-- 🖥️ DESKTOP THUMBNAIL -->
                       <div class="desktop-thumb-box">
                         {desktopVideo ? (
                           <video src={desktopVideo} autoplay loop muted playsinline class="thumb-media-full" />
@@ -226,7 +232,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                 })}
               </div>
               
-              <!-- 12-SPALTEN RASTER -->
+              <!-- 12-SPALTEN RASTER (TITEL 4 SPALTEN) -->
               <div class="archive-meta-grid">
                 <div class="arch-name">{row.title || ''}</div>
                 <div class="arch-year">({row.year || ''})</div>
@@ -238,7 +244,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                 <div class="arch-copyright">{row.copyright || ''}</div>
               </div>
 
-              <!-- MOBILE INFO DRAWER: OHNE DOPPELTEN TITEL -->
+              <!-- MOBILE INFO DRAWER -->
               <div class="mobile-info-drawer">
                 {row.furtherContext && <div class="drawer-context">Mitwirkende: {row.furtherContext} ({row.year || ''})</div>}
                 {row.infoText && <div class="drawer-desc">{row.infoText}</div>}
@@ -250,7 +256,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER: 24PX NORMALTEXT, RECHTS ÜBER 4 SPALTEN -->
     <footer class="content-grid site-footer">
       <div class="footer-text-col">
         <p set:html={parseFormattedText(footerText)} />
@@ -285,9 +291,13 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .sticky-nav { position: sticky; top: 0; z-index: 999; background: transparent; padding-top: 20px; padding-bottom: 20px; font-size: 24px; pointer-events: none; }
     .sticky-nav a, .sticky-nav span { pointer-events: auto; }
     .nav-brand { grid-column: 1 / 3; }
-    .nav-bio { grid-column: 3 / 11; white-space: pre-line !important; }
+    
+    /* Desktop Fließtext */
+    .nav-bio-accordion { grid-column: 3 / 11; display: block; opacity: 1; }
+    .nav-bio-inner { font-size: 24px; line-height: 1.2; white-space: pre-line !important; }
+    .nav-collapsed-link { display: none; }
+
     .nav-more { grid-column: 11 / 13; text-align: right; }
-    .nav-mobile-collapsed { display: none; }
 
     .selected-section { padding-bottom: 180px; }
     .section-title { font-size: 24px; margin-bottom: 24px; font-weight: 400; }
@@ -396,15 +406,73 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .lightbox-arrows { display: flex; gap: 24px; }
     .arrow-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: inherit; padding: 4px 8px; }
 
+    /* ==========================================================================
+       MOBILE RESPONSIVE (<= 768px): SMOOTH FALT-ANIMATION & GESTRAFFTE SPACER
+       ========================================================================== */
     @media (max-width: 768px) {
-      .hero-top-spacer { height: calc(50vh - 160px); }
-      .hero-bottom-spacer { height: calc(50vh + 160px); }
+      .hero-top-spacer { height: calc(50vh - 140px); }
+      .hero-bottom-spacer { height: calc(50vh - 60px); } /* GESTRAFFTER ABSTAND */
+
       .sticky-nav { font-size: 20px; padding-top: 16px; padding-bottom: 16px; }
-      .nav-brand { grid-column: 1 / 7; margin-bottom: 12px; }
-      .nav-bio { grid-column: 1 / 7; font-size: 20px; margin-bottom: 12px; padding-right: 20%; }
+      .nav-brand { grid-column: 1 / 7; margin-bottom: 12px; transition: margin 0.35s ease; }
+
+      /* WEICHE FALT-ANIMATION VIA CSS-GRID (1FR -> 0FR) */
+      .nav-bio-accordion {
+        grid-column: 1 / 7;
+        display: grid;
+        grid-template-rows: 1fr;
+        opacity: 1;
+        margin-bottom: 12px;
+        padding-right: 20%;
+        transition: 
+          grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.3s ease,
+          margin-bottom 0.4s ease;
+      }
+
+      .nav-bio-inner {
+        overflow: hidden;
+        font-size: 20px;
+        line-height: 1.2;
+        padding-bottom: 8px; /* PUFFER: Rote Welle wird nie abgeschnitten */
+      }
+
+      /* DER 'WRITE ME' LINK IM EINGEKLAPPTEN ZUSTAND */
+      .nav-collapsed-link {
+        grid-column: 1 / 7;
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        margin-bottom: 0;
+        transition: 
+          grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.35s ease,
+          margin-bottom 0.35s ease;
+      }
+
+      .nav-collapsed-inner {
+        overflow: hidden;
+        font-size: 20px;
+        line-height: 1.2;
+        padding-bottom: 8px; /* PUFFER: Rote Welle voll sichtbar */
+        padding-top: 2px;
+      }
+
       .nav-more { grid-column: 1 / 7; text-align: left; }
-      .sticky-nav.collapsed .nav-bio { display: none; }
-      .sticky-nav.collapsed .nav-mobile-collapsed { display: block; grid-column: 1 / 7; margin-bottom: 8px; }
+
+      /* EINGEKLAPPTER ZUSTAND BEIM SCROLLEN */
+      .sticky-nav.collapsed .nav-brand { margin-bottom: 8px; }
+      .sticky-nav.collapsed .nav-bio-accordion {
+        grid-template-rows: 0fr;
+        opacity: 0;
+        margin-bottom: 0;
+        pointer-events: none;
+      }
+      .sticky-nav.collapsed .nav-collapsed-link {
+        grid-template-rows: 1fr;
+        opacity: 1;
+        margin-bottom: 8px;
+      }
 
       .section-title { font-size: 20px; margin-bottom: 20px; }
       .selected-section { padding-bottom: 80px; }
@@ -412,7 +480,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       .work-card { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; align-items: start; }
       .scrub-container { aspect-ratio: 3 / 4 !important; margin-bottom: 0; }
 
-      /* MOBILE THUMBNAIL: Priorisiert 3:4 Bild & Video */
       .mobile-thumb-box { display: block !important; width: 100%; height: 100%; position: relative; }
       .desktop-thumb-box { display: none !important; }
       .mobile-thumb-box img, .mobile-thumb-box video {
@@ -483,15 +550,22 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
   </style>
 
   <script is:inline>
+    // 1. Navbar Scroll Collapse mit exaktem Andock-Trigger
     const nav = document.getElementById('mainNav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > (window.innerHeight * 0.35)) {
+    const topSpacer = document.getElementById('topSpacer');
+
+    function checkScroll() {
+      const topSpacerHeight = topSpacer ? topSpacer.offsetHeight : (window.innerHeight * 0.4);
+      if (window.scrollY >= (topSpacerHeight - 20)) {
         nav?.classList.add('collapsed');
       } else {
         nav?.classList.remove('collapsed');
       }
-    });
+    }
 
+    window.addEventListener('scroll', checkScroll, { passive: true });
+
+    // 2. Info Drawer Toggle
     document.querySelectorAll('.arch-info-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         if (window.innerWidth > 768) return;
@@ -501,6 +575,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       });
     });
 
+    // 3. Global Lightbox mit Deep-Linking
     const lb = document.getElementById('globalLightbox');
     const lbTitle = document.getElementById('lbTitle');
     const lbCopyright = document.getElementById('lbCopyright');
