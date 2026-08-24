@@ -1,0 +1,20 @@
+{
+  "title": "Odyssee",
+  "order": 1,
+  "year": "2021",
+  "location": "Linz",
+  "furtherContext": "Editorial\nPublishing",
+  "copyright": "© MKD Linz",
+  "theme": {
+    "backgroundColor": "#ffffff",
+    "textColor": "#000000",
+    "wavyColor": "#ff0000",
+    "isDarkTheme": false
+  },
+  "thumbnailsDesktop": [
+    "/images/thumbnails/odyssee/thumbnailsDesktop/0.jpg"
+  ],
+  "thumbnailMobile": "/images/thumbnails/odyssee/thumbnailMobile.jpg",
+  "heroVideoHasAudio": false,
+  "blocks": []
+}
