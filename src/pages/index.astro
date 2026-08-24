@@ -7,17 +7,13 @@ const archiveFiles = import.meta.glob('../content/archive/*.json', { eager: true
 const settingsFiles = import.meta.glob('../content/singletons/settings.json', { eager: true });
 const seoFiles = import.meta.glob('../content/singletons/seo.json', { eager: true });
 
-// UNIVERSAL-NORMALISIERER: Fängt alle CMS-Strukturen fehlerfrei ab
+// UNIVERSAL-NORMALISIERER
 function getProjectThumbnails(d: any) {
   const thumb = d.thumbnails || {};
   
-  // 1. Mobile Bild
   const mobileImage = d.thumbnailMobile || thumb.mobileImage || null;
-  
-  // 2. Mobile Video
   const mobileVideo = d.mobileVideoLoop || thumb.mobileVideoLoop || null;
   
-  // 3. Desktop Bilder-Array
   let desktopImages: string[] = [];
   if (Array.isArray(d.thumbnailsDesktop) && d.thumbnailsDesktop.length > 0) {
     desktopImages = d.thumbnailsDesktop;
@@ -25,7 +21,6 @@ function getProjectThumbnails(d: any) {
     desktopImages = thumb.desktopScrubImages;
   }
   
-  // 4. Desktop Video
   const desktopVideo = d.videoLoopFile || d.videoLoop || thumb.desktopVideoLoop || null;
 
   return { mobileImage, mobileVideo, desktopImages, desktopVideo };
@@ -97,14 +92,12 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       <a href="/" class="wavy-link">{brandName}</a>
     </div>
     
-    <!-- LANGER FLIESSTEXT -->
     <div class="nav-bio-accordion">
       <div class="nav-bio-inner">
         <span set:html={parseFormattedText(navbarBio)} /> <a href={contactHref} class="wavy-link">{contactLabel}</a>
       </div>
     </div>
 
-    <!-- EINGEKLAPPTER WRITE ME LINK -->
     <div class="nav-collapsed-link">
       <div class="nav-collapsed-inner">
         <a href={contactHref} class="wavy-link">{contactLabel}</a>
@@ -136,14 +129,32 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                   <a href={`/projects/${proj.slug}`} style="color:inherit; text-decoration:none;">
                     <div class="scrub-container">
                       
-                      <!-- 📱 MOBILE THUMBNAIL (Wird nur auf Mobile angezeigt) -->
+                      <!-- 📱 MOBILE THUMBNAIL (AUTOPLAY LOOP OHNE PLAY-BUTTON AUF SMARTPHONES) -->
                       <div class="mobile-thumb-box">
                         {mobileVideo ? (
-                          <video src={mobileVideo} autoplay loop muted playsinline class="thumb-media-full" />
+                          <video 
+                            src={mobileVideo} 
+                            autoplay 
+                            loop 
+                            muted 
+                            playsinline 
+                            webkit-playsinline 
+                            preload="auto"
+                            class="thumb-media-full" 
+                          />
                         ) : mobileImage ? (
                           <img src={mobileImage} alt={d.title || ''} class="thumb-media-full" loading="lazy" decoding="async" />
                         ) : desktopVideo ? (
-                          <video src={desktopVideo} autoplay loop muted playsinline class="thumb-media-full" />
+                          <video 
+                            src={desktopVideo} 
+                            autoplay 
+                            loop 
+                            muted 
+                            playsinline 
+                            webkit-playsinline 
+                            preload="auto"
+                            class="thumb-media-full" 
+                          />
                         ) : desktopImages.length > 0 ? (
                           <img src={desktopImages[0]} alt={d.title || ''} class="thumb-media-full" loading="lazy" decoding="async" />
                         ) : (
@@ -151,10 +162,19 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                         )}
                       </div>
 
-                      <!-- 🖥️ DESKTOP THUMBNAIL (Hover-Scrubbing mit 1 bis 5 Bildern) -->
+                      <!-- 🖥️ DESKTOP THUMBNAIL -->
                       <div class="desktop-thumb-box">
                         {desktopVideo ? (
-                          <video src={desktopVideo} autoplay loop muted playsinline class="thumb-media-full" />
+                          <video 
+                            src={desktopVideo} 
+                            autoplay 
+                            loop 
+                            muted 
+                            playsinline 
+                            webkit-playsinline 
+                            preload="auto"
+                            class="thumb-media-full" 
+                          />
                         ) : desktopImages.length > 0 ? (
                           desktopImages.map((imgSrc: string, idx: number) => (
                             <img 
@@ -216,7 +236,15 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                     >
                       {(item.isVideo || videoSrc) && <div class="video-badge">Video</div>}
                       {videoSrc ? (
-                        <video src={videoSrc} muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; background:transparent;" />
+                        <video 
+                          src={videoSrc} 
+                          muted 
+                          loop 
+                          playsinline 
+                          webkit-playsinline 
+                          preload="metadata"
+                          style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; background:transparent; pointer-events:none;" 
+                        />
                       ) : item.mediaFile ? (
                         <img 
                           src={item.mediaFile} 
@@ -232,7 +260,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                 })}
               </div>
               
-              <!-- 12-SPALTEN RASTER (TITEL 4 SPALTEN) -->
+              <!-- 12-SPALTEN RASTER -->
               <div class="archive-meta-grid">
                 <div class="arch-name">{row.title || ''}</div>
                 <div class="arch-year">({row.year || ''})</div>
@@ -256,7 +284,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       </div>
     </section>
 
-    <!-- FOOTER: 24PX NORMALTEXT, RECHTS ÜBER 4 SPALTEN -->
+    <!-- FOOTER -->
     <footer class="content-grid site-footer">
       <div class="footer-text-col">
         <p set:html={parseFormattedText(footerText)} />
@@ -292,7 +320,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .sticky-nav a, .sticky-nav span { pointer-events: auto; }
     .nav-brand { grid-column: 1 / 3; }
     
-    /* Desktop Fließtext */
     .nav-bio-accordion { grid-column: 3 / 11; display: block; opacity: 1; }
     .nav-bio-inner { font-size: 24px; line-height: 1.2; white-space: pre-line !important; }
     .nav-collapsed-link { display: none; }
@@ -315,22 +342,22 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       margin-bottom: 14px; 
     }
     
-    .scrub-item { 
+    .scrub-item { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; transition: opacity 0.04s ease; background: transparent; }
+    .scrub-item.active { opacity: 1; }
+
+    .mobile-thumb-box { display: none; }
+    .desktop-thumb-box { display: block; width: 100%; height: 100%; position: relative; cursor: crosshair; background: transparent; }
+    
+    /* POINTER-EVENTS: NONE VERHINDERT NATIVE SMARTPHONE PLAY-BUTTONS */
+    .thumb-media-full { 
       position: absolute; 
       inset: 0; 
       width: 100%; 
       height: 100%; 
       object-fit: cover; 
-      opacity: 0; 
-      pointer-events: none; 
-      transition: opacity 0.04s ease; 
-      background: transparent; 
+      background: transparent;
+      pointer-events: none !important;
     }
-    .scrub-item.active { opacity: 1; }
-
-    .mobile-thumb-box { display: none; }
-    .desktop-thumb-box { display: block; width: 100%; height: 100%; position: relative; cursor: crosshair; background: transparent; }
-    .thumb-media-full { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: transparent; }
 
     .color-placeholder { 
       position: absolute; 
@@ -416,9 +443,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .lightbox-arrows { display: flex; gap: 24px; }
     .arrow-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: inherit; padding: 4px 8px; }
 
-    /* ==========================================================================
-       MOBILE RESPONSIVE (<= 768px)
-       ========================================================================== */
     @media (max-width: 768px) {
       .hero-top-spacer { height: calc(50vh - 160px); }
       .hero-bottom-spacer { height: calc(50vh - 60px); }
@@ -557,7 +581,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
   </style>
 
   <script is:inline>
-    // 1. Navbar Scroll Collapse mit exaktem Andock-Trigger
+    // 1. Navbar Scroll Collapse
     const nav = document.getElementById('mainNav');
     const topSpacer = document.getElementById('topSpacer');
 
@@ -572,17 +596,30 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
 
     window.addEventListener('scroll', checkScroll, { passive: true });
 
-    // 2. DESKTOP HOVER SCRUBBING (1 BIS 5 BILDER DURCHWISCHEN)
-    document.querySelectorAll('.scrub-container').forEach(box => {
-      const desktopBox = box.querySelector('.desktop-thumb-box');
-      if (!desktopBox) return;
+    // 2. VIDEO AUTOPLAY ENFORCER (FÜR SAFARI & ANDROID)
+    function playAllVideos() {
+      document.querySelectorAll('video').forEach(v => {
+        v.muted = true;
+        v.playsInline = true;
+        const p = v.play();
+        if (p && typeof p.catch === 'function') {
+          p.catch(() => {});
+        }
+      });
+    }
 
-      const items = desktopBox.querySelectorAll('.scrub-item');
+    window.addEventListener('DOMContentLoaded', playAllVideos);
+    window.addEventListener('load', playAllVideos);
+    document.addEventListener('touchstart', playAllVideos, { once: true });
+
+    // 3. Desktop Hover Scrubbing
+    document.querySelectorAll('.desktop-thumb-box').forEach(box => {
+      const items = box.querySelectorAll('.scrub-item');
       const count = items.length;
 
       if (count > 1) {
         box.addEventListener('mousemove', (e) => {
-          if (window.innerWidth <= 768) return; // Nur auf Desktop aktiv
+          if (window.innerWidth <= 768) return;
           
           const rect = box.getBoundingClientRect();
           const mouseX = e.clientX - rect.left;
@@ -598,7 +635,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
           });
         });
 
-        // Beim Verlassen der Maus wieder auf das 1. Bild zurücksetzen
         box.addEventListener('mouseleave', () => {
           items.forEach((item, i) => {
             if (i === 0) {
@@ -611,7 +647,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       }
     });
 
-    // 3. Info Drawer Toggle
+    // 4. Info Drawer Toggle
     document.querySelectorAll('.arch-info-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         if (window.innerWidth > 768) return;
@@ -621,7 +657,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       });
     });
 
-    // 4. Global Lightbox mit Deep-Linking
+    // 5. Global Lightbox mit Deep-Linking
     const lb = document.getElementById('globalLightbox');
     const lbTitle = document.getElementById('lbTitle');
     const lbCopyright = document.getElementById('lbCopyright');
@@ -651,7 +687,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       lbCopyright.innerText = `© ${copyright}`;
 
       if (video) {
-        lbStage.innerHTML = `<video src="${video}" autoplay controls playsinline loop style="max-height:100%; max-width:100%; object-fit:contain; background:transparent;"></video>`;
+        lbStage.innerHTML = `<video src="${video}" autoplay controls playsinline webkit-playsinline loop style="max-height:100%; max-width:100%; object-fit:contain; background:transparent;"></video>`;
       } else if (src) {
         lbStage.innerHTML = `<img src="${src}" alt="${title}" style="max-height:100%; max-width:100%; object-fit:contain; background:transparent;" />`;
       } else {
