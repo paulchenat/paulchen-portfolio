@@ -91,20 +91,20 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
   
   <div class="hero-top-spacer" id="topSpacer"></div>
 
-  <!-- NAVBAR MIT WEICHER FALT-ANIMATION -->
+  <!-- NAVBAR -->
   <header class="sticky-nav nav-grid" id="mainNav">
     <div class="nav-brand">
       <a href="/" class="wavy-link">{brandName}</a>
     </div>
     
-    <!-- LANGER FLIESSTEXT (FALTET SICH WEICH ZUSAMMEN AUF MOBILE) -->
+    <!-- LANGER FLIESSTEXT -->
     <div class="nav-bio-accordion">
       <div class="nav-bio-inner">
         <span set:html={parseFormattedText(navbarBio)} /> <a href={contactHref} class="wavy-link">{contactLabel}</a>
       </div>
     </div>
 
-    <!-- EINGEKLAPPTER WRITE ME LINK (FALTET SICH WEICH AUF) -->
+    <!-- EINGEKLAPPTER WRITE ME LINK -->
     <div class="nav-collapsed-link">
       <div class="nav-collapsed-inner">
         <a href={contactHref} class="wavy-link">{contactLabel}</a>
@@ -136,7 +136,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                   <a href={`/projects/${proj.slug}`} style="color:inherit; text-decoration:none;">
                     <div class="scrub-container">
                       
-                      <!-- 📱 MOBILE THUMBNAIL -->
+                      <!-- 📱 MOBILE THUMBNAIL (Wird nur auf Mobile angezeigt) -->
                       <div class="mobile-thumb-box">
                         {mobileVideo ? (
                           <video src={mobileVideo} autoplay loop muted playsinline class="thumb-media-full" />
@@ -151,7 +151,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                         )}
                       </div>
 
-                      <!-- 🖥️ DESKTOP THUMBNAIL -->
+                      <!-- 🖥️ DESKTOP THUMBNAIL (Hover-Scrubbing mit 1 bis 5 Bildern) -->
                       <div class="desktop-thumb-box">
                         {desktopVideo ? (
                           <video src={desktopVideo} autoplay loop muted playsinline class="thumb-media-full" />
@@ -315,7 +315,17 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       margin-bottom: 14px; 
     }
     
-    .scrub-item { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; transition: opacity 0.05s ease; background: transparent; }
+    .scrub-item { 
+      position: absolute; 
+      inset: 0; 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      opacity: 0; 
+      pointer-events: none; 
+      transition: opacity 0.04s ease; 
+      background: transparent; 
+    }
     .scrub-item.active { opacity: 1; }
 
     .mobile-thumb-box { display: none; }
@@ -407,16 +417,15 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .arrow-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: inherit; padding: 4px 8px; }
 
     /* ==========================================================================
-       MOBILE RESPONSIVE (<= 768px): SMOOTH FALT-ANIMATION & GESTRAFFTE SPACER
+       MOBILE RESPONSIVE (<= 768px)
        ========================================================================== */
     @media (max-width: 768px) {
-      .hero-top-spacer { height: calc(50vh - 140px); }
-      .hero-bottom-spacer { height: calc(50vh - 60px); } /* GESTRAFFTER ABSTAND */
+      .hero-top-spacer { height: calc(50vh - 160px); }
+      .hero-bottom-spacer { height: calc(50vh - 60px); }
 
       .sticky-nav { font-size: 20px; padding-top: 16px; padding-bottom: 16px; }
       .nav-brand { grid-column: 1 / 7; margin-bottom: 12px; transition: margin 0.35s ease; }
 
-      /* WEICHE FALT-ANIMATION VIA CSS-GRID (1FR -> 0FR) */
       .nav-bio-accordion {
         grid-column: 1 / 7;
         display: grid;
@@ -434,10 +443,9 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
         overflow: hidden;
         font-size: 20px;
         line-height: 1.2;
-        padding-bottom: 8px; /* PUFFER: Rote Welle wird nie abgeschnitten */
+        padding-bottom: 8px;
       }
 
-      /* DER 'WRITE ME' LINK IM EINGEKLAPPTEN ZUSTAND */
       .nav-collapsed-link {
         grid-column: 1 / 7;
         display: grid;
@@ -454,13 +462,12 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
         overflow: hidden;
         font-size: 20px;
         line-height: 1.2;
-        padding-bottom: 8px; /* PUFFER: Rote Welle voll sichtbar */
+        padding-bottom: 8px;
         padding-top: 2px;
       }
 
       .nav-more { grid-column: 1 / 7; text-align: left; }
 
-      /* EINGEKLAPPTER ZUSTAND BEIM SCROLLEN */
       .sticky-nav.collapsed .nav-brand { margin-bottom: 8px; }
       .sticky-nav.collapsed .nav-bio-accordion {
         grid-template-rows: 0fr;
@@ -565,7 +572,46 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
 
     window.addEventListener('scroll', checkScroll, { passive: true });
 
-    // 2. Info Drawer Toggle
+    // 2. DESKTOP HOVER SCRUBBING (1 BIS 5 BILDER DURCHWISCHEN)
+    document.querySelectorAll('.scrub-container').forEach(box => {
+      const desktopBox = box.querySelector('.desktop-thumb-box');
+      if (!desktopBox) return;
+
+      const items = desktopBox.querySelectorAll('.scrub-item');
+      const count = items.length;
+
+      if (count > 1) {
+        box.addEventListener('mousemove', (e) => {
+          if (window.innerWidth <= 768) return; // Nur auf Desktop aktiv
+          
+          const rect = box.getBoundingClientRect();
+          const mouseX = e.clientX - rect.left;
+          const ratio = Math.max(0, Math.min(0.999, mouseX / rect.width));
+          const activeIndex = Math.floor(ratio * count);
+
+          items.forEach((item, i) => {
+            if (i === activeIndex) {
+              item.classList.add('active');
+            } else {
+              item.classList.remove('active');
+            }
+          });
+        });
+
+        // Beim Verlassen der Maus wieder auf das 1. Bild zurücksetzen
+        box.addEventListener('mouseleave', () => {
+          items.forEach((item, i) => {
+            if (i === 0) {
+              item.classList.add('active');
+            } else {
+              item.classList.remove('active');
+            }
+          });
+        });
+      }
+    });
+
+    // 3. Info Drawer Toggle
     document.querySelectorAll('.arch-info-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         if (window.innerWidth > 768) return;
@@ -575,7 +621,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       });
     });
 
-    // 3. Global Lightbox mit Deep-Linking
+    // 4. Global Lightbox mit Deep-Linking
     const lb = document.getElementById('globalLightbox');
     const lbTitle = document.getElementById('lbTitle');
     const lbCopyright = document.getElementById('lbCopyright');
