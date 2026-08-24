@@ -1,0 +1,18 @@
+{
+  "title": "Nationalpark Kalkalpen Austria",
+  "order": 1,
+  "year": "2025",
+  "location": "Linz",
+  "furtherContext": "Brand Refresh\nArt Direction",
+  "copyright": "© Gruppe am Park",
+  "theme": {
+    "backgroundColor": "#ffffff",
+    "textColor": "#000000",
+    "wavyColor": "#ff0000",
+    "isDarkTheme": false
+  },
+  "thumbnailsDesktop": [],
+  "videoLoopFile": "/videos/nationalpark-kalkalpen-austria/videoLoopFile.mp4",
+  "heroVideoHasAudio": false,
+  "blocks": []
+}
