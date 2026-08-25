@@ -1,0 +1,28 @@
+{
+  "title": "See what moves us",
+  "order": 3,
+  "year": "2025",
+  "location": "Wien",
+  "furtherContext": "Axiome Brand Identity\nPrintmedia\nMotiondesign",
+  "theme": {
+    "backgroundColor": "#ffffff",
+    "textColor": "#000000",
+    "wavyColor": "#ff0000",
+    "isDarkTheme": false
+  },
+  "thumbnailsDesktop": [
+    "/images/thumbnails/see-what-moves-us/thumbnailsDesktop/0.jpg"
+  ],
+  "thumbnailMobile": "/images/thumbnails/see-what-moves-us/thumbnailMobile.jpg",
+  "heroVideoHasAudio": false,
+  "blocks": [
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "adminLabel": "Querformat Standard",
+        "media": "/images/content/see-what-moves-us/blocks/0/value/media.jpg",
+        "hasAudio": false
+      }
+    }
+  ]
+}
