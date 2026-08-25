@@ -1,9 +1,9 @@
 {
-  "title": "See what moves us",
+  "title": "Aximote",
   "order": 7,
   "year": "2025",
   "location": "Wien",
-  "furtherContext": "Aximote Brand Identity\nPrintmedia\nMotiondesign",
+  "furtherContext": "Brand Identity\nPrintmedia\nMotiondesign",
   "theme": {
     "backgroundColor": "#ffffff",
     "textColor": "#000000",
@@ -22,6 +22,15 @@
         "adminLabel": "Querformat Standard",
         "media": "/images/content/see-what-moves-us/blocks/0/value/media.jpg",
         "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "introPortraitWithText",
+      "value": {
+        "adminLabel": "Projekt-Intro",
+        "videoFile": "/videos/see-what-moves-us/blocks/1/value/videoFile.mp4",
+        "hasAudio": false,
+        "textSize": "normal"
       }
     }
   ]
