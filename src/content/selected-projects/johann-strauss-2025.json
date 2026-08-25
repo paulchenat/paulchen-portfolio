@@ -1,0 +1,20 @@
+{
+  "title": "Johann Strauss 2025",
+  "order": 1,
+  "year": "2025",
+  "location": "Linz",
+  "furtherContext": "Webdesign\n",
+  "copyright": "© Gruppe am Park",
+  "theme": {
+    "backgroundColor": "#ffffff",
+    "textColor": "#000000",
+    "wavyColor": "#ff0000",
+    "isDarkTheme": false
+  },
+  "thumbnailsDesktop": [
+    "/images/thumbnails/johann-strauss-2025/thumbnailsDesktop/0.jpg"
+  ],
+  "thumbnailMobile": "/images/thumbnails/johann-strauss-2025/thumbnailMobile.jpg",
+  "heroVideoHasAudio": false,
+  "blocks": []
+}
