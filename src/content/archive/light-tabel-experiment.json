@@ -1,0 +1,27 @@
+{
+  "title": "Light Tabel Experiment",
+  "order": 3,
+  "year": "2025",
+  "gallery": [
+    {
+      "mediaFile": "/images/archive/light-tabel-experiment/gallery/0/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/light-tabel-experiment/gallery/1/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/light-tabel-experiment/gallery/2/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/light-tabel-experiment/gallery/3/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    }
+  ]
+}
