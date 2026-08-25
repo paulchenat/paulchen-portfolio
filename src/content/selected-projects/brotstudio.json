@@ -1,0 +1,20 @@
+{
+  "title": "Brotstudio",
+  "order": 1,
+  "year": "2025",
+  "location": "Linz",
+  "furtherContext": "Brand Identity\nMerch",
+  "copyright": "© Gruppe am Park",
+  "theme": {
+    "backgroundColor": "#ffffff",
+    "textColor": "#000000",
+    "wavyColor": "#ff0000",
+    "isDarkTheme": false
+  },
+  "thumbnailsDesktop": [
+    "/images/thumbnails/brotstudio/thumbnailsDesktop/0.jpg"
+  ],
+  "thumbnailMobile": "/images/thumbnails/brotstudio/thumbnailMobile.jpg",
+  "heroVideoHasAudio": false,
+  "blocks": []
+}
