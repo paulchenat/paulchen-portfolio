@@ -1,0 +1,33 @@
+{
+  "title": "the art of change ",
+  "order": 1,
+  "year": "2025",
+  "furtherContext": "Event Poster\nunreleased Pitch",
+  "gallery": [
+    {
+      "mediaFile": "/images/archive/the-art-of-change/gallery/0/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/the-art-of-change/gallery/1/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/the-art-of-change/gallery/2/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/the-art-of-change/gallery/3/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/the-art-of-change/gallery/4/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    }
+  ]
+}
