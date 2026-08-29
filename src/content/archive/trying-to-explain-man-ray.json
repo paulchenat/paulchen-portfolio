@@ -1,0 +1,34 @@
+{
+  "title": "Trying to explain Man Ray",
+  "order": 1,
+  "year": "2025",
+  "furtherContext": "Benjamin Kos",
+  "infoText": "A workshop-style presentation that uses Man Ray’s own experimental methods to showcase what he stood for and why his work remains exceptional.",
+  "gallery": [
+    {
+      "mediaFile": "/images/archive/trying-to-explain-man-ray/gallery/0/mediaFile.jpg",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/trying-to-explain-man-ray/gallery/1/mediaFile.jpg",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/trying-to-explain-man-ray/gallery/2/mediaFile.jpg",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/trying-to-explain-man-ray/gallery/3/mediaFile.jpg",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/trying-to-explain-man-ray/gallery/4/mediaFile.jpg",
+      "hasAudio": false,
+      "isVideo": false
+    }
+  ]
+}
