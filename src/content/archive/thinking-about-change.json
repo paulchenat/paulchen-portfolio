@@ -1,0 +1,24 @@
+{
+  "title": "Thinking about Change",
+  "order": 1,
+  "year": "2025",
+  "infoText": "Workshop by Jian Haake",
+  "keywords": "Workshop",
+  "gallery": [
+    {
+      "mediaFile": "/images/archive/thinking-about-change/gallery/0/mediaFile.jpg",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/thinking-about-change/gallery/1/mediaFile.jpg",
+      "hasAudio": false,
+      "isVideo": false
+    },
+    {
+      "mediaFile": "/images/archive/thinking-about-change/gallery/2/mediaFile.jpg",
+      "hasAudio": false,
+      "isVideo": false
+    }
+  ]
+}
