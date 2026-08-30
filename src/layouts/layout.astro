@@ -197,7 +197,7 @@ const absoluteOgImage = ogImage.startsWith('http')
   </aside>
 
   <script is:inline>
-    // 1. Initialer Page-Load Trigger für die Navbar-Animation
+    // 1. Initialer Page-Load Trigger für Navbar-Animation
     window.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
         document.body.classList.add('page-loaded');
@@ -206,19 +206,19 @@ const absoluteOgImage = ogImage.startsWith('http')
 
     // 2. Geheimer 3-Fach Klick & Tastenkürzel (Shift + P)
     function togglePerfBadge() {
-      const container = document.getElementById('perfContainer');
+      var container = document.getElementById('perfContainer');
       if (container) {
-        const isHidden = container.style.display === 'none' || getComputedStyle(container).display === 'none';
+        var isHidden = container.style.display === 'none' || getComputedStyle(container).display === 'none';
         container.style.display = isHidden ? 'block' : 'none';
         if (isHidden) runPayloadMeasurement();
       }
     }
 
-    let clickCount = 0;
-    let clickTimer = null;
+    var clickCount = 0;
+    var clickTimer = null;
 
     document.addEventListener('click', function(e) {
-      const brand = e.target.closest('.nav-brand');
+      var brand = e.target.closest('.nav-brand');
       if (brand) {
         clickCount++;
         if (clickCount === 1) {
@@ -239,49 +239,42 @@ const absoluteOgImage = ogImage.startsWith('http')
       }
     });
 
-    // 3. Präzise Payload-Messung
-    async function runPayloadMeasurement() {
-      const resources = performance.getEntriesByType('resource');
-      let totalBytes = 0;
-      let imgCount = 0;
-      let imgBytes = 0;
-      let mediaCount = 0;
-      let mediaBytes = 0;
+    // 3. Präzise Payload-Messung (Reines Standard-JS)
+    function runPayloadMeasurement() {
+      var resources = performance.getEntriesByType('resource');
+      var totalBytes = 0;
+      var imgCount = 0;
+      var imgBytes = 0;
+      var mediaCount = 0;
+      var mediaBytes = 0;
 
-      for (const r of resources) {
-        let size = r.transferSize || r.encodedBodySize || r.decodedBodySize || 0;
-        
-        if (size === 0 && r.name && (r.name.includes('/images/') || r.name.includes('/uploads/'))) {
-          try {
-            const res = await fetch(r.name, { method: 'HEAD' });
-            const len = res.headers.get('content-length');
-            if (len) size = parseInt(len, 10);
-          } catch (e) {}
-        }
+      for (var i = 0; i < resources.length; i++) {
+        var r = resources[i];
+        var size = r.transferSize || r.encodedBodySize || r.decodedBodySize || 0;
 
         totalBytes += size;
-        if (r.initiatorType === 'img' || r.name.match(/\.(jpg|jpeg|png|webp|gif|svg)$/i)) {
+        if (r.initiatorType === 'img' || (r.name && r.name.match(/\.(jpg|jpeg|png|webp|gif|svg)$/i))) {
           imgCount++;
           imgBytes += size;
         }
-        if (r.initiatorType === 'video' || r.name.match(/\.(mp4|webm)$/i)) {
+        if (r.initiatorType === 'video' || (r.name && r.name.match(/\.(mp4|webm)$/i))) {
           mediaCount++;
           mediaBytes += size;
         }
       }
 
-      const domImgs = document.querySelectorAll('img');
+      var domImgs = document.querySelectorAll('img');
       if (imgCount === 0 && domImgs.length > 0) imgCount = domImgs.length;
 
-      const totalMB = totalBytes > 0 ? (totalBytes / (1024 * 1024)).toFixed(2) : "0.45";
-      const imgMB = imgBytes > 0 ? (imgBytes / (1024 * 1024)).toFixed(2) : "0.35";
-      const mediaMB = (mediaBytes / (1024 * 1024)).toFixed(2);
+      var totalMB = totalBytes > 0 ? (totalBytes / (1024 * 1024)).toFixed(2) : "0.45";
+      var imgMB = imgBytes > 0 ? (imgBytes / (1024 * 1024)).toFixed(2) : "0.35";
+      var mediaMB = (mediaBytes / (1024 * 1024)).toFixed(2);
 
-      const badge = document.getElementById('perfBadge');
-      const text = document.getElementById('perfText');
-      const breakdown = document.getElementById('perfBreakdown');
+      var text = document.getElementById('perfText');
+      var badge = document.getElementById('perfBadge');
+      var breakdown = document.getElementById('perfBreakdown');
 
-      if (text) text.innerText = `⚡ ${totalMB} MB`;
+      if (text) text.innerText = '⚡ ' + totalMB + ' MB';
 
       if (badge) {
         badge.classList.remove('heavy', 'moderate');
@@ -290,11 +283,12 @@ const absoluteOgImage = ogImage.startsWith('http')
       }
 
       if (breakdown) {
-        breakdown.innerHTML = `
-          <div>Gesamtgewicht: <strong>${totalMB} MB</strong></div>
-          <div>Bilder: <strong>${imgCount} Dateien (${imgMB > 0 ? imgMB + ' MB' : 'optimiert'})</strong></div>
-          ${mediaCount > 0 ? `<div>Videos: <strong>${mediaCount} (${mediaMB} MB)</strong></div>` : ''}
-        `;
+        var html = '<div>Gesamtgewicht: <strong>' + totalMB + ' MB</strong></div>' +
+          '<div>Bilder: <strong>' + imgCount + ' Dateien (' + (imgBytes > 0 ? imgMB + ' MB' : 'optimiert') + ')</strong></div>';
+        if (mediaCount > 0) {
+          html += '<div>Videos: <strong>' + mediaCount + ' (' + mediaMB + ' MB)</strong></div>';
+        }
+        breakdown.innerHTML = html;
       }
     }
 
@@ -302,257 +296,13 @@ const absoluteOgImage = ogImage.startsWith('http')
       setTimeout(runPayloadMeasurement, 1200);
     });
 
-    const badgeEl = document.getElementById('perfBadge');
-    const modalEl = document.getElementById('perfModal');
+    var badgeEl = document.getElementById('perfBadge');
+    var modalEl = document.getElementById('perfModal');
     badgeEl?.addEventListener('click', function(e) {
       e.stopPropagation();
       modalEl?.classList.toggle('open');
     });
     document.addEventListener('click', function() { modalEl?.classList.remove('open'); });
-  </script>
-</body>
-</html>      width: 100%;
-      transition: background-color 0.4s ease, color 0.4s ease;
-    }
-
-    /* Rote & Weiße Wellenlinie */
-    .wavy-text {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6' width='16' height='5'%3E%3Cpath d='M0 3 Q 5 0, 10 3 T 20 3' fill='none' stroke='%23ff0000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-position: 0 100%;
-      background-repeat: repeat-x;
-      padding-bottom: 3.5px;
-      display: inline;
-      cursor: default;
-      -webkit-box-decoration-break: clone;
-      box-decoration-break: clone;
-    }
-    .wavy-text:hover { animation: waveFlow 0.6s linear infinite; }
-
-    .wavy-link {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6' width='16' height='5'%3E%3Cpath d='M0 3 Q 5 0, 10 3 T 20 3' fill='none' stroke='%23ff0000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-position: 0 100%;
-      background-repeat: repeat-x;
-      padding-bottom: 3.5px;
-      color: inherit;
-      text-decoration: none;
-      display: inline;
-      cursor: pointer;
-      -webkit-box-decoration-break: clone;
-      box-decoration-break: clone;
-    }
-    .wavy-link:hover { animation: waveFlow 0.6s linear infinite; }
-
-    .hover-wavy { color: inherit; text-decoration: none; cursor: pointer; padding-bottom: 3.5px; }
-    .hover-wavy:hover {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6' width='16' height='5'%3E%3Cpath d='M0 3 Q 5 0, 10 3 T 20 3' fill='none' stroke='%23ff0000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-position: 0 100%;
-      background-repeat: repeat-x;
-      animation: waveFlow 0.6s linear infinite;
-    }
-
-    body.theme-dark .wavy-text,
-    body.theme-dark .wavy-link {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6' width='16' height='5'%3E%3Cpath d='M0 3 Q 5 0, 10 3 T 20 3' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-    }
-    body.theme-dark .hover-wavy:hover {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6' width='16' height='5'%3E%3Cpath d='M0 3 Q 5 0, 10 3 T 20 3' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-    }
-
-    @keyframes waveFlow {
-      from { background-position-x: 0px; }
-      to { background-position-x: 16px; }
-    }
-
-    .nav-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      column-gap: 20px;
-      padding-left: var(--nav-margin);
-      padding-right: var(--nav-margin);
-      width: 100%;
-    }
-
-    .content-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      column-gap: 20px;
-      padding-left: 40px;
-      padding-right: 40px;
-      width: 100%;
-    }
-
-    @media (max-width: 768px) {
-      .nav-grid { grid-template-columns: repeat(6, 1fr); padding-left: 24px; padding-right: 24px; }
-      .content-grid { grid-template-columns: repeat(6, 1fr); padding-left: 40px; padding-right: 40px; }
-    }
-
-    /* PERFORMANCE BADGE */
-    .perf-badge-container {
-      display: none;
-      position: fixed;
-      bottom: 16px;
-      left: 16px;
-      z-index: 99999;
-      font-size: 12px;
-      font-family: inherit;
-    }
-
-    .perf-badge {
-      background: rgba(0, 0, 0, 0.85);
-      color: #ffffff;
-      backdrop-filter: blur(4px);
-      padding: 5px 10px;
-      border-radius: 20px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      transition: transform 0.2s ease;
-    }
-    .perf-badge:hover { transform: scale(1.05); }
-
-    .perf-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #22c55e; }
-    .perf-badge.heavy .perf-dot { background-color: #ef4444; }
-    .perf-badge.moderate .perf-dot { background-color: #eab308; }
-
-    .perf-details-modal {
-      display: none;
-      position: absolute;
-      bottom: 36px;
-      left: 0;
-      width: 260px;
-      background: #000000;
-      color: #ffffff;
-      padding: 14px;
-      border-radius: 6px;
-      font-size: 12px;
-      line-height: 1.4;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-    }
-    .perf-details-modal.open { display: block; }
-  </style>
-</head>
-<body>
-  <slot />
-
-  <!-- PERFORMANCE INSPECTOR BADGE -->
-  <aside class="perf-badge-container" id="perfContainer">
-    <div class="perf-badge" id="perfBadge" title="Klicken für Payload-Details">
-      <span class="perf-dot" id="perfDot"></span>
-      <span id="perfText">⚡ Messung...</span>
-    </div>
-    <div class="perf-details-modal" id="perfModal">
-      <div style="font-weight: 500; margin-bottom: 6px; border-bottom: 1px solid #333; padding-bottom: 4px;">Page Performance Inspector</div>
-      <div id="perfBreakdown">Analysiere Assets...</div>
-      <div style="margin-top: 8px; font-size: 10px; color: #888;">Tastenkürzel: Shift + P zum Umschalten</div>
-    </div>
-  </aside>
-
-  <script is:inline>
-    function togglePerfBadge() {
-      const container = document.getElementById('perfContainer');
-      if (container) {
-        const isHidden = container.style.display === 'none' || getComputedStyle(container).display === 'none';
-        container.style.display = isHidden ? 'block' : 'none';
-        if (isHidden) runPayloadMeasurement();
-      }
-    }
-
-    let clickCount = 0;
-    let clickTimer = null;
-
-    document.addEventListener('click', (e) => {
-      const brand = e.target.closest('.nav-brand');
-      if (brand) {
-        clickCount++;
-        if (clickCount === 1) {
-          clickTimer = setTimeout(() => { clickCount = 0; }, 500);
-        } else if (clickCount >= 3) {
-          e.preventDefault();
-          e.stopPropagation();
-          clickCount = 0;
-          clearTimeout(clickTimer);
-          togglePerfBadge();
-        }
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.shiftKey && (e.key === 'P' || e.key === 'p')) {
-        togglePerfBadge();
-      }
-    });
-
-    async function runPayloadMeasurement() {
-      const resources = performance.getEntriesByType('resource');
-      let totalBytes = 0;
-      let imgCount = 0;
-      let imgBytes = 0;
-      let mediaCount = 0;
-      let mediaBytes = 0;
-
-      for (const r of resources) {
-        let size = r.transferSize || r.encodedBodySize || r.decodedBodySize || 0;
-        
-        if (size === 0 && r.name && (r.name.includes('/images/') || r.name.includes('/uploads/'))) {
-          try {
-            const res = await fetch(r.name, { method: 'HEAD' });
-            const len = res.headers.get('content-length');
-            if (len) size = parseInt(len, 10);
-          } catch (e) {}
-        }
-
-        totalBytes += size;
-        if (r.initiatorType === 'img' || r.name.match(/\.(jpg|jpeg|png|webp|gif|svg)$/i)) {
-          imgCount++;
-          imgBytes += size;
-        }
-        if (r.initiatorType === 'video' || r.name.match(/\.(mp4|webm)$/i)) {
-          mediaCount++;
-          mediaBytes += size;
-        }
-      }
-
-      const domImgs = document.querySelectorAll('img');
-      if (imgCount === 0 && domImgs.length > 0) imgCount = domImgs.length;
-
-      const totalMB = totalBytes > 0 ? (totalBytes / (1024 * 1024)).toFixed(2) : "0.45";
-      const imgMB = imgBytes > 0 ? (imgBytes / (1024 * 1024)).toFixed(2) : "0.35";
-      const mediaMB = (mediaBytes / (1024 * 1024)).toFixed(2);
-
-      const badge = document.getElementById('perfBadge');
-      const text = document.getElementById('perfText');
-      const breakdown = document.getElementById('perfBreakdown');
-
-      if (text) text.innerText = `⚡ ${totalMB} MB`;
-
-      if (badge) {
-        badge.classList.remove('heavy', 'moderate');
-        if (totalBytes > 8 * 1024 * 1024) badge.classList.add('heavy');
-        else if (totalBytes > 4 * 1024 * 1024) badge.classList.add('moderate');
-      }
-
-      if (breakdown) {
-        breakdown.innerHTML = `
-          <div>Gesamtgewicht: <strong>${totalMB} MB</strong></div>
-          <div>Bilder: <strong>${imgCount} Dateien (${imgMB > 0 ? imgMB + ' MB' : 'optimiert'})</strong></div>
-          ${mediaCount > 0 ? `<div>Videos: <strong>${mediaCount} (${mediaMB} MB)</strong></div>` : ''}
-        `;
-      }
-    }
-
-    window.addEventListener('load', () => {
-      setTimeout(runPayloadMeasurement, 1200);
-    });
-
-    const badgeEl = document.getElementById('perfBadge');
-    const modalEl = document.getElementById('perfModal');
-    badgeEl?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      modalEl?.classList.toggle('open');
-    });
-    document.addEventListener('click', () => modalEl?.classList.remove('open'));
   </script>
 </body>
 </html>
