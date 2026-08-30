@@ -79,13 +79,13 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
   
   <div class="hero-top-spacer" id="topSpacer"></div>
 
-  <!-- NAVBAR -->
+  <!-- NAVBAR MIT WEICHEM PAGE-LOAD-EINSTIEG -->
   <header class="sticky-nav nav-grid" id="mainNav">
-    <div class="nav-brand">
+    <div class="nav-brand hero-item">
       <a href="/" class="wavy-link">{brandName}</a>
     </div>
     
-    <div class="nav-bio-accordion">
+    <div class="nav-bio-accordion hero-item">
       <div class="nav-bio-inner">
         <span set:html={parseFormattedText(navbarBio)} /> <a href={contactHref} class="wavy-link">{contactLabel}</a>
       </div>
@@ -97,7 +97,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       </div>
     </div>
 
-    <div class="nav-more">
+    <div class="nav-more hero-item">
       <a href="/ueber-mich" class="hover-wavy">{moreLabel}</a>
     </div>
   </header>
@@ -106,10 +106,10 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
 
   <main>
     
-    <!-- SELECTED WORK -->
+    <!-- SELECTED WORK (JEDE KARTE MIT CINEASTISCHEM REVEAL) -->
     <section class="selected-section content-grid">
       <div style="grid-column: 1 / -1;">
-        <h2 class="section-title">{selectedWorkTitle}</h2>
+        <h2 class="section-title reveal-row">{selectedWorkTitle}</h2>
         
         <div class="selected-grid">
           {projects.length > 0 ? (
@@ -118,7 +118,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
               const { mobileImage, mobileVideo, desktopImages, desktopVideo } = getProjectThumbnails(d);
 
               return (
-                <article class="work-card">
+                <article class="work-card reveal-card">
                   <a href={`/projects/${proj.slug}`} style="color:inherit; text-decoration:none;">
                     <div class="scrub-container">
                       <div class="mobile-thumb-box">
@@ -178,10 +178,8 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       
       <div class="archive-header-grid" style="grid-column: 1 / -1;">
         
-        <!-- SPALTE 1-4: TITEL -->
-        <h2 class="section-title arch-title-col">{archiveTitle}</h2>
+        <h2 class="section-title arch-title-col reveal-row">{archiveTitle}</h2>
 
-        <!-- SPALTE 5: DESKTOP ZEIT-SORTIERUNG -->
         <div class="arch-sort-col">
           <button id="timeSortBtn" class="arch-control-btn" type="button">
             <span>Zeit</span>
@@ -191,7 +189,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
           </button>
         </div>
 
-        <!-- SPALTE 10-12: DESKTOP SUCHE MIT 40PX DYNAMISCHEM MITLAUF -->
         <div class="arch-search-col">
           <span id="searchMirror" class="search-mirror"></span>
           
@@ -204,7 +201,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
           </div>
         </div>
 
-        <!-- MOBILE UHR-ICON SORTIERUNG -->
         <div class="mobile-arch-controls">
           <button id="mobileTimeSortBtn" class="mobile-clock-btn" type="button" aria-label="Nach Zeit sortieren">
             <svg class="clock-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -219,7 +215,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
 
       </div>
 
-      <!-- ARCHIV PROJEKTZEILEN -->
+      <!-- ARCHIV PROJEKTZEILEN MIT CINEASTISCHEM REVEAL -->
       <div id="archiveContainer" style="grid-column: 1 / -1; width: 100%;">
         {archiveRows.map((row: any, rIdx: number) => {
           const rowSlug = (row.title || 'item').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
@@ -227,7 +223,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
 
           return (
             <div 
-              class="archive-project-row" 
+              class="archive-project-row reveal-row reveal-mobile-right" 
               data-year={row.year || '0'} 
               data-order={row.order || rIdx} 
               data-search={searchableText}
@@ -273,7 +269,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                 })}
               </div>
               
-              <!-- 12-SPALTEN RASTER -->
               <div class="archive-meta-grid">
                 <div class="arch-name">{row.title || ''}</div>
                 <div class="arch-year">({row.year || ''})</div>
@@ -285,7 +280,6 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
                 <div class="arch-copyright">{row.copyright || ''}</div>
               </div>
 
-              <!-- MOBILE INFO DRAWER -->
               <div class="mobile-info-drawer">
                 {row.furtherContext && <div class="drawer-context">Mitwirkende: {row.furtherContext} ({row.year || ''})</div>}
                 {row.infoText && <div class="drawer-desc">{row.infoText}</div>}
@@ -300,7 +294,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     </section>
 
     <!-- FOOTER -->
-    <footer class="content-grid site-footer">
+    <footer class="content-grid site-footer reveal-row">
       <div class="footer-text-col">
         <p set:html={parseFormattedText(footerText)} />
       </div>
@@ -335,11 +329,44 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .sticky-nav a, .sticky-nav span { pointer-events: auto; }
     .nav-brand { grid-column: 1 / 3; }
     
+    /* Desktop Fließtext */
     .nav-bio-accordion { grid-column: 3 / 11; display: block; opacity: 1; }
     .nav-bio-inner { font-size: 24px; line-height: 1.2; white-space: pre-line !important; }
     .nav-collapsed-link { display: none; }
 
     .nav-more { grid-column: 11 / 13; text-align: right; }
+
+    /* ==========================================================================
+       CINEASTISCHE MOTION-PHYSIK (0.85s FADE & 0.95s SAMT-GLEITEN)
+       ========================================================================== */
+    .hero-item {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: 
+        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.95s cubic-bezier(0.19, 1, 0.22, 1);
+      will-change: opacity, transform;
+    }
+
+    body.page-loaded .hero-item:nth-child(1) { transition-delay: 0.12s; opacity: 1; transform: translateY(0); }
+    body.page-loaded .hero-item:nth-child(2) { transition-delay: 0.3s;  opacity: 1; transform: translateY(0); }
+    body.page-loaded .hero-item:nth-child(3) { transition-delay: 0.45s; opacity: 1; transform: translateY(0); }
+
+    .reveal-card,
+    .reveal-row {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: 
+        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.95s cubic-bezier(0.19, 1, 0.22, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-card.is-visible,
+    .reveal-row.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     .selected-section { padding-bottom: 270px; }
     .section-title { font-size: 24px; margin-bottom: 0; font-weight: 400; line-height: 1.2; }
@@ -362,6 +389,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
 
     .mobile-thumb-box { display: none; }
     .desktop-thumb-box { display: block; width: 100%; height: 100%; position: relative; cursor: crosshair; background: transparent; }
+    
     .thumb-media-full { 
       position: absolute; 
       inset: 0; 
@@ -597,10 +625,10 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     .arrow-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: inherit; padding: 4px 8px; }
 
     /* ==========================================================================
-       MOBILE RESPONSIVE (<= 768px)
+       MOBILE RESPONSIVE (<= 768px): 32PX GLEITEN VON RECHTS
        ========================================================================== */
     @media (max-width: 768px) {
-      .hero-top-spacer { height: calc(50vh - 140px); }
+      .hero-top-spacer { height: calc(50vh - 160px); }
       .hero-bottom-spacer { height: calc(50vh - 60px); }
 
       .sticky-nav { font-size: 20px; padding-top: 16px; padding-bottom: 16px; }
@@ -659,6 +687,22 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
         grid-template-rows: 1fr;
         opacity: 1;
         margin-bottom: 8px;
+      }
+
+      /* MOBILE REVEAL VON RECHTS */
+      .reveal-card,
+      .reveal-mobile-right {
+        opacity: 0;
+        transform: translateX(32px) !important;
+        transition: 
+          opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+
+      .reveal-card.is-visible,
+      .reveal-mobile-right.is-visible {
+        opacity: 1;
+        transform: translateX(0) !important;
       }
 
       .selected-section { padding-bottom: 120px; }
@@ -793,7 +837,24 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     }
     window.addEventListener('scroll', checkScroll, { passive: true });
 
-    // 2. Video Autoplay Enforcer
+    // 2. CINEASTISCHER SCROLL REVEAL OBSERVER (-30% ROOTMARGIN)
+    const revealObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '0px 0px -30% 0px',
+      threshold: 0.05
+    });
+
+    document.querySelectorAll('.reveal-card, .reveal-row').forEach(function(el) {
+      revealObserver.observe(el);
+    });
+
+    // 3. Video Autoplay Enforcer
     function playAllVideos() {
       document.querySelectorAll('video').forEach(function(v) {
         v.muted = true;
@@ -808,7 +869,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
     window.addEventListener('load', playAllVideos);
     document.addEventListener('touchstart', playAllVideos, { once: true });
 
-    // 3. Desktop Hover Scrubbing
+    // 4. Desktop Hover Scrubbing
     document.querySelectorAll('.desktop-thumb-box').forEach(function(box) {
       const items = box.querySelectorAll('.scrub-item');
       const count = items.length;
@@ -841,7 +902,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       }
     });
 
-    // 4. Info Drawer Toggle
+    // 5. Info Drawer Toggle
     document.querySelectorAll('.arch-info-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         if (window.innerWidth > 768) return;
@@ -851,7 +912,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       });
     });
 
-    // 5. ZEIT-SORTIERUNG (REINES JAVASCRIPT OHNE TYPESCRIPT-TYPEN)
+    // 6. ZEIT-SORTIERUNG
     let timeSortState = 0;
     const timeBtn = document.getElementById('timeSortBtn');
     const mobileTimeBtn = document.getElementById('mobileTimeSortBtn');
@@ -898,7 +959,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       applyTimeSort((timeSortState + 1) % 3);
     });
 
-    // 6. DYNAMISCHE SUCHE (REINES JAVASCRIPT)
+    // 7. DYNAMISCHE SUCHE
     const searchWrapper = document.getElementById('searchWrapper');
     const searchInput = document.getElementById('archSearchInput');
     const searchBtn = document.getElementById('archSearchBtn');
@@ -985,7 +1046,7 @@ const footerText = settings.footerText || 'Your privacy matters to me. When you 
       if (noMatches) noMatches.style.display = 'none';
     }
 
-    // 7. Global Lightbox mit Deep-Linking
+    // 8. Global Lightbox mit Deep-Linking
     const lb = document.getElementById('globalLightbox');
     const lbTitle = document.getElementById('lbTitle');
     const lbCopyright = document.getElementById('lbCopyright');
