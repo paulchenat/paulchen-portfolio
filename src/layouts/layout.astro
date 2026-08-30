@@ -7,8 +7,8 @@ interface Props {
 }
 
 const { 
-  title = "paulchen.at — Creative Direction & Archive",
-  description = "Portfolio von Paul Neuburger — Creative Direction, Brand Identity & Typografie.",
+  title = "Paul Neuburger — Creative Direction & Branding",
+  description = "Portfolio von Paul Neuburger — Creative Direction, Brand Identity und visuelle Lösungen für Marken und Kultur.",
   ogImage = "/images/og-default.jpg",
   favicon = "/favicon.png"
 } = Astro.props;
@@ -26,6 +26,21 @@ const absoluteOgImage = ogImage.startsWith('http')
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
   <meta name="description" content={description}>
+
+  <!-- Offizieller Google & Social Media Seitenname -->
+  <meta name="application-name" content="Paul Neuburger">
+  <meta property="og:site_name" content="Paul Neuburger">
+
+  <!-- Strukturierte Daten für Google (Setzt den Namen auf "Paul Neuburger") -->
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Paul Neuburger",
+    "alternateName": ["paulchen.at", "Paul Neuburger Creative Direction"],
+    "url": "https://www.paulchen.at/"
+  }
+  </script>
 
   <!-- OpenGraph / Social Sharing -->
   <meta property="og:title" content={title}>
@@ -183,8 +198,8 @@ const absoluteOgImage = ogImage.startsWith('http')
 <body>
   <slot />
 
-  <!-- PERFORMANCE INSPECTOR BADGE -->
-  <aside class="perf-badge-container" id="perfContainer">
+  <!-- PERFORMANCE INSPECTOR (DATA-NOSNIPPET VERHINDERT GOOGLE-TEXT-INDEXIERUNG) -->
+  <aside class="perf-badge-container" id="perfContainer" data-nosnippet="true" aria-hidden="true">
     <div class="perf-badge" id="perfBadge" title="Klicken für Payload-Details">
       <span class="perf-dot" id="perfDot"></span>
       <span id="perfText">⚡ Messung...</span>
@@ -197,14 +212,7 @@ const absoluteOgImage = ogImage.startsWith('http')
   </aside>
 
   <script is:inline>
-    // 1. Initialer Page-Load Trigger für Navbar-Animation
-    window.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
-        document.body.classList.add('page-loaded');
-      }, 80);
-    });
-
-    // 2. Geheimer 3-Fach Klick & Tastenkürzel (Shift + P)
+    // 1. Geheimer 3-Fach Klick & Tastenkürzel (Shift + P)
     function togglePerfBadge() {
       var container = document.getElementById('perfContainer');
       if (container) {
@@ -239,7 +247,7 @@ const absoluteOgImage = ogImage.startsWith('http')
       }
     });
 
-    // 3. Präzise Payload-Messung (Reines Standard-JS)
+    // 2. Präzise Payload-Messung
     function runPayloadMeasurement() {
       var resources = performance.getEntriesByType('resource');
       var totalBytes = 0;
