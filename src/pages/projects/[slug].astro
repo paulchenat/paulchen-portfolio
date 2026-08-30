@@ -105,11 +105,9 @@ const projectDescription = d.furtherContext
       const pData = item.data || {};
       const isFirst = streamIdx === 0;
 
-      // Desktop Header Medien
       const dktHeaderVideo = pData.heroVideoFile || pData.heroVideoUrl;
       const dktHeaderImg = pData.heroDesktop;
 
-      // Mobile Header Medien
       const mblHeaderVideo = pData.heroMobileVideoFile;
       const mblHeaderImg = pData.heroMobile;
 
@@ -128,10 +126,9 @@ const projectDescription = d.furtherContext
                    data-text={pData.theme?.textColor || '#000000'}
                    data-theme={pData.theme?.isDarkTheme ? 'dark' : 'light'}>
             
-            <!-- 1. Header Bild / Video -->
-            <div class="media-box block-hero">
+            <!-- 1. Header Bild / Video mit Skalierungs-Reveal -->
+            <div class="media-box block-hero reveal-scale-media">
               
-              <!-- 📱 MOBILE HEADER (<= 768px: 3:4 Format) -->
               <div class="mobile-header-box">
                 {mblHeaderVideo ? (
                   <video src={mblHeaderVideo} autoplay loop muted playsinline class="hero-media-full" />
@@ -146,7 +143,6 @@ const projectDescription = d.furtherContext
                 )}
               </div>
 
-              <!-- 🖥️ DESKTOP HEADER (> 768px: 2:1 Format) -->
               <div class="desktop-header-box">
                 {dktHeaderVideo ? (
                   <video src={dktHeaderVideo} autoplay loop muted playsinline class="hero-media-full" />
@@ -181,7 +177,7 @@ const projectDescription = d.furtherContext
               </div>
             </div>
 
-            <!-- 3. Modulare Blöcke (Reine deklarative JSX-Bedingungen ohne if) -->
+            <!-- 3. Modulare Blöcke mit gestaffeltem Absatz- und Skalierungs-Reveal -->
             {Array.isArray(pData.blocks) && pData.blocks.map((block: any) => {
               if (!block) return null;
               const val = block.value || {};
@@ -196,11 +192,11 @@ const projectDescription = d.furtherContext
                   {block.discriminant === 'introPortraitWithText' && (
                     <section class="block-portrait-with-text block-intro-text-first">
                       <div class={`portrait-text-left ${isLarge ? 'text-large' : 'text-normal'}`}>
-                        <div class="text-wrapper">
+                        <div class="text-wrapper reveal-paragraphs">
                           <p set:html={parseFormattedText(val.text)} />
                         </div>
                       </div>
-                      <div class="media-box portrait-media-right">
+                      <div class="media-box portrait-media-right reveal-scale-media">
                         {blockVideo ? (
                           <>
                             <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
@@ -224,11 +220,11 @@ const projectDescription = d.furtherContext
                   {block.discriminant === 'portraitWithText' && (
                     <section class="block-portrait-with-text">
                       <div class={`portrait-text-left ${isLarge ? 'text-large' : 'text-normal'}`}>
-                        <div class="text-wrapper">
+                        <div class="text-wrapper reveal-paragraphs">
                           <p set:html={parseFormattedText(val.text)} />
                         </div>
                       </div>
-                      <div class="media-box portrait-media-right">
+                      <div class="media-box portrait-media-right reveal-scale-media">
                         {blockVideo ? (
                           <>
                             <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
@@ -250,7 +246,7 @@ const projectDescription = d.furtherContext
 
                   {/* QUERFORMAT STANDARD */}
                   {block.discriminant === 'landscapeStandard' && (
-                    <div class="media-box block-landscape-standard">
+                    <div class="media-box block-landscape-standard reveal-scale-media">
                       {blockVideo ? (
                         <>
                           <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
@@ -271,14 +267,14 @@ const projectDescription = d.furtherContext
 
                   {/* ZENTRIERTES STATEMENT */}
                   {block.discriminant === 'centeredStatement' && (
-                    <div class={`block-centered-text ${isLarge ? 'large' : 'normal'}`}>
+                    <div class={`block-centered-text ${isLarge ? 'large' : 'normal'} reveal-paragraphs`}>
                       <p set:html={parseFormattedText(val.statement)} />
                     </div>
                   )}
 
                   {/* QUERFORMAT FULL WIDTH */}
                   {block.discriminant === 'landscapeFullWidth' && (
-                    <div class="media-box block-landscape-fullwidth">
+                    <div class="media-box block-landscape-fullwidth reveal-scale-media">
                       {blockVideo ? (
                         <>
                           <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
@@ -300,7 +296,7 @@ const projectDescription = d.furtherContext
                   {/* HOCHFORMAT OHNE TEXT */}
                   {block.discriminant === 'portraitNoText' && (
                     <section class={`block-portrait-no-text ${val.mobileFullWidth ? 'block-portrait-mobile-fullwidth' : ''}`}>
-                      <div class="media-box portrait-only-media">
+                      <div class="media-box portrait-only-media reveal-scale-media">
                         {blockVideo ? (
                           <>
                             <video playsinline loop muted autoplay style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
@@ -330,7 +326,7 @@ const projectDescription = d.furtherContext
     })}
 
     <!-- FOOTER -->
-    <footer class="site-footer" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px;">
+    <footer class="site-footer reveal-row" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px;">
       <div class="footer-text-col">
         <p set:html={parseFormattedText(footerText)} />
       </div>
@@ -349,6 +345,34 @@ const projectDescription = d.furtherContext
     .nav-bio { grid-column: 3 / 11; white-space: pre-line !important; }
     .nav-more { grid-column: 11 / 13; text-align: right; }
     .nav-mobile-collapsed { display: none; }
+
+    /* CINEASTISCHE MOTION-PHYSIK */
+    .reveal-scale-media {
+      opacity: 0;
+      transform: scale(0.97) translateY(14px);
+      transition: 
+        opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1.05s cubic-bezier(0.19, 1, 0.22, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-scale-media.is-visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .reveal-paragraphs p {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: 
+        opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.85s cubic-bezier(0.19, 1, 0.22, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-paragraphs.is-visible p:nth-child(1) { transition-delay: 0.08s; opacity: 1; transform: translateY(0); }
+    .reveal-paragraphs.is-visible p:nth-child(2) { transition-delay: 0.24s; opacity: 1; transform: translateY(0); }
+    .reveal-paragraphs.is-visible p:nth-child(3) { transition-delay: 0.4s;  opacity: 1; transform: translateY(0); }
 
     .project-main-grid {
       padding-left: var(--content-margin);
@@ -451,7 +475,6 @@ const projectDescription = d.furtherContext
     .block-centered-text.normal { font-size: 24px; line-height: 1.2; max-width: 650px; margin-left: auto; margin-right: auto; }
     .block-centered-text p { white-space: pre-line !important; }
 
-    /* FULL BLEED DESKTOP */
     .block-landscape-fullwidth {
       grid-column: 1 / -1;
       width: 100vw;
@@ -497,7 +520,6 @@ const projectDescription = d.furtherContext
       .mobile-header-box { display: block !important; width: 100%; height: 100%; position: relative; }
       .desktop-header-box { display: none !important; }
 
-      /* ALLE ANDEREN PROJEKT-MEDIEN SIND AUF MOBILE 100VW FULL-WIDTH */
       .portrait-media-right,
       .block-landscape-standard,
       .block-landscape-fullwidth,
@@ -519,7 +541,6 @@ const projectDescription = d.furtherContext
       .portrait-media-right { order: 1; }
       .portrait-text-left { order: 2; height: auto; display: block; padding-top: 0; margin-bottom: 12px; }
 
-      /* INTRO BLOCK: TEXT ZUERST VOR DEM 100VW BILD */
       .block-intro-text-first .portrait-text-left { order: 1 !important; margin-bottom: 20px; }
       .block-intro-text-first .portrait-media-right { order: 2 !important; }
 
@@ -537,8 +558,6 @@ const projectDescription = d.furtherContext
       .block-centered-text.large { font-size: 30px; }
 
       .block-portrait-no-text { grid-template-columns: 1fr; margin-bottom: 60px; }
-      .portrait-only-media { grid-column: 1 / -1; }
-      .block-portrait-mobile-fullwidth .media-box { width: 100vw; position: relative; left: 50%; margin-left: -50vw; aspect-ratio: 3 / 4; }
 
       .site-footer { padding-top: 60px; padding-bottom: 60px; }
       .footer-text-col { grid-column: 1 / 7; font-size: 20px; line-height: 1.2; }
@@ -546,6 +565,7 @@ const projectDescription = d.furtherContext
   </style>
 
   <script is:inline>
+    // 1. Video Steuerung
     function togglePlay(btn) {
       const video = btn.closest('.media-box').querySelector('video');
       if (!video) return;
@@ -565,13 +585,31 @@ const projectDescription = d.furtherContext
       btn.innerText = video.muted ? 'Ton an' : 'Stumm';
     }
 
+    // 2. CINEASTISCHER SCROLL REVEAL OBSERVER FÜR MEDIEN & TEXTE (-30% ROOTMARGIN)
+    const revealObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '0px 0px -30% 0px',
+      threshold: 0.05
+    });
+
+    document.querySelectorAll('.reveal-scale-media, .reveal-paragraphs, .reveal-row').forEach(function(el) {
+      revealObserver.observe(el);
+    });
+
+    // 3. Theme Color Switcher
     const obsOptions = {
       rootMargin: '-30% 0px -50% 0px',
       threshold: 0
     };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    const colorObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           const bg = entry.target.getAttribute('data-bg');
           const text = entry.target.getAttribute('data-text');
@@ -587,6 +625,8 @@ const projectDescription = d.furtherContext
       });
     }, obsOptions);
 
-    document.querySelectorAll('.project-case-wrapper').forEach(p => observer.observe(p));
+    document.querySelectorAll('.project-case-wrapper').forEach(function(p) {
+      colorObserver.observe(p);
+    });
   </script>
 </Layout>
