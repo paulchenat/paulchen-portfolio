@@ -354,7 +354,6 @@ const siteTitle = seo.siteTitle || "Paul Neuburger — Creative Direction & Bran
 
     .hero-item {
       opacity: 0;
-      /* "both" garantiert: Vor dem Delay greift sofort opacity: 0 aus dem "from" Frame */
       animation: heroEntrance 0.85s cubic-bezier(0.19, 1, 0.22, 1) both;
       will-change: opacity, transform;
     }
@@ -694,14 +693,21 @@ const siteTitle = seo.siteTitle || "Paul Neuburger — Creative Direction & Bran
         overflow: hidden;
         font-size: 20px;
         line-height: 1.2;
-        padding-bottom: 8px;
-        padding-top: 2px;
+        padding-bottom: 4px;
+        padding-top: 0;
       }
 
-      .nav-more { grid-column: 1 / 7; text-align: left; }
+      .nav-more { 
+        grid-column: 1 / 7; 
+        text-align: left; 
+        line-height: 1.2;
+      }
 
-      /* 2. EINGEKLAPPTER ZUSTAND: 100% DICHT OHNE TEXT-HERVORBLITZEN */
-      .sticky-nav.collapsed .nav-brand { margin-bottom: 8px; }
+      /* 2. EINGEKLAPPTER ZUSTAND: 100% DICHT OHNE TEXT-HERVORBLITZEN & SYMMETRISCH */
+      .sticky-nav.collapsed .nav-brand { 
+        margin-bottom: 8px; 
+      }
+
       .sticky-nav.collapsed .nav-bio-accordion {
         grid-template-rows: 0fr;
         opacity: 0;
@@ -709,6 +715,7 @@ const siteTitle = seo.siteTitle || "Paul Neuburger — Creative Direction & Bran
         visibility: hidden !important; 
         pointer-events: none;
       }
+
       .sticky-nav.collapsed .nav-collapsed-link {
         grid-template-rows: 1fr;
         opacity: 1;
