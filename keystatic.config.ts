@@ -8,7 +8,7 @@ export default config({
     project: 'paulchen/paulchen-portfolio',
   },
   collections: {
-    // 1. SELECTED PROJECTS (100% ABWÄRTSKOMPATIBEL)
+    // 1. SELECTED PROJECTS
     selectedProjects: collection({
       label: 'Ausgewählte Projekte',
       slugField: 'title',
@@ -33,61 +33,42 @@ export default config({
           isDarkTheme: fields.checkbox({ label: 'Dark Mode Modus (Schwarzer Hintergrund / Weiße Welle)', defaultValue: false })
         }, { label: 'Projekt Farbschema (Theming)' }),
 
-        // STARTSEITEN-THUMBNAILS (DESKTOP & MOBILE GETRENNT)
         thumbnailsDesktop: fields.array(
           fields.image({ label: 'Desktop Frame (4:3)', directory: 'public/images/thumbnails', publicPath: '/images/thumbnails/' }),
           { label: '🖥️ Desktop: 1 bis 5 Bilder für Hover-Scrubbing (4:3)', validation: { length: { min: 0, max: 5 } } }
         ),
         videoLoopFile: fields.file({
           label: '🖥️ Desktop: Video-Loop direkt hochladen (MP4 4:3)',
-          description: 'Optional: Spielt auf Desktop als Video-Autoplay-Loop statt Bildern',
           directory: 'public/videos',
           publicPath: '/videos/',
         }),
         thumbnailMobile: fields.image({ 
           label: '📱 Mobile: Bild-Thumbnail (3:4)', 
-          description: 'Wird auf Smartphones im 3:4 Format angezeigt',
           directory: 'public/images/thumbnails', 
           publicPath: '/images/thumbnails/' 
         }),
         mobileVideoLoop: fields.file({
           label: '📱 Mobile: Video-Loop direkt hochladen (MP4 3:4)',
-          description: 'Optional: Eigenes Hochformat-Video für Smartphones',
           directory: 'public/videos',
           publicPath: '/videos/',
         }),
         videoLoop: fields.text({ label: 'Oder: Externer MP4 Video-Loop URL' }),
 
-        // PROJEKT HEADER-MEDIEN (DESKTOP & MOBILE GETRENNT)
-        heroDesktop: fields.image({ 
-          label: '🖥️ Desktop: Header-Bild (2:1)', 
-          directory: 'public/images/content', 
-          publicPath: '/images/content/' 
-        }),
+        heroDesktop: fields.image({ label: 'Header Bild Desktop (2:1)', directory: 'public/images/content', publicPath: '/images/content/' }),
         heroVideoFile: fields.file({
-          label: '🖥️ Desktop: Header-Video direkt hochladen (MP4 2:1)',
-          description: 'Querformat-Video für Desktop-Bildschirme',
+          label: 'Header Video direkt hochladen (MP4)',
           directory: 'public/videos',
           publicPath: '/videos/',
         }),
-        heroMobile: fields.image({ 
-          label: '📱 Mobile: Header-Bild (3:4)', 
-          directory: 'public/images/content', 
-          publicPath: '/images/content/' 
-        }),
+        heroMobile: fields.image({ label: 'Header Bild Mobile (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
         heroMobileVideoFile: fields.file({
-          label: '📱 Mobile: Header-Video direkt hochladen (MP4 3:4)',
-          description: 'Eigenes Hochformat-Video für Smartphones',
+          label: 'Mobile Header Video direkt hochladen (MP4)',
           directory: 'public/videos',
           publicPath: '/videos/',
         }),
         heroVideoUrl: fields.text({ label: 'Oder: Externer Header Video URL (MP4)' }),
-        heroVideoHasAudio: fields.checkbox({ 
-          label: '🔊 Header-Video hat Ton (Zeigt "Ton an"-Button)', 
-          defaultValue: false 
-        }),
+        heroVideoHasAudio: fields.checkbox({ label: 'Header-Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false }),
 
-        // MODULARE BLÖCKE
         blocks: fields.blocks(
           {
             introPortraitWithText: {
@@ -172,7 +153,7 @@ export default config({
       }
     }),
 
-    // 2. ARCHIVE
+    // 2. ARCHIVE (MIT VERSTECKTEN SUCH-KEYWORDS)
     archive: collection({
       label: 'Archiv Zeilen',
       slugField: 'title',
@@ -188,6 +169,11 @@ export default config({
         year: fields.text({ label: 'Jahr (z.B. 2022)' }),
         furtherContext: fields.text({ label: 'Mitwirkende / Details', multiline: true }),
         infoText: fields.text({ label: 'Info Beschreibung (Pop-up Fenster)', multiline: true }),
+        keywords: fields.text({ 
+          label: 'Versteckte Such-Keywords (Optional)', 
+          description: 'Begriffe, nach denen im Archiv gesucht werden kann (erscheinen nicht im Layout, z.B. "Plakat, CI, 3D, Fashion")',
+          multiline: true 
+        }),
         copyright: fields.text({ label: 'Copyright' }),
         gallery: fields.array(
           fields.object({
