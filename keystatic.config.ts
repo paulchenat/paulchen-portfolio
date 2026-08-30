@@ -39,35 +39,51 @@ export default config({
         ),
         videoLoopFile: fields.file({
           label: '🖥️ Desktop: Video-Loop direkt hochladen (MP4 4:3)',
+          description: 'Optional: Spielt auf Desktop als Video-Autoplay-Loop statt Bildern',
           directory: 'public/videos',
           publicPath: '/videos/',
         }),
         thumbnailMobile: fields.image({ 
           label: '📱 Mobile: Bild-Thumbnail (3:4)', 
+          description: 'Wird auf Smartphones im 3:4 Format angezeigt',
           directory: 'public/images/thumbnails', 
           publicPath: '/images/thumbnails/' 
         }),
         mobileVideoLoop: fields.file({
           label: '📱 Mobile: Video-Loop direkt hochladen (MP4 3:4)',
+          description: 'Optional: Eigenes Hochformat-Video für Smartphones',
           directory: 'public/videos',
           publicPath: '/videos/',
         }),
         videoLoop: fields.text({ label: 'Oder: Externer MP4 Video-Loop URL' }),
 
-        heroDesktop: fields.image({ label: 'Header Bild Desktop (2:1)', directory: 'public/images/content', publicPath: '/images/content/' }),
+        heroDesktop: fields.image({ 
+          label: '🖥️ Desktop: Header-Bild (2:1)', 
+          directory: 'public/images/content', 
+          publicPath: '/images/content/' 
+        }),
         heroVideoFile: fields.file({
-          label: 'Header Video direkt hochladen (MP4)',
+          label: '🖥️ Desktop: Header-Video direkt hochladen (MP4 2:1)',
+          description: 'Querformat-Video für Desktop-Bildschirme',
           directory: 'public/videos',
           publicPath: '/videos/',
         }),
-        heroMobile: fields.image({ label: 'Header Bild Mobile (3:4)', directory: 'public/images/content', publicPath: '/images/content/' }),
+        heroMobile: fields.image({ 
+          label: '📱 Mobile: Header-Bild (3:4)', 
+          directory: 'public/images/content', 
+          publicPath: '/images/content/' 
+        }),
         heroMobileVideoFile: fields.file({
-          label: 'Mobile Header Video direkt hochladen (MP4)',
+          label: '📱 Mobile: Header-Video direkt hochladen (MP4 3:4)',
+          description: 'Eigenes Hochformat-Video für Smartphones',
           directory: 'public/videos',
           publicPath: '/videos/',
         }),
         heroVideoUrl: fields.text({ label: 'Oder: Externer Header Video URL (MP4)' }),
-        heroVideoHasAudio: fields.checkbox({ label: 'Header-Video hat Ton (Zeigt "Ton an"-Button)', defaultValue: false }),
+        heroVideoHasAudio: fields.checkbox({ 
+          label: '🔊 Header-Video hat Ton (Zeigt "Ton an"-Button)', 
+          defaultValue: false 
+        }),
 
         blocks: fields.blocks(
           {
@@ -153,7 +169,7 @@ export default config({
       }
     }),
 
-    // 2. ARCHIVE (MIT VERSTECKTEN SUCH-KEYWORDS)
+    // 2. ARCHIVE
     archive: collection({
       label: 'Archiv Zeilen',
       slugField: 'title',
@@ -262,8 +278,8 @@ export default config({
       path: 'src/content/singletons/seo',
       format: { data: 'json' },
       schema: {
-        siteTitle: fields.text({ label: 'Website-Titel (Browsertab)', defaultValue: 'paulchen.at — Creative Direction & Archive' }),
-        metaDescription: fields.text({ label: 'Suchmaschinen-Beschreibung', multiline: true, defaultValue: 'Portfolio von Paul Neuburger — Creative Direction, Brand Identity & Typografie.' }),
+        siteTitle: fields.text({ label: 'Website-Titel (Browsertab & Google)', defaultValue: 'Paul Neuburger — Creative Direction & Branding' }),
+        metaDescription: fields.text({ label: 'Suchmaschinen-Beschreibung', multiline: true, defaultValue: 'Portfolio von Paul Neuburger — Creative Direction, Brand Identity und visuelle Lösungen für Marken und Kultur.' }),
         ogImage: fields.image({ label: 'OpenGraph Vorschaubild (1200x630px)', directory: 'public/images/seo', publicPath: '/images/seo/' }),
         favicon: fields.image({ label: 'Favicon Icon (32x32px PNG)', directory: 'public/images/seo', publicPath: '/images/seo/' }),
       }
