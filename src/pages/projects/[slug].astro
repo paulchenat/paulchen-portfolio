@@ -126,10 +126,9 @@ const projectDescription = d.furtherContext
                    data-text={pData.theme?.textColor || '#000000'}
                    data-theme={pData.theme?.isDarkTheme ? 'dark' : 'light'}>
             
-            <!-- 1. Header Bild / Video mit Skalierungs-Reveal -->
-            <div class="media-box block-hero reveal-scale-media">
+            <!-- 1. Header Bild / Video (SYNCHRON MIT PROJEKT-INFO EINGEBLENDET) -->
+            <div class="media-box block-hero reveal-hero-synced">
               
-              <!-- Mobile Header Box (<= 768px) -->
               <div class="mobile-header-box">
                 {mblHeaderVideo ? (
                   <video src={mblHeaderVideo} autoplay loop muted playsinline class="hero-media-full"></video>
@@ -144,7 +143,6 @@ const projectDescription = d.furtherContext
                 )}
               </div>
 
-              <!-- Desktop Header Box (> 768px) -->
               <div class="desktop-header-box">
                 {dktHeaderVideo ? (
                   <video src={dktHeaderVideo} autoplay loop muted playsinline class="hero-media-full"></video>
@@ -163,8 +161,8 @@ const projectDescription = d.furtherContext
               )}
             </div>
 
-            <!-- 2. Projekt-Info -->
-            <div class="project-info-block reveal-row">
+            <!-- 2. Projekt-Info (SYNCHRON MIT HEADER-BILD EINGEBLENDET) -->
+            <div class="project-info-block reveal-hero-synced">
               <div class="info-col">
                 <div class="slot-3-rows">
                   <p>{pData.title || ''}</p>
@@ -190,7 +188,7 @@ const projectDescription = d.furtherContext
               return (
                 <div class="block-stream-item">
                   
-                  {/* INTRO BLOCK: 3-ZEILIGE INITIALE + TEXT ZUERST AUF MOBILE */}
+                  <!-- INTRO BLOCK: 3-ZEILIGE INITIALE + TEXT ZUERST AUF MOBILE -->
                   {block.discriminant === 'introPortraitWithText' && (
                     <section class="block-portrait-with-text block-intro-text-first">
                       <div class={`portrait-text-left ${isLarge ? 'text-large' : 'text-normal'}`}>
@@ -218,7 +216,7 @@ const projectDescription = d.furtherContext
                     </section>
                   )}
 
-                  {/* STANDARD 2-SPALTER */}
+                  <!-- STANDARD 2-SPALTER -->
                   {block.discriminant === 'portraitWithText' && (
                     <section class="block-portrait-with-text">
                       <div class={`portrait-text-left ${isLarge ? 'text-large' : 'text-normal'}`}>
@@ -246,7 +244,7 @@ const projectDescription = d.furtherContext
                     </section>
                   )}
 
-                  {/* QUERFORMAT STANDARD */}
+                  <!-- QUERFORMAT STANDARD -->
                   {block.discriminant === 'landscapeStandard' && (
                     <div class="media-box block-landscape-standard reveal-scale-media">
                       {blockVideo ? (
@@ -267,14 +265,14 @@ const projectDescription = d.furtherContext
                     </div>
                   )}
 
-                  {/* ZENTRIERTES STATEMENT */}
+                  <!-- ZENTRIERTES STATEMENT -->
                   {block.discriminant === 'centeredStatement' && (
                     <div class={`block-centered-text ${isLarge ? 'large' : 'normal'} reveal-paragraphs`}>
                       <p set:html={parseFormattedText(val.statement)} />
                     </div>
                   )}
 
-                  {/* QUERFORMAT FULL WIDTH */}
+                  <!-- QUERFORMAT FULL WIDTH -->
                   {block.discriminant === 'landscapeFullWidth' && (
                     <div class="media-box block-landscape-fullwidth reveal-scale-media">
                       {blockVideo ? (
@@ -295,7 +293,7 @@ const projectDescription = d.furtherContext
                     </div>
                   )}
 
-                  {/* HOCHFORMAT OHNE TEXT */}
+                  <!-- HOCHFORMAT OHNE TEXT -->
                   {block.discriminant === 'portraitNoText' && (
                     <section class={`block-portrait-no-text ${val.mobileFullWidth ? 'block-portrait-mobile-fullwidth' : ''}`}>
                       <div class="media-box portrait-only-media reveal-scale-media">
@@ -349,8 +347,22 @@ const projectDescription = d.furtherContext
     .nav-mobile-collapsed { display: none; }
 
     /* ==========================================================================
-       CINEASTISCHE REVEAL-ANIMATIONEN FÜR PROJEKTSEITEN
+       SYNCHRONISIERTER HEADER-REVEAL (BILD & METADATEN GLEICHZEITIG)
        ========================================================================== */
+    .reveal-hero-synced {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: 
+        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.95s cubic-bezier(0.19, 1, 0.22, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-hero-synced.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .reveal-scale-media {
       opacity: 0;
       transform: scale(0.97) translateY(14px);
@@ -532,8 +544,8 @@ const projectDescription = d.furtherContext
       margin-bottom: 60px;
     }
 
-    .block-portrait-no-text { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; margin-bottom: 60px; }
-    .portrait-only-media { grid-column: 7 / 13; aspect-ratio: 3 / 4; }
+    .block-portrait-no-text { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; margin-bottom: 60px; width: 100%; }
+    .portrait-only-media { grid-column: 7 / 13; aspect-ratio: 3 / 4; width: 100%; }
 
     .next-project-divider { grid-column: 1 / -1; margin-top: 80px; margin-bottom: 60px; text-align: center; font-size: 16px; color: #888; letter-spacing: 0.5px; }
 
@@ -608,7 +620,9 @@ const projectDescription = d.furtherContext
       .block-centered-text { margin-top: 40px; margin-bottom: 80px; padding: 20px 0; }
       .block-centered-text.large { font-size: 30px; }
 
-      .block-portrait-no-text { grid-template-columns: 1fr; margin-bottom: 60px; }
+      .block-portrait-no-text { grid-template-columns: 1fr; display: block; width: 100%; margin-bottom: 60px; }
+      .portrait-only-media { grid-column: 1 / -1; }
+      .block-portrait-mobile-fullwidth .media-box { width: 100vw; position: relative; left: 50%; margin-left: -50vw; aspect-ratio: 3 / 4; }
 
       .site-footer { padding-top: 60px; padding-bottom: 60px; }
       .footer-grid { grid-template-columns: repeat(6, 1fr); }
@@ -617,7 +631,6 @@ const projectDescription = d.furtherContext
   </style>
 
   <script is:inline>
-    // 1. Video Steuerung
     function togglePlay(btn) {
       const video = btn.closest('.media-box').querySelector('video');
       if (!video) return;
@@ -637,7 +650,8 @@ const projectDescription = d.furtherContext
       btn.innerText = video.muted ? 'Ton an' : 'Stumm';
     }
 
-    // 2. CINEASTISCHER SCROLL REVEAL OBSERVER FÜR PROJEKTSEITEN (-30% ROOTMARGIN)
+    // CINEASTISCHER SCROLL REVEAL OBSERVER FÜR PROJEKTSEITEN
+    const isMobile = window.innerWidth <= 768;
     const revealObserver = new IntersectionObserver(function(entries, observer) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
@@ -646,15 +660,14 @@ const projectDescription = d.furtherContext
         }
       });
     }, {
-      rootMargin: '0px 0px -30% 0px',
+      rootMargin: isMobile ? '0px 0px -15% 0px' : '0px 0px -30% 0px',
       threshold: 0.05
     });
 
-    document.querySelectorAll('.reveal-scale-media, .reveal-paragraphs, .reveal-row').forEach(function(el) {
+    document.querySelectorAll('.reveal-hero-synced, .reveal-scale-media, .reveal-paragraphs, .reveal-row').forEach(function(el) {
       revealObserver.observe(el);
     });
 
-    // 3. Theme Color Switcher
     const obsOptions = {
       rootMargin: '-30% 0px -50% 0px',
       threshold: 0
