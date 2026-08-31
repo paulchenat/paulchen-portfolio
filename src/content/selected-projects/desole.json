@@ -67,19 +67,10 @@
       }
     },
     {
-      "discriminant": "portraitWithText",
-      "value": {
-        "adminLabel": "Text in allen sizes",
-        "media": "/images/content/desole/blocks/5/value/media.jpg",
-        "hasAudio": false,
-        "textSize": "normal"
-      }
-    },
-    {
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "Yoko",
-        "media": "/images/content/desole/blocks/6/value/media.jpg",
+        "media": "/images/content/desole/blocks/5/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -87,7 +78,7 @@
       "discriminant": "portraitNoText",
       "value": {
         "adminLabel": "a Glyphe",
-        "media": "/images/content/desole/blocks/7/value/media.gif",
+        "media": "/images/content/desole/blocks/6/value/media.gif",
         "hasAudio": false,
         "mobileFullWidth": false
       }
@@ -96,7 +87,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Formen",
-        "media": "/images/content/desole/blocks/8/value/media.gif",
+        "media": "/images/content/desole/blocks/7/value/media.gif",
         "hasAudio": false
       }
     },
@@ -104,7 +95,7 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Linien",
-        "media": "/images/content/desole/blocks/9/value/media.jpg",
+        "media": "/images/content/desole/blocks/8/value/media.jpg",
         "hasAudio": false,
         "text": "The result is a typeface built upon the architecture of a sturdy slab serif, one that excels as ~body copy~, yet unapologetically refuses to be tame or invisible. It carries an imperfect, deeply personal soul in its glyphs, standing tall with a confidence that ~never~ asks for forgiveness.",
         "textSize": "normal"
@@ -114,7 +105,7 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Zine",
-        "media": "/images/content/desole/blocks/10/value/media.gif",
+        "media": "/images/content/desole/blocks/9/value/media.gif",
         "hasAudio": false,
         "text": "The allure lay in crafting a typeface that feels familiar and dependable at first glance, yet reveals a sharp, rebellious streak in its details. Much like the cinema of the French New Wave, Désolé ~breaks traditional~ conventions without sacrificing legibility.",
         "textSize": "normal"
@@ -124,7 +115,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Ende",
-        "media": "/images/content/desole/blocks/11/value/media.jpg",
+        "media": "/images/content/desole/blocks/10/value/media.jpg",
         "hasAudio": false
       }
     }
