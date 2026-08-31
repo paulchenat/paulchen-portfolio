@@ -20,5 +20,16 @@
   ],
   "thumbnailMobile": "/images/thumbnails/brotstudio/thumbnailMobile.jpg",
   "heroVideoHasAudio": false,
-  "blocks": []
+  "blocks": [
+    {
+      "discriminant": "introPortraitWithText",
+      "value": {
+        "adminLabel": "Projekt-Intro",
+        "videoFile": "/videos/brotstudio/blocks/0/value/videoFile.mp4",
+        "hasAudio": false,
+        "text": "Brotstudio",
+        "textSize": "normal"
+      }
+    }
+  ]
 }
