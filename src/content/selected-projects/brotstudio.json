@@ -28,7 +28,6 @@
       "value": {
         "adminLabel": "Projekt-Intro",
         "media": "/images/content/brotstudio/blocks/0/value/media.jpg",
-        "videoFile": "/videos/brotstudio/blocks/0/value/videoFile.mp4",
         "hasAudio": false,
         "text": "Brotstudio",
         "textSize": "normal"
