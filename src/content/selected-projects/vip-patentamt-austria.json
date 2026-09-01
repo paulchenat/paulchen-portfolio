@@ -5,10 +5,10 @@
   "location": "Wien",
   "furtherContext": "Direct-mailing\ncampaign\nunreleased Pitch",
   "theme": {
-    "backgroundColor": "#ffffff",
-    "textColor": "#000000",
+    "backgroundColor": "#000000",
+    "textColor": "#ffffff",
     "wavyColor": "#ff0000",
-    "isDarkTheme": true
+    "isDarkTheme": false
   },
   "thumbnailsDesktop": [
     "/images/thumbnails/vip-patentamt-austria/thumbnailsDesktop/0.jpg",
