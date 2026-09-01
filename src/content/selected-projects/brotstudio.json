@@ -34,7 +34,7 @@
       }
     },
     {
-      "discriminant": "landscapeStandard",
+      "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Brot",
         "media": "/images/content/brotstudio/blocks/1/value/media.jpg",
