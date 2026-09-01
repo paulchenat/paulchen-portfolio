@@ -88,7 +88,7 @@
     {
       "discriminant": "landscapeStandard",
       "value": {
-        "adminLabel": "burn",
+        "adminLabel": "heat",
         "media": "/images/content/brotstudio/blocks/7/value/media.jpg",
         "hasAudio": false
       }
@@ -105,7 +105,7 @@
     {
       "discriminant": "landscapeFullWidth",
       "value": {
-        "adminLabel": "Querformat Full Bleed",
+        "adminLabel": "Icons",
         "media": "/images/content/brotstudio/blocks/9/value/media.jpg",
         "hasAudio": false
       }
