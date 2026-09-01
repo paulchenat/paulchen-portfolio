@@ -19,6 +19,8 @@
     "/images/thumbnails/brotstudio/thumbnailsDesktop/4.jpg"
   ],
   "thumbnailMobile": "/images/thumbnails/brotstudio/thumbnailMobile.jpg",
+  "heroDesktop": "/images/content/brotstudio/heroDesktop.jpg",
+  "heroMobile": "/images/content/brotstudio/heroMobile.jpg",
   "heroVideoHasAudio": false,
   "blocks": [
     {
@@ -29,6 +31,107 @@
         "hasAudio": false,
         "text": "Brotstudio",
         "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "adminLabel": "Brot",
+        "media": "/images/content/brotstudio/blocks/1/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "portraitNoText",
+      "value": {
+        "adminLabel": "bakery",
+        "media": "/images/content/brotstudio/blocks/2/value/media.jpg",
+        "hasAudio": false,
+        "mobileFullWidth": false
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "schablone",
+        "media": "/images/content/brotstudio/blocks/3/value/media.jpg",
+        "hasAudio": false,
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "adminLabel": "Sackerl",
+        "media": "/images/content/brotstudio/blocks/4/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "adminLabel": "Wand_Design",
+        "media": "/images/content/brotstudio/blocks/5/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "portraitNoText",
+      "value": {
+        "adminLabel": "mitarbeiter",
+        "media": "/images/content/brotstudio/blocks/6/value/media.jpg",
+        "hasAudio": false,
+        "mobileFullWidth": false
+      }
+    },
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "adminLabel": "burn",
+        "media": "/images/content/brotstudio/blocks/7/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "Icon Text",
+        "media": "/images/content/brotstudio/blocks/8/value/media.jpg",
+        "hasAudio": false,
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "adminLabel": "Querformat Full Bleed",
+        "media": "/images/content/brotstudio/blocks/9/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "New Bread Order Text",
+        "media": "/images/content/brotstudio/blocks/10/value/media.jpg",
+        "hasAudio": false,
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "adminLabel": "New Bread order Text",
+        "media": "/images/content/brotstudio/blocks/11/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "adminLabel": "Ende",
+        "media": "/images/content/brotstudio/blocks/12/value/media.jpg",
+        "hasAudio": false
       }
     }
   ]
