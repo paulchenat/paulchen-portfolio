@@ -17,6 +17,61 @@
     "/images/thumbnails/vip-patentamt-austria/thumbnailsDesktop/3.jpg",
     "/images/thumbnails/vip-patentamt-austria/thumbnailsDesktop/4.jpg"
   ],
+  "thumbnailMobile": "/images/thumbnails/vip-patentamt-austria/thumbnailMobile.jpg",
+  "heroDesktop": "/images/content/vip-patentamt-austria/heroDesktop.jpg",
+  "heroMobile": "/images/content/vip-patentamt-austria/heroMobile.jpg",
   "heroVideoHasAudio": false,
-  "blocks": []
+  "blocks": [
+    {
+      "discriminant": "introPortraitWithText",
+      "value": {
+        "adminLabel": "Projekt-Intro",
+        "media": "/images/content/vip-patentamt-austria/blocks/0/value/media.jpg",
+        "hasAudio": false,
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "adminLabel": "Querformat Standard",
+        "media": "/images/content/vip-patentamt-austria/blocks/1/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "Hochformat mit Text",
+        "media": "/images/content/vip-patentamt-austria/blocks/2/value/media.jpg",
+        "hasAudio": false,
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "adminLabel": "Querformat Standard",
+        "media": "/images/content/vip-patentamt-austria/blocks/3/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "portraitNoText",
+      "value": {
+        "adminLabel": "Detailaufnahme",
+        "media": "/images/content/vip-patentamt-austria/blocks/4/value/media.jpg",
+        "hasAudio": false,
+        "mobileFullWidth": false
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "adminLabel": "Querformat Full Bleed",
+        "media": "/images/content/vip-patentamt-austria/blocks/5/value/media.jpg",
+        "hasAudio": false
+      }
+    }
+  ]
 }
