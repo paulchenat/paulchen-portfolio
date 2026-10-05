@@ -1,0 +1,120 @@
+---
+// src/pages/portal/dashboard.astro
+export const prerender = false;
+import Layout from '../../layouts/layout.astro';
+import { getPortalState, PORTAL_SECRET } from '../../lib/portalState';
+
+const state = await getPortalState();
+---
+
+<Layout title="Portal Dashboard — paulchen.at">
+  <main class="content-grid" style="padding-top: 60px; padding-bottom: 100px;">
+    
+    <div style="grid-column: 1 / -1; margin-bottom: 40px;">
+      <a href="/portal" class="hover-wavy" style="font-size: 16px;">← Zum Portal Canvas</a>
+      <h1 style="font-size: 36px; margin-top: 14px; font-weight: 500;">E-Reader & TRMNL Dashboard</h1>
+      <p style="color: #666; margin-top: 6px;">Verwalte den Status deines E-Paper Bilderrahmens.</p>
+    </div>
+
+    <!-- STATUS SCHALTER -->
+    <div class="dash-card" style="grid-column: 1 / 7;">
+      <h2 style="font-size: 20px; margin-bottom: 16px;">Aktueller Status</h2>
+      
+      <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+        <button id="btnHome" class={`status-btn ${state.mode === 'home' ? 'active' : ''}`} type="button">
+          📍 Zu Hause (Home)
+        </button>
+        <button id="btnAway" class={`status-btn ${state.mode === 'away' ? 'active' : ''}`} type="button">
+          🚀 Unterwegs (Away)
+        </button>
+      </div>
+
+      <div style="font-size: 14px; line-height: 1.6; color: #444;">
+        <div>Letzte Änderung: <strong>{new Date(state.updatedAt).toLocaleString('de-AT')}</strong></div>
+        <div>Letzter E-Reader Sync: <strong>{state.lastDeviceSync ? new Date(state.lastDeviceSync).toLocaleString('de-AT') : 'Noch nicht verbunden'}</strong></div>
+      </div>
+    </div>
+
+    <!-- LIVE E-INK VORSCHAU -->
+    <div class="dash-card" style="grid-column: 7 / 13;">
+      <h2 style="font-size: 20px; margin-bottom: 16px;">Live E-Ink Screen Vorschau</h2>
+      <div class="screen-preview-box">
+        <img id="screenPreview" src={`/api/portal/screen?t=${Date.now()}`} alt="Screen Preview" style="width: 100%; height: auto; border: 1px solid #ccc;" />
+      </div>
+    </div>
+
+    <!-- IPHONE SHORTCUTS INTEGRATION -->
+    <div class="dash-card" style="grid-column: 1 / -1; margin-top: 30px;">
+      <h2 style="font-size: 20px; margin-bottom: 12px;">📱 iPhone Kurzbefehl Integration</h2>
+      <p style="font-size: 15px; color: #555; margin-bottom: 16px;">
+        Erstelle in der Apple <em>Kurzbefehle</em>-App eine Automation (z.B. „Wenn ich mein Heim-WLAN verlasse“ oder „Wenn ich ankomme“) und füge die Aktion <strong>„Inhalte von URL abrufen“</strong> hinzu:
+      </p>
+
+      <div class="code-box">
+        <div style="color: #888; font-size: 12px; margin-bottom: 4px;">URL für "Zu Hause":</div>
+        <code>https://www.paulchen.at/api/portal/status?state=home&token={PORTAL_SECRET}</code>
+      </div>
+
+      <div class="code-box" style="margin-top: 12px;">
+        <div style="color: #888; font-size: 12px; margin-bottom: 4px;">URL für "Unterwegs":</div>
+        <code>https://www.paulchen.at/api/portal/status?state=away&token={PORTAL_SECRET}</code>
+      </div>
+    </div>
+
+  </main>
+
+  <style>
+    .dash-card {
+      background: #fafafa;
+      border: 1px solid #eaeaea;
+      padding: 24px;
+      border-radius: 8px;
+    }
+    .status-btn {
+      padding: 12px 20px;
+      font-size: 16px;
+      font-family: inherit;
+      border: 1px solid #000;
+      background: #fff;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    .status-btn.active {
+      background: #000;
+      color: #fff;
+    }
+    .code-box {
+      background: #111;
+      color: #0f0;
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+    .code-box code { color: #fff; }
+    @media (max-width: 768px) {
+      .dash-card { grid-column: 1 / -1 !important; }
+    }
+  </style>
+
+  <script is:inline define:vars={{ secret: PORTAL_SECRET }}>
+    async function updateStatus(mode) {
+      try {
+        const res = await fetch(`/api/portal/status?state=${mode}&token=${secret}`);
+        if (res.ok) {
+          document.getElementById('btnHome')?.classList.toggle('active', mode === 'home');
+          document.getElementById('btnAway')?.classList.toggle('active', mode === 'away');
+          const preview = document.getElementById('screenPreview');
+          if (preview) preview.src = `/api/portal/screen?t=${Date.now()}`;
+        }
+      } catch (e) {
+        alert('Fehler beim Aktualisieren');
+      }
+    }
+
+    document.getElementById('btnHome')?.addEventListener('click', () => updateStatus('home'));
+    document.getElementById('btnAway')?.addEventListener('click', () => updateStatus('away'));
+  </script>
+</Layout>
