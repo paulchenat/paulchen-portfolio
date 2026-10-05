@@ -283,6 +283,29 @@ export default config({
         ogImage: fields.image({ label: 'OpenGraph Vorschaubild (1200x630px)', directory: 'public/images/seo', publicPath: '/images/seo/' }),
         favicon: fields.image({ label: 'Favicon Icon (32x32px PNG)', directory: 'public/images/seo', publicPath: '/images/seo/' }),
       }
+    }),
+
+    // 4. E-READER PORTAL & BILDERRAHMEN
+    portal: singleton({
+      label: 'E-Reader Portal & Bilderrahmen',
+      path: 'src/content/singletons/portal',
+      format: { data: 'json' },
+      schema: {
+        homeImage: fields.image({
+          label: '🖼️ Bild für: Zu Hause (Home)',
+          description: 'Erscheint auf dem Kindle, wenn du zu Hause bist',
+          directory: 'public/images/portal',
+          publicPath: '/images/portal/',
+        }),
+        awayImage: fields.image({
+          label: '🖼️ Bild für: Unterwegs (Away / Galerie)',
+          description: 'Erscheint als Kunstwerk / Bilderrahmen auf dem Kindle, wenn du weg bist',
+          directory: 'public/images/portal',
+          publicPath: '/images/portal/',
+        }),
+        homeText: fields.text({ label: 'Zusatztext Home (Optional)', defaultValue: 'At Home' }),
+        awayText: fields.text({ label: 'Zusatztext Away (Optional)', defaultValue: 'On Tour' }),
+      }
     })
   }
 });
