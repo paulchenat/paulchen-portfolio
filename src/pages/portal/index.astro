@@ -1,0 +1,31 @@
+---
+// src/pages/portal/index.astro
+export const prerender = false;
+import Layout from '../../layouts/layout.astro';
+---
+
+<Layout title="Portal — paulchen.at">
+  <main class="content-grid" style="padding-top: 60px; padding-bottom: 100px;">
+    
+    <div style="grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 30px;">
+      <div>
+        <h1 style="font-size: 32px; font-weight: 500;">Portal</h1>
+        <p style="color: #666; margin-top: 4px;">Interaktive Schnittstelle für deinen E-Paper Rahmen</p>
+      </div>
+      <div>
+        <a href="/portal/dashboard" class="wavy-link" style="font-size: 18px;">Zum Dashboard →</a>
+      </div>
+    </div>
+
+    <!-- ZEICHENPAD / CANVAS VORBEREITUNG -->
+    <div style="grid-column: 1 / -1; background: #fafafa; border: 1px solid #e0e0e0; border-radius: 8px; padding: 30px; text-align: center;">
+      <h2 style="font-size: 20px; margin-bottom: 8px;">Interactive Drawing Canvas</h2>
+      <p style="color: #888; font-size: 14px; margin-bottom: 24px;">Hier entsteht demnächst die Zeichenfläche, um Skizzen direkt auf den E-Reader zu beamen.</p>
+      
+      <div style="display: inline-block; width: 100%; max-width: 600px; aspect-ratio: 4 / 3; background: #ffffff; border: 2px dashed #bbb; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #aaa;">
+        <span>[ Canvas Modus in Entwicklung ]</span>
+      </div>
+    </div>
+
+  </main>
+</Layout>
