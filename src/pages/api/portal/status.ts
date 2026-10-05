@@ -1,4 +1,3 @@
-// src/pages/api/portal/status.ts
 export const prerender = false;
 import type { APIRoute } from 'astro';
 import { getPortalState, setPortalState, PORTAL_SECRET } from '../../../lib/portalState';
