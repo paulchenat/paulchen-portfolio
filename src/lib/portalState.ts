@@ -1,23 +1,15 @@
-// src/lib/portalState.ts
-
 export interface PortalState {
   mode: 'home' | 'away' | 'custom';
   updatedAt: string;
   lastDeviceSync?: string;
   batteryLevel?: string;
-  homeImage?: string;
-  awayImage?: string;
   customText?: string;
-  canvasData?: string;
 }
 
 let inMemoryState: PortalState = {
   mode: 'home',
   updatedAt: new Date().toISOString(),
-  homeImage: '/images/portal/home-default.png',
-  awayImage: '/images/portal/away-default.png',
-  customText: 'Willkommen zu Hause, Paul.',
-  canvasData: ''
+  customText: 'Willkommen zu Hause, Paul.'
 };
 
 const env = import.meta.env as Record<string, string | undefined>;
@@ -61,7 +53,5 @@ export async function setPortalState(partial: Partial<PortalState>): Promise<Por
   }
 
   inMemoryState = updated;
-  return updated;
-}  inMemoryState = updated;
   return updated;
 }
