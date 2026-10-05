@@ -11,7 +11,6 @@ export interface PortalState {
   canvasData?: string;
 }
 
-// Globaler In-Memory Speicher (während der Server läuft)
 let inMemoryState: PortalState = {
   mode: 'home',
   updatedAt: new Date().toISOString(),
@@ -21,10 +20,10 @@ let inMemoryState: PortalState = {
   canvasData: ''
 };
 
-// Falls du Upstash Redis / Vercel KV in deinen Vercel Env Vars hast:
-const KV_REST_API_URL = import.meta.env.KV_REST_API_URL || process.env.KV_REST_API_URL;
-const KV_REST_API_TOKEN = import.meta.env.KV_REST_API_TOKEN || process.env.KV_REST_API_TOKEN;
-export const PORTAL_SECRET = import.meta.env.PORTAL_SECRET || process.env.PORTAL_SECRET || 'paulchen-secret-2026';
+const env = import.meta.env as Record<string, string | undefined>;
+const KV_REST_API_URL = env.KV_REST_API_URL;
+const KV_REST_API_TOKEN = env.KV_REST_API_TOKEN;
+export const PORTAL_SECRET = env.PORTAL_SECRET || 'paulchen-secret-2026';
 
 export async function getPortalState(): Promise<PortalState> {
   if (KV_REST_API_URL && KV_REST_API_TOKEN) {
@@ -33,7 +32,7 @@ export async function getPortalState(): Promise<PortalState> {
         headers: { Authorization: `Bearer ${KV_REST_API_TOKEN}` }
       });
       const data = await res.json();
-      if (data.result) return JSON.parse(data.result);
+      if (data && data.result) return JSON.parse(data.result);
     } catch (e) {
       console.error('KV Read Error:', e);
     }
@@ -62,5 +61,7 @@ export async function setPortalState(partial: Partial<PortalState>): Promise<Por
   }
 
   inMemoryState = updated;
+  return updated;
+}  inMemoryState = updated;
   return updated;
 }
