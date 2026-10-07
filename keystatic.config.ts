@@ -305,6 +305,28 @@ export default config({
         }),
         homeText: fields.text({ label: 'Zusatztext Home (Optional)', defaultValue: 'At Home' }),
         awayText: fields.text({ label: 'Zusatztext Away (Optional)', defaultValue: 'On Tour' }),
+
+        // DYNAMISCHE ZEITSTEUERUNG / AKKUSCHONUNG
+        weekdayActiveMinutes: fields.integer({
+          label: '⏱️ Wochentage (Mo–Fr): 08:00–18:00 Uhr (Intervall in Minuten)',
+          description: 'Wie oft der Kindle tagsüber nachschauen soll (z. B. 15 Minuten)',
+          defaultValue: 15,
+        }),
+        weekdayIdleMinutes: fields.integer({
+          label: '🌙 Wochentage (Mo–Fr): 18:00–08:00 Uhr Nachtruhe (Intervall in Minuten)',
+          description: 'Wie lange der Kindle abends/nachts schläft (z. B. 240 Minuten = 4 Stunden)',
+          defaultValue: 240,
+        }),
+        weekendActiveMinutes: fields.integer({
+          label: '⏱️ Wochenende (Sa–So): 08:00–18:00 Uhr (Intervall in Minuten)',
+          description: 'Wie oft der Kindle am Wochenende tagsüber nachschaut (z. B. 60 Minuten = 1 Stunde)',
+          defaultValue: 60,
+        }),
+        weekendIdleMinutes: fields.integer({
+          label: '🌙 Wochenende (Sa–So): 18:00–08:00 Uhr Nachtruhe (Intervall in Minuten)',
+          description: 'Wie lange der Kindle am Wochenende nachts schläft (z. B. 240 Minuten = 4 Stunden)',
+          defaultValue: 240,
+        }),
       }
     })
   }
