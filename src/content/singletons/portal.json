@@ -2,5 +2,9 @@
   "homeImage": "/images/portal/homeImage.jpeg",
   "awayImage": "/images/portal/awayImage.jpg",
   "homeText": "At Home",
-  "awayText": "On Tour"
+  "awayText": "On Tour",
+  "weekdayActiveMinutes": 15,
+  "weekdayIdleMinutes": 240,
+  "weekendActiveMinutes": 60,
+  "weekendIdleMinutes": 240
 }
