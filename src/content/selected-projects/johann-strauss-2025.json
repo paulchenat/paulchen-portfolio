@@ -14,6 +14,7 @@
   "thumbnailsDesktop": [],
   "videoLoopFile": "/videos/johann-strauss-2025/videoLoopFile.mp4",
   "thumbnailMobile": "/images/thumbnails/johann-strauss-2025/thumbnailMobile.jpg",
+  "mobileVideoLoop": "/videos/johann-strauss-2025/mobileVideoLoop.mp4",
   "heroVideoFile": "/videos/johann-strauss-2025/heroVideoFile.mp4",
   "heroVideoHasAudio": false,
   "blocks": []
