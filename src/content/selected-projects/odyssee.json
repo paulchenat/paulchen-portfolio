@@ -50,9 +50,9 @@
       }
     },
     {
-      "discriminant": "landscapeFullWidth",
+      "discriminant": "landscapeStandard",
       "value": {
-        "adminLabel": "Kapitel (neu",
+        "adminLabel": "Kapitel",
         "videoFile": "/videos/odyssee/blocks/3/value/videoFile.mp4",
         "hasAudio": false
       }
