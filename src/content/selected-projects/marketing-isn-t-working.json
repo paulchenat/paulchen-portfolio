@@ -29,7 +29,7 @@
       "value": {
         "media": "/images/content/marketing-isn-t-working/blocks/0/value/media.jpg",
         "hasAudio": false,
-        "text": "Wie oft erlebt man, dass radikale Ideen in Meetings so lange zerpflückt, glattgebügelt und totanalysiert werden, bis sie der Herde gefallen? \n\nPlakat Design für  Branchen-Legende Sir John Hegarty, über das Versagen des  modernen Marketings.",
+        "text": "How often do we watch radical ideas get picked apart, watered down, and analyzed to death in meetings \n... just so they finally please the herd?\n\nPoster design for industry legend Sir John Hegarty on the failure of modern marketing.",
         "textSize": "normal"
       }
     },
@@ -41,12 +41,13 @@
       }
     },
     {
-      "discriminant": "portraitNoText",
+      "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Detailaufnahme",
         "media": "/images/content/marketing-isn-t-working/blocks/2/value/media.jpg",
         "hasAudio": false,
-        "mobileFullWidth": false
+        "text": "Creativity is unpredictable, unmeasurable, and deeply personal. Marketing, on the other hand, desperately tries to force art into spreadsheets. This tension inspired the visual metaphor of butchered prime cuts, linked directly to the symbolic lamb, which also serves as the iconic emblem of Bartle Bogle Hegarty. Imagery so visceral it screams from afar that something has gone terribly wrong.",
+        "textSize": "normal"
       }
     },
     {
