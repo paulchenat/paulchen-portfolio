@@ -28,6 +28,7 @@
         "adminLabel": "Projekt-Intro",
         "media": "/images/content/vip-patentamt-austria/blocks/0/value/media.jpg",
         "hasAudio": false,
+        "text": "How do you give shape to the intangible when both your budget and physical mailing space are shrinking?\n\nThe Austrian Patent Office suffers from a distance problem. From the outside, it comes across as an unapproachable, bureaucratic fortress. Inside, however, the team burns with enthusiasm for every single idea, no matter how big or small. Their annual direct mailing needed to raise awareness for their services, while making do with ever-shrinking resources.",
         "textSize": "normal"
       }
     },
@@ -45,6 +46,7 @@
         "adminLabel": "Hochformat mit Text",
         "media": "/images/content/vip-patentamt-austria/blocks/2/value/media.jpg",
         "hasAudio": false,
+        "text": "When the budget gets lighter, the meaning has to carry more weight.\n\nIntellectual property has neither volume nor weight. And yet, in its infancy, nothing is more fragile. So instead of designing another info brochure, we reimagined the mailing as protective packaging for that emotional state of emergency known as an idea.",
         "textSize": "normal"
       }
     },
@@ -57,12 +59,13 @@
       }
     },
     {
-      "discriminant": "portraitNoText",
+      "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Detailaufnahme",
         "media": "/images/content/vip-patentamt-austria/blocks/4/value/media.jpg",
         "hasAudio": false,
-        "mobileFullWidth": false
+        "text": "After spending months perfecting a thought, the moment you finally reveal it to the public is terrifying. You are handing over something deeply personal to a world full of skepticism, harsh criticism, and unpredictable detours.\n\nThe answer? The Patent Office, a messenger that knows exactly how much courage goes into every single draft, gently guiding it across the counter.",
+        "textSize": "normal"
       }
     },
     {
