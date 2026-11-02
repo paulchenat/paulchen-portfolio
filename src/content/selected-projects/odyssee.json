@@ -6,8 +6,8 @@
   "furtherContext": "Editorial\nPublishing",
   "copyright": "© MKD Linz",
   "theme": {
-    "backgroundColor": "#ffffff",
-    "textColor": "#000000",
+    "backgroundColor": "#000000",
+    "textColor": "#ffffff",
     "wavyColor": "#ff0000",
     "isDarkTheme": false
   },
