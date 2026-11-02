@@ -11,9 +11,8 @@
     "wavyColor": "#ff0000",
     "isDarkTheme": false
   },
-  "thumbnailsDesktop": [
-    "/images/thumbnails/johann-strauss-2025/thumbnailsDesktop/0.jpg"
-  ],
+  "thumbnailsDesktop": [],
+  "videoLoopFile": "/videos/johann-strauss-2025/videoLoopFile.mp4",
   "thumbnailMobile": "/images/thumbnails/johann-strauss-2025/thumbnailMobile.jpg",
   "heroVideoFile": "/videos/johann-strauss-2025/heroVideoFile.mp4",
   "heroVideoHasAudio": false,
