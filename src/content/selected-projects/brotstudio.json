@@ -126,15 +126,22 @@
         "adminLabel": "New Bread Order Text",
         "media": "/images/content/brotstudio/blocks/11/value/media.jpg",
         "hasAudio": false,
-        "text": "Community isn’t an accessory here, it is the actual product.\n\nIt marks the difference between a place where you merely buy something and a place where you want to stay. Anyone who sits, drinks, eats, talks, laughs, or simply stays silent here helps write the character of the house. Every voice, every glass, every glance becomes part of an atmosphere that cannot be engineered and is genuine for that very reason.",
         "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "centeredStatement",
+      "value": {
+        "adminLabel": "Community",
+        "statement": "Community isn’t an accessory here, it is the actual product.\nIt marks the difference between a place where you merely buy something and a place where you want to stay. Anyone who sits, drinks, eats, talks, laughs, or simply stays silent here helps write the character of the house. Every voice, every glass, every glance becomes part of an atmosphere that cannot be engineered and is genuine for that very reason.",
+        "textSize": "large"
       }
     },
     {
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "New Bread order Text",
-        "media": "/images/content/brotstudio/blocks/12/value/media.jpg",
+        "media": "/images/content/brotstudio/blocks/13/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -142,7 +149,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Ende",
-        "media": "/images/content/brotstudio/blocks/13/value/media.jpg",
+        "media": "/images/content/brotstudio/blocks/14/value/media.jpg",
         "hasAudio": false
       }
     }
