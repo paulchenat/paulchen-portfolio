@@ -65,7 +65,7 @@
         "adminLabel": "schablone",
         "media": "/images/content/brotstudio/blocks/4/value/media.jpg",
         "hasAudio": false,
-        "text": "The stencil makes the brand independent and sustainable. \n\nApplied directly on-site, hand-stamping the bread bags right before handing them over gives the product an almost institutional seal of quality. Even in ancient Rome, stencils were used to mark loaves of bread—back then as currency and tax seals. We revived this industrial mechanism: the stenciled ‘B’ glyph isn’t a decorative logo; it’s a working tool.",
+        "text": "The stencil makes the brand independent and sustainable. \n\nApplied directly on-site, hand-stamping the bread bags right before handing them over gives the product an almost institutional seal of quality. Even in ancient Rome, stencils were used to mark loaves of bread, back then as currency and tax seals. We revived this industrial mechanism: the stenciled ‘B’ glyph isn’t a decorative logo; it’s a working tool.",
         "textSize": "normal"
       }
     },
@@ -121,28 +121,29 @@
       }
     },
     {
-      "discriminant": "portraitWithText",
+      "discriminant": "landscapeStandard",
       "value": {
-        "adminLabel": "New Bread Order Text",
+        "adminLabel": "New Bread order Text",
         "media": "/images/content/brotstudio/blocks/11/value/media.jpg",
-        "hasAudio": false,
-        "textSize": "normal"
+        "hasAudio": false
       }
     },
     {
       "discriminant": "centeredStatement",
       "value": {
         "adminLabel": "Community",
-        "statement": "Community isn’t an accessory here, it is the actual product.\nIt marks the difference between a place where you merely buy something and a place where you want to stay. Anyone who sits, drinks, eats, talks, laughs, or simply stays silent here helps write the character of the house. Every voice, every glass, every glance becomes part of an atmosphere that cannot be engineered and is genuine for that very reason.",
+        "statement": "\n\n\n\nCommunity isn’t an accessory here, it is the actual product.\n\n\n\n\n",
         "textSize": "large"
       }
     },
     {
-      "discriminant": "landscapeStandard",
+      "discriminant": "portraitWithText",
       "value": {
-        "adminLabel": "New Bread order Text",
+        "adminLabel": "New Bread Order Text",
         "media": "/images/content/brotstudio/blocks/13/value/media.jpg",
-        "hasAudio": false
+        "hasAudio": false,
+        "text": "It marks the difference between a place where you merely buy something and a place where you want to stay. Anyone who sits, drinks, eats, talks, laughs, or simply stays silent here helps write the character of the house. Every voice, every glass, every glance becomes part of an atmosphere that cannot be engineered and is genuine for that very reason.",
+        "textSize": "normal"
       }
     },
     {
