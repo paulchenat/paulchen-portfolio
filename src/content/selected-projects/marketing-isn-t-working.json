@@ -25,8 +25,9 @@
   "heroVideoHasAudio": true,
   "blocks": [
     {
-      "discriminant": "portraitWithText",
+      "discriminant": "introPortraitWithText",
       "value": {
+        "adminLabel": "intro",
         "media": "/images/content/marketing-isn-t-working/blocks/0/value/media.jpg",
         "hasAudio": false,
         "text": "How often do we watch radical ideas get picked apart, watered down, and analyzed to death in meetings \n... just so they finally please the herd?\n\nPoster design for industry legend Sir John Hegarty on the failure of modern marketing.",
