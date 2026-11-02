@@ -22,5 +22,76 @@
   "heroDesktop": "/images/content/odyssee/heroDesktop.jpg",
   "heroMobile": "/images/content/odyssee/heroMobile.jpg",
   "heroVideoHasAudio": false,
-  "blocks": []
+  "blocks": [
+    {
+      "discriminant": "introPortraitWithText",
+      "value": {
+        "adminLabel": "Intro",
+        "videoFile": "/videos/odyssee/blocks/0/value/videoFile.mp4",
+        "hasAudio": false,
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "adminLabel": "COver",
+        "media": "/images/content/odyssee/blocks/1/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "Cover_zoom",
+        "media": "/images/content/odyssee/blocks/2/value/media.jpg",
+        "hasAudio": false,
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "Seiten",
+        "videoFile": "/videos/odyssee/blocks/3/value/videoFile.mp4",
+        "hasAudio": false,
+        "text": "Platzhalter",
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "adminLabel": "Kapitel",
+        "videoFile": "/videos/odyssee/blocks/4/value/videoFile.mp4",
+        "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "Lockdown",
+        "media": "/images/content/odyssee/blocks/5/value/media.jpg",
+        "hasAudio": false,
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "adminLabel": "Quer Lockdown",
+        "media": "/images/content/odyssee/blocks/6/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "Hochformat mit Text",
+        "media": "/images/content/odyssee/blocks/7/value/media.jpg",
+        "hasAudio": false,
+        "textSize": "normal"
+      }
+    }
+  ]
 }
