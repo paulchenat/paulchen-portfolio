@@ -29,7 +29,7 @@
         "adminLabel": "Intro",
         "videoFile": "/videos/odyssee/blocks/0/value/videoFile.mp4",
         "hasAudio": false,
-        "text": "Two semesters, 230 days, and countless hours: titled Odyssee, the 2021 MKD catalog for the Master School for Communication Design in Linz was far more than just a project.\nThe name reflects the defining era of the pandemic, which relentlessly challenged both society and us as students. With this catalog, we wanted to capture that specific zeitgeist. It serves as a time capsule documenting the hurdles and triumphs mastered during an extraordinary phase.",
+        "text": "Two semesters, 230 days, and countless hours: titled Odyssee, the 2021 MKD catalog for the Master School for Communication Design in Linz was far more than just a project.",
         "textSize": "normal"
       }
     },
@@ -47,6 +47,7 @@
         "adminLabel": "Cover_zoom",
         "media": "/images/content/odyssee/blocks/2/value/media.jpg",
         "hasAudio": false,
+        "text": "The name reflects the defining era of the pandemic, which relentlessly challenged both society and us as students. With this catalog, we wanted to capture that specific zeitgeist. It serves as a time capsule documenting the hurdles and triumphs mastered during an extraordinary phase.",
         "textSize": "normal"
       }
     },
