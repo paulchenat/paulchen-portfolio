@@ -20,6 +20,7 @@
   ],
   "thumbnailMobile": "/images/thumbnails/odyssee/thumbnailMobile.jpg",
   "heroDesktop": "/images/content/odyssee/heroDesktop.jpg",
+  "heroMobile": "/images/content/odyssee/heroMobile.jpg",
   "heroVideoHasAudio": false,
   "blocks": []
 }
