@@ -29,7 +29,7 @@
         "adminLabel": "Projekt-Intro",
         "media": "/images/content/brotstudio/blocks/0/value/media.jpg",
         "hasAudio": false,
-        "text": "How much kitsch does a craft actually need to be perceived as authentic?\n\nWhen Lisa Kasper and Franz Honeder pitched us their vision, it was about much more than just bread: a space built on conviction, pleasure, and community, serving sourdough in the morning, focaccia at noon, and natural wine at night.\nWe knew that a classic, watered-down bakery branding would kill this concept instantly. Instead of mere decoration, Brotstudio needed an identity that pulls visitors right into the bakehouse, seating them directly next to the oven.",
+        "text": "How much kitsch does a craft actually need to be perceived as authentic?\n\nWhen Lisa Kasper and Franz Honeder pitched us their vision, it was about much more than just bread: a space built on conviction, pleasure, and community, serving sourdough in the morning, focaccia at noon, and natural wine at night.",
         "textSize": "normal"
       }
     },
@@ -42,19 +42,12 @@
       }
     },
     {
-      "discriminant": "portraitNoText",
-      "value": {
-        "adminLabel": "bakery",
-        "videoFile": "/videos/brotstudio/blocks/2/value/videoFile.mp4",
-        "hasAudio": false,
-        "mobileFullWidth": false
-      }
-    },
-    {
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "bakery (neu)",
+        "videoFile": "/videos/brotstudio/blocks/2/value/videoFile.mp4",
         "hasAudio": false,
+        "text": "We knew that a classic, watered-down bakery branding would kill this concept instantly. Instead of mere decoration, Brotstudio needed an identity that pulls visitors right into the bakehouse, seating them directly next to the oven.",
         "textSize": "normal"
       }
     },
@@ -62,7 +55,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Logo",
-        "media": "/images/content/brotstudio/blocks/4/value/media.jpg",
+        "media": "/images/content/brotstudio/blocks/3/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -70,7 +63,7 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "schablone",
-        "media": "/images/content/brotstudio/blocks/5/value/media.jpg",
+        "media": "/images/content/brotstudio/blocks/4/value/media.jpg",
         "hasAudio": false,
         "textSize": "normal"
       }
@@ -79,7 +72,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Sackerl",
-        "media": "/images/content/brotstudio/blocks/6/value/media.jpg",
+        "media": "/images/content/brotstudio/blocks/5/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -87,7 +80,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Wand_Design",
-        "media": "/images/content/brotstudio/blocks/7/value/media.jpg",
+        "media": "/images/content/brotstudio/blocks/6/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -95,7 +88,7 @@
       "discriminant": "portraitNoText",
       "value": {
         "adminLabel": "mitarbeiter",
-        "media": "/images/content/brotstudio/blocks/8/value/media.jpg",
+        "media": "/images/content/brotstudio/blocks/7/value/media.jpg",
         "hasAudio": false,
         "mobileFullWidth": false
       }
@@ -104,7 +97,7 @@
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "heat",
-        "media": "/images/content/brotstudio/blocks/9/value/media.jpg",
+        "media": "/images/content/brotstudio/blocks/8/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -112,7 +105,7 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Icon Text",
-        "media": "/images/content/brotstudio/blocks/10/value/media.jpg",
+        "media": "/images/content/brotstudio/blocks/9/value/media.jpg",
         "hasAudio": false,
         "textSize": "normal"
       }
@@ -121,7 +114,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Icons",
-        "media": "/images/content/brotstudio/blocks/11/value/media.jpg",
+        "media": "/images/content/brotstudio/blocks/10/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -129,7 +122,7 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "New Bread Order Text",
-        "media": "/images/content/brotstudio/blocks/12/value/media.jpg",
+        "media": "/images/content/brotstudio/blocks/11/value/media.jpg",
         "hasAudio": false,
         "textSize": "normal"
       }
@@ -138,7 +131,7 @@
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "New Bread order Text",
-        "media": "/images/content/brotstudio/blocks/13/value/media.jpg",
+        "media": "/images/content/brotstudio/blocks/12/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -146,7 +139,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Ende",
-        "media": "/images/content/brotstudio/blocks/14/value/media.jpg",
+        "media": "/images/content/brotstudio/blocks/13/value/media.jpg",
         "hasAudio": false
       }
     }
