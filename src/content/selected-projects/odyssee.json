@@ -29,6 +29,7 @@
         "adminLabel": "Intro",
         "videoFile": "/videos/odyssee/blocks/0/value/videoFile.mp4",
         "hasAudio": false,
+        "text": "Two semesters, 230 days, and countless hours: titled Odyssee, the 2021 MKD catalog for the Master School for Communication Design in Linz was far more than just a project.\nThe name reflects the defining era of the pandemic, which relentlessly challenged both society and us as students. With this catalog, we wanted to capture that specific zeitgeist. It serves as a time capsule documenting the hurdles and triumphs mastered during an extraordinary phase.",
         "textSize": "normal"
       }
     },
@@ -63,7 +64,7 @@
         "adminLabel": "Hochformat mit Text",
         "media": "/images/content/odyssee/blocks/4/value/media.jpg",
         "hasAudio": false,
-        "text": "platzhalter",
+        "text": "Pixelated avatars and a harsh, uncomfortable typeface mirror the friction of digital isolation. To keep 20 completely different design egos from descending into chaos, we forced the featured works into ten functional master layouts. It was a constant battle between individual self-expression and the brutal discipline of data management.",
         "textSize": "normal"
       }
     },
@@ -81,6 +82,7 @@
         "adminLabel": "Hochformat mit Text",
         "media": "/images/content/odyssee/blocks/6/value/media.jpg",
         "hasAudio": false,
+        "text": "Right in the middle of the catalog, we planted a hidden chapter—deliberately omitted from the table of contents. It radically disrupts the design with analog photo series,loud spot colors, and unfiltered interviews. It was meant to hit the reader just as unexpectedly and fiercely as the first lockdown hit us back then. My personal heart and soul inside a book that nearly drove us out of our minds.\n\nThe 2021 MKD catalog, Odyssee, was an expression of our time:\nA story of upheaval, creative collaboration, and the sheer determination to create something lasting.",
         "textSize": "normal"
       }
     },
