@@ -18,7 +18,7 @@
     "/images/thumbnails/vip-patentamt-austria/thumbnailsDesktop/4.jpg"
   ],
   "thumbnailMobile": "/images/thumbnails/vip-patentamt-austria/thumbnailMobile.jpg",
-  "heroVideoFile": "/videos/vip-patentamt-austria/heroVideoFile.jpg",
+  "heroDesktop": "/images/content/vip-patentamt-austria/heroDesktop.jpg",
   "heroMobile": "/images/content/vip-patentamt-austria/heroMobile.jpg",
   "heroVideoHasAudio": false,
   "blocks": [
