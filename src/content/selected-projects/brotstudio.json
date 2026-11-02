@@ -63,7 +63,7 @@
       "discriminant": "centeredStatement",
       "value": {
         "adminLabel": "Stencil",
-        "statement": "The stencil makes the brand independent and sustainable.",
+        "statement": "\n\n\nThe stencil makes the brand independent and sustainable.\n\n\n",
         "textSize": "large"
       }
     },
@@ -116,6 +116,7 @@
         "adminLabel": "Icon Text",
         "media": "/images/content/brotstudio/blocks/10/value/media.jpg",
         "hasAudio": false,
+        "text": "A rigid logo mark would have killed the dynamic of the space. Instead, the ‘B’ acts as a constant anchor while fluidly merging with situational icons: heat symbols for the bakehouse, recycling arrows for the paper bag, jagged hand icons for the craft. The space speaks to its guests.",
         "textSize": "normal"
       }
     },
@@ -133,6 +134,7 @@
         "adminLabel": "New Bread Order Text",
         "media": "/images/content/brotstudio/blocks/12/value/media.jpg",
         "hasAudio": false,
+        "text": "Community isn’t an accessory here, it is the actual product.\n\nIt marks the difference between a place where you merely buy something and a place where you want to stay. Anyone who sits, drinks, eats, talks, laughs, or simply stays silent here helps write the character of the house. Every voice, every glass, every glance becomes part of an atmosphere that cannot be engineered and is genuine for that very reason.",
         "textSize": "normal"
       }
     },
