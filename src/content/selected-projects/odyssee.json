@@ -50,9 +50,9 @@
       }
     },
     {
-      "discriminant": "landscapeStandard",
+      "discriminant": "landscapeFullWidth",
       "value": {
-        "adminLabel": "Kapitel",
+        "adminLabel": "Kapitel (neu",
         "videoFile": "/videos/odyssee/blocks/3/value/videoFile.mp4",
         "hasAudio": false
       }
@@ -60,9 +60,10 @@
     {
       "discriminant": "portraitWithText",
       "value": {
-        "adminLabel": "Lockdown",
+        "adminLabel": "Hochformat mit Text",
         "media": "/images/content/odyssee/blocks/4/value/media.jpg",
         "hasAudio": false,
+        "text": "platzhalter",
         "textSize": "normal"
       }
     },
@@ -86,8 +87,8 @@
     {
       "discriminant": "landscapeFullWidth",
       "value": {
-        "adminLabel": "Kapitel (neu",
-        "videoFile": "/videos/odyssee/blocks/7/value/videoFile.mp4",
+        "adminLabel": "Querformat Full Bleed",
+        "media": "/images/content/odyssee/blocks/7/value/media.jpg",
         "hasAudio": false
       }
     }
