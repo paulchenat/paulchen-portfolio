@@ -57,10 +57,10 @@
     {
       "discriminant": "portraitWithText",
       "value": {
-        "adminLabel": "Verläife",
+        "adminLabel": "Verlaefe",
         "videoFile": "/videos/johann-strauss-2025/blocks/4/value/videoFile.mp4",
         "hasAudio": false,
-        "text": "Verläufe\n",
+        "text": "Instead of merely decorating, interactive gradients capture the ~emotion~ of a Viennese sky from sunrise to purple dusk. They reflect a broad cultural ~spectrum~, from opera and choir to circus, while offering intuitive ~orientation~ across the site, balanced by crisp white accents.",
         "textSize": "normal"
       }
     },
