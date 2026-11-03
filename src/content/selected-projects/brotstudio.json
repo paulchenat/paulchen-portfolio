@@ -121,19 +121,19 @@
       }
     },
     {
-      "discriminant": "landscapeStandard",
-      "value": {
-        "adminLabel": "New Bread order Text",
-        "media": "/images/content/brotstudio/blocks/11/value/media.jpg",
-        "hasAudio": false
-      }
-    },
-    {
       "discriminant": "centeredStatement",
       "value": {
         "adminLabel": "Community",
         "statement": "\n\n\n\nCommunity isn’t an accessory here, it is the actual product.\n\n\n\n\n",
         "textSize": "large"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "adminLabel": "noch eine Bäckerei ",
+        "media": "/images/content/brotstudio/blocks/12/value/media.jpg",
+        "hasAudio": false
       }
     },
     {
