@@ -53,15 +53,6 @@
         "text": "Verläufe\n",
         "textSize": "normal"
       }
-    },
-    {
-      "discriminant": "portraitWithText",
-      "value": {
-        "adminLabel": "Award ",
-        "media": "/images/content/johann-strauss-2025/blocks/4/value/media.jpg",
-        "hasAudio": false,
-        "textSize": "normal"
-      }
     }
   ]
 }
