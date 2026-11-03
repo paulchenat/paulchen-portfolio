@@ -78,6 +78,14 @@
         "hasAudio": false,
         "textSize": "normal"
       }
+    },
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "adminLabel": "Prozess",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/7/value/media.jpg",
+        "hasAudio": false
+      }
     }
   ]
 }
