@@ -28,10 +28,18 @@
       }
     },
     {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "adminLabel": "Prozess",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/1/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Logo_Farbe",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/1/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/2/value/media.jpg",
         "hasAudio": false,
         "textSize": "normal"
       }
@@ -40,7 +48,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Querformat Full Bleed",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/2/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/3/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -48,7 +56,7 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Karte",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/3/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/4/value/media.jpg",
         "hasAudio": false,
         "textSize": "normal"
       }
@@ -57,7 +65,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Parter Logo",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/4/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/5/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -65,7 +73,7 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "logo Anwendung",
-        "videoFile": "/videos/nationalpark-kalkalpen-austria/blocks/5/value/videoFile.mp4",
+        "videoFile": "/videos/nationalpark-kalkalpen-austria/blocks/6/value/videoFile.mp4",
         "hasAudio": true,
         "textSize": "normal"
       }
@@ -74,17 +82,9 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Kleines LOgo",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/6/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/7/value/media.jpg",
         "hasAudio": false,
         "textSize": "normal"
-      }
-    },
-    {
-      "discriminant": "landscapeStandard",
-      "value": {
-        "adminLabel": "Prozess",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/7/value/media.jpg",
-        "hasAudio": false
       }
     }
   ]
