@@ -28,21 +28,21 @@
       }
     },
     {
-      "discriminant": "portraitWithText",
-      "value": {
-        "adminLabel": "Verläife",
-        "videoFile": "/videos/johann-strauss-2025/blocks/1/value/videoFile.mp4",
-        "hasAudio": false,
-        "text": "Verläufe\n",
-        "textSize": "normal"
-      }
-    },
-    {
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Main VIdeo",
-        "videoFile": "/videos/johann-strauss-2025/blocks/2/value/videoFile.mp4",
+        "videoFile": "/videos/johann-strauss-2025/blocks/1/value/videoFile.mp4",
         "hasAudio": true
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "Verläife",
+        "videoFile": "/videos/johann-strauss-2025/blocks/2/value/videoFile.mp4",
+        "hasAudio": false,
+        "text": "Verläufe\n",
+        "textSize": "normal"
       }
     },
     {
