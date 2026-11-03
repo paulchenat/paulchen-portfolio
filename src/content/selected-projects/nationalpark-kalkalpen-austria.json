@@ -18,12 +18,20 @@
   "heroVideoHasAudio": false,
   "blocks": [
     {
+      "discriminant": "centeredStatement",
+      "value": {
+        "adminLabel": "Großes Zitat",
+        "statement": "\n\n\nHow do you refresh the visual identity of a 209-square-kilometer wilderness without creating a mountain of waste? Repositioning the brand of the Kalkalpen National Park required a delicate balancing act. Preserving a deeply rooted identity while shaping a future-proof design system. \n\n\n",
+        "textSize": "large"
+      }
+    },
+    {
       "discriminant": "introPortraitWithText",
       "value": {
         "adminLabel": "Projekt-Intro",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/0/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/1/value/media.jpg",
         "hasAudio": false,
-        "text": "How do you refresh the visual identity of a 209-square-kilometer wilderness without creating a mountain of waste? Repositioning the brand of the Kalkalpen National Park required a delicate balancing act. Preserving a deeply rooted identity while shaping a future-proof design system. \n\nGiven the sheer physical scale of the park, spanning everything from remote trail signage in the alpine terrain to visitor centers and print media, an overnight replacement would have contradicted everything a nature reserve stands for. Instead, we developed a resource-friendly five-year transition plan. By maintaining a strong visual link to the familiar, the new design allows old and new elements to coexist harmoniously as materials are gradually replaced at the end of their natural lifecycle.",
+        "text": "Given the sheer physical scale of the park, spanning everything from remote trail signage in the alpine terrain to visitor centers and print media, an overnight replacement would have contradicted everything a nature reserve stands for. Instead, we developed a resource-friendly five-year transition plan. By maintaining a strong visual link to the familiar, the new design allows old and new elements to coexist harmoniously as materials are gradually replaced at the end of their natural lifecycle.",
         "textSize": "normal"
       }
     },
@@ -31,7 +39,7 @@
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "Prozess",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/1/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/2/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -39,7 +47,7 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Logo_Farbe",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/2/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/3/value/media.jpg",
         "hasAudio": false,
         "text": "The redesigned emblem honors the familiar motifs of the golden eagle and the rugged peaks, reinterpreting them with fresh momentum and vitality. Anchoring the palette is a soft beech-green tone inspired by the park’s affectionate nickname, “Das Buchenmeer” (The Sea of Beech Trees), a nod to Europe’s last ancient beech primeval forests. Paired with a typography system based on Geograph, the identity marries cartographic precision with expressive clarity, paying homage to the structure and biodiversity of the limestone Alps.",
         "textSize": "normal"
@@ -49,7 +57,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Querformat Full Bleed",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/3/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/4/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -57,7 +65,7 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Kleines LOgo",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/4/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/5/value/media.jpg",
         "hasAudio": false,
         "text": "One of the primary drivers for the modernization was legibility and recognition at tiny scales, from digital favicons to embroidered ranger patches. For me, seeing the mark perform at micro-sizes is the ultimate proof of concept: even reduced to a few millimeters, the refined lines remain confident and razor-sharp, effortlessly capturing the living spirit of the gentle limestone mountains.",
         "textSize": "normal"
@@ -67,7 +75,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Parter Logo",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/5/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/6/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -75,7 +83,7 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Karte",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/6/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/7/value/media.jpg",
         "hasAudio": false,
         "text": "Behind the serene image of untouched nature lies a highly complex, state-mandated institution. Protecting Austria’s largest contiguous forest wilderness and the country’s very first UNESCO World Natural Heritage site, the park operates under strict international IUCN conservation criteria. Yet its brand extends far beyond conservationists: it unites federal and state bodies, the surrounding National Park Region with its local municipalities, partner schools, and dozens of certified National Park Partners ranging from organic farms to alpine huts. Bringing everyone on board, from office administrators and scientists to the rangers out in the field, demanded deep empathy and intensive consulting. By analyzing internal and external perceptions, we established a strategic foundation built to guide the park over the coming decades.",
         "textSize": "normal"
@@ -85,7 +93,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "auto",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/7/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/8/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -93,7 +101,7 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "logo Anwendung",
-        "videoFile": "/videos/nationalpark-kalkalpen-austria/blocks/8/value/videoFile.mp4",
+        "videoFile": "/videos/nationalpark-kalkalpen-austria/blocks/9/value/videoFile.mp4",
         "hasAudio": true,
         "text": "Two years into the rollout, the thoughtful, resource-saving transition is in full swing. Today, it’s well worth lacing up your boots for a hike through the Kalkalpen, breathing in the crisp mountain air, stopping at a rustic alpine hut, and humming old hiking tunes along the trail. Because wherever you might lose your way out there in the wilderness, the new brand is already waiting to guide you back.",
         "textSize": "normal"
@@ -103,7 +111,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Querformat Full Bleed",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/9/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/10/value/media.jpg",
         "hasAudio": false
       }
     }
