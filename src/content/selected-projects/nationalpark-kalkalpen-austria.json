@@ -17,10 +17,20 @@
   "heroVideoHasAudio": false,
   "blocks": [
     {
+      "discriminant": "introPortraitWithText",
+      "value": {
+        "adminLabel": "Projekt-Intro",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/0/value/media.jpg",
+        "hasAudio": false,
+        "text": "Intro Kalkalpen",
+        "textSize": "normal"
+      }
+    },
+    {
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Logo_Farbe",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/0/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/1/value/media.jpg",
         "hasAudio": false,
         "textSize": "normal"
       }
@@ -29,8 +39,26 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Hochformat mit Text",
-        "videoFile": "/videos/nationalpark-kalkalpen-austria/blocks/1/value/videoFile.mp4",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/2/value/media.jpg",
+        "hasAudio": false,
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "Hochformat mit Text",
+        "videoFile": "/videos/nationalpark-kalkalpen-austria/blocks/3/value/videoFile.mp4",
         "hasAudio": true,
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "Kleines LOgo",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/4/value/media.jpg",
+        "hasAudio": false,
         "textSize": "normal"
       }
     }
