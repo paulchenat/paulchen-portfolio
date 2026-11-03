@@ -21,7 +21,7 @@
       "discriminant": "centeredStatement",
       "value": {
         "adminLabel": "Großes Zitat",
-        "statement": "\n\n\nHow do you refresh the visual identity of a 209-square-kilometer wilderness without creating a mountain of waste? Repositioning the brand of the Kalkalpen National Park required a delicate balancing act. Preserving a deeply rooted identity while shaping a future-proof design system. \n\n\n",
+        "statement": "\n\n\nHow do you refresh the visual identity of a \n209-square-kilometer wilderness without creating a mountain of waste? Repositioning the brand of the Kalkalpen National Park required a delicate balancing act. Preserving a deeply rooted identity while shaping a future-proof design system. \n\n\n",
         "textSize": "large"
       }
     },
@@ -31,7 +31,7 @@
         "adminLabel": "Projekt-Intro",
         "media": "/images/content/nationalpark-kalkalpen-austria/blocks/1/value/media.jpg",
         "hasAudio": false,
-        "text": "Given the park’s vast scale, from remote alpine trail signage to visitor centers, an overnight replacement would have contradicted everything a nature reserve stands for. Instead, we developed a resource-friendly five-year transition plan. By staying visually linked to the familiar, the new design coexists harmoniously with the old as materials are gradually replaced at the end of their natural lifecycle.",
+        "text": "Given the park’s vast scale, from remote alpine trail signage to visitor centers, an overnight replacement would have contradicted everything a nature reserve stands for. \n\nInstead, we developed a resource-friendly five-year transition plan. By staying visually linked to the familiar, the new design coexists harmoniously with the old as materials are gradually replaced at the end of their natural lifecycle.",
         "textSize": "normal"
       }
     },
