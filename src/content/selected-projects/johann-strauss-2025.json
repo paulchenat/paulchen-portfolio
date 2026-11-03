@@ -38,8 +38,17 @@
     {
       "discriminant": "portraitWithText",
       "value": {
-        "adminLabel": "Verläife",
+        "adminLabel": "Einstieg",
         "videoFile": "/videos/johann-strauss-2025/blocks/2/value/videoFile.mp4",
+        "hasAudio": false,
+        "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "Verläife",
+        "videoFile": "/videos/johann-strauss-2025/blocks/3/value/videoFile.mp4",
         "hasAudio": false,
         "text": "Verläufe\n",
         "textSize": "normal"
@@ -49,16 +58,7 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Award ",
-        "media": "/images/content/johann-strauss-2025/blocks/3/value/media.jpg",
-        "hasAudio": false,
-        "textSize": "normal"
-      }
-    },
-    {
-      "discriminant": "portraitWithText",
-      "value": {
-        "adminLabel": "Einstieg",
-        "videoFile": "/videos/johann-strauss-2025/blocks/4/value/videoFile.mp4",
+        "media": "/images/content/johann-strauss-2025/blocks/4/value/media.jpg",
         "hasAudio": false,
         "textSize": "normal"
       }
