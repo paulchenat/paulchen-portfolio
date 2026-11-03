@@ -15,5 +15,15 @@
   "videoLoopFile": "/videos/nationalpark-kalkalpen-austria/videoLoopFile.mp4",
   "mobileVideoLoop": "/videos/nationalpark-kalkalpen-austria/mobileVideoLoop.mp4",
   "heroVideoHasAudio": false,
-  "blocks": []
+  "blocks": [
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "Logo_Farbe",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/0/value/media.jpg",
+        "hasAudio": false,
+        "textSize": "normal"
+      }
+    }
+  ]
 }
