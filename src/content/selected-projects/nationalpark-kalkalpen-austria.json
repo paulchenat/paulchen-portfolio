@@ -37,10 +37,18 @@
       }
     },
     {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "adminLabel": "Querformat Full Bleed",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/2/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
       "discriminant": "portraitWithText",
       "value": {
-        "adminLabel": "Hochformat mit Text",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/2/value/media.jpg",
+        "adminLabel": "Karte",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/3/value/media.jpg",
         "hasAudio": false,
         "textSize": "normal"
       }
@@ -48,8 +56,8 @@
     {
       "discriminant": "portraitWithText",
       "value": {
-        "adminLabel": "Hochformat mit Text",
-        "videoFile": "/videos/nationalpark-kalkalpen-austria/blocks/3/value/videoFile.mp4",
+        "adminLabel": "logo Anwendung",
+        "videoFile": "/videos/nationalpark-kalkalpen-austria/blocks/4/value/videoFile.mp4",
         "hasAudio": true,
         "textSize": "normal"
       }
@@ -58,9 +66,17 @@
       "discriminant": "portraitWithText",
       "value": {
         "adminLabel": "Kleines LOgo",
-        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/4/value/media.jpg",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/5/value/media.jpg",
         "hasAudio": false,
         "textSize": "normal"
+      }
+    },
+    {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "adminLabel": "Querformat Full Bleed",
+        "media": "/images/content/nationalpark-kalkalpen-austria/blocks/6/value/media.jpg",
+        "hasAudio": false
       }
     }
   ]
