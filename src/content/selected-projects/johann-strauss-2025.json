@@ -30,7 +30,7 @@
     {
       "discriminant": "portraitWithText",
       "value": {
-        "adminLabel": "Hochformat mit Text",
+        "adminLabel": "Verläife",
         "videoFile": "/videos/johann-strauss-2025/blocks/1/value/videoFile.mp4",
         "hasAudio": false,
         "text": "Verläufe\n",
@@ -38,20 +38,20 @@
       }
     },
     {
-      "discriminant": "portraitWithText",
+      "discriminant": "landscapeFullWidth",
       "value": {
-        "adminLabel": "Hochformat mit Text",
-        "media": "/images/content/johann-strauss-2025/blocks/2/value/media.jpg",
-        "hasAudio": false,
-        "textSize": "normal"
+        "adminLabel": "Main VIdeo",
+        "videoFile": "/videos/johann-strauss-2025/blocks/2/value/videoFile.mp4",
+        "hasAudio": true
       }
     },
     {
-      "discriminant": "landscapeFullWidth",
+      "discriminant": "portraitWithText",
       "value": {
-        "adminLabel": "Querformat Full Bleed",
-        "videoFile": "/videos/johann-strauss-2025/blocks/3/value/videoFile.mp4",
-        "hasAudio": true
+        "adminLabel": "Award ",
+        "media": "/images/content/johann-strauss-2025/blocks/3/value/media.jpg",
+        "hasAudio": false,
+        "textSize": "normal"
       }
     }
   ]
