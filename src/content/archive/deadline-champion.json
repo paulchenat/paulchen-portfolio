@@ -1,0 +1,13 @@
+{
+  "title": "Deadline Champion",
+  "order": 5,
+  "year": "2026",
+  "infoText": "Homage to Christoph Niemann",
+  "gallery": [
+    {
+      "mediaFile": "/images/archive/deadline-champion/gallery/0/mediaFile.png",
+      "hasAudio": false,
+      "isVideo": false
+    }
+  ]
+}
