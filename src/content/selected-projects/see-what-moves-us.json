@@ -24,7 +24,7 @@
         "adminLabel": "Projekt-Intro",
         "videoFile": "/videos/see-what-moves-us/blocks/0/value/videoFile.mp4",
         "hasAudio": false,
-        "text": "Aximote\n",
+        "text": "Modern vehicles generate massive amounts of performance data every second—most of which vanishes unseen into the cloud.\nAxiome turns the smartphone into an active interface between human and machine. Combining an automated logbook, precision driver training, and a global community for comparing driving styles, it hands data sovereignty and control back to the driver.",
         "textSize": "normal"
       }
     },
@@ -37,10 +37,18 @@
       }
     },
     {
+      "discriminant": "centeredStatement",
+      "value": {
+        "adminLabel": "Design",
+        "statement": "Visually, the identity radically breaks with slick startup aesthetics. Raw dot-matrix elements and disruptive symbolism balance digital precision with analog tactility, sparking an instant chain reaction: from “What is this?” to “Sounds intriguing” to “I need it.”",
+        "textSize": "large"
+      }
+    },
+    {
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "Querformat Standard",
-        "media": "/images/content/see-what-moves-us/blocks/2/value/media.jpg",
+        "media": "/images/content/see-what-moves-us/blocks/3/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -48,15 +56,25 @@
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "anwendung",
-        "media": "/images/content/see-what-moves-us/blocks/3/value/media.jpg",
+        "media": "/images/content/see-what-moves-us/blocks/4/value/media.jpg",
         "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "appstore",
+        "media": "/images/content/see-what-moves-us/blocks/5/value/media.jpg",
+        "hasAudio": false,
+        "text": "Across the App Store and social media, the core challenge was translating complex telemetry features into split-second clarity. For the market launch, we rolled out a bilingual motion campaign strategically targeted at France, Belgium, and Norway—meeting car enthusiasts and tech-savvy drivers right where mobility is being reimagined.",
+        "textSize": "normal"
       }
     },
     {
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Main Video Französisch",
-        "videoFile": "/videos/see-what-moves-us/blocks/4/value/videoFile.mp4",
+        "videoFile": "/videos/see-what-moves-us/blocks/6/value/videoFile.mp4",
         "hasAudio": true
       }
     },
@@ -64,7 +82,7 @@
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "Icons",
-        "media": "/images/content/see-what-moves-us/blocks/5/value/media.jpg",
+        "media": "/images/content/see-what-moves-us/blocks/7/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -72,8 +90,17 @@
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "charching",
-        "media": "/images/content/see-what-moves-us/blocks/6/value/media.jpg",
+        "media": "/images/content/see-what-moves-us/blocks/8/value/media.jpg",
         "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "portraitWithText",
+      "value": {
+        "adminLabel": "appstore",
+        "media": "/images/content/see-what-moves-us/blocks/9/value/media.jpg",
+        "hasAudio": false,
+        "textSize": "normal"
       }
     }
   ]
