@@ -35,6 +35,22 @@
         "media": "/images/content/see-what-moves-us/blocks/1/value/media.jpg",
         "hasAudio": false
       }
+    },
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "adminLabel": "Icons",
+        "media": "/images/content/see-what-moves-us/blocks/2/value/media.jpg",
+        "hasAudio": false
+      }
+    },
+    {
+      "discriminant": "landscapeStandard",
+      "value": {
+        "adminLabel": "charching",
+        "media": "/images/content/see-what-moves-us/blocks/3/value/media.jpg",
+        "hasAudio": false
+      }
     }
   ]
 }
