@@ -29,10 +29,18 @@
       }
     },
     {
+      "discriminant": "landscapeFullWidth",
+      "value": {
+        "adminLabel": "erklärvideo",
+        "videoFile": "/videos/see-what-moves-us/blocks/1/value/videoFile.mp4",
+        "hasAudio": false
+      }
+    },
+    {
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "Querformat Standard",
-        "media": "/images/content/see-what-moves-us/blocks/1/value/media.jpg",
+        "media": "/images/content/see-what-moves-us/blocks/2/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -40,7 +48,7 @@
       "discriminant": "landscapeFullWidth",
       "value": {
         "adminLabel": "Main Video Französisch",
-        "videoFile": "/videos/see-what-moves-us/blocks/2/value/videoFile.mp4",
+        "videoFile": "/videos/see-what-moves-us/blocks/3/value/videoFile.mp4",
         "hasAudio": true
       }
     },
@@ -48,7 +56,7 @@
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "Icons",
-        "media": "/images/content/see-what-moves-us/blocks/3/value/media.jpg",
+        "media": "/images/content/see-what-moves-us/blocks/4/value/media.jpg",
         "hasAudio": false
       }
     },
@@ -56,7 +64,7 @@
       "discriminant": "landscapeStandard",
       "value": {
         "adminLabel": "charching",
-        "media": "/images/content/see-what-moves-us/blocks/4/value/media.jpg",
+        "media": "/images/content/see-what-moves-us/blocks/5/value/media.jpg",
         "hasAudio": false
       }
     }
