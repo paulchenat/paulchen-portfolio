@@ -15,6 +15,7 @@
   ],
   "videoLoopFile": "/videos/see-what-moves-us/videoLoopFile.mp4",
   "thumbnailMobile": "/images/thumbnails/see-what-moves-us/thumbnailMobile.jpg",
+  "heroDesktop": "/images/content/see-what-moves-us/heroDesktop.jpg",
   "heroVideoHasAudio": false,
   "blocks": [
     {
